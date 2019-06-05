@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% block title %}Лицо{% endblock title %}
+{% block name_page %}<i class="fas fa-address-card"></i>&nbsp;Лицо{% endblock name_page %}
+
+{% block content %}
+            <div class="row d-flex justify-content-center ">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-secondary">
+                        <i class="fas fa-plus"></i>&nbsp;Добавить лицо
+                    </button>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center my-4 ">
+                <div class="col-8">
+                    <form>
+                        <div class="form-group col-md-12">
+                            <label for="inputSurnameFace">Фамилия</label>
+                            <input type="text" class="form-control" id="inputSurnameFace">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="inputFirstNameFace">Имя</label>
+                            <input type="text" class="form-control" id="inputFirstNameFace">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="inputFastNameFace">Отчество</label>
+                            <input type="text" class="form-control" id="inputFastNameFace">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="inputBirthdayEvent">Дата рождения</label>
+                            <input type="date" class="form-control" id="inputBirthdayEvent">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="inputAdresAteBirthFace">Место рождения (АТЕ)</label>&nbsp;&nbsp;
+                            <a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-adres-ate">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                            <select class="custom-select mr-sm-2" id="inputAdresAteBirthFace">
+                                <option selected>Наименование 1</option>
+                                <option>Наименование 2</option>
+                                <option>Наименование 3</option>
+                                <option>Наименование 4</option>
+                                <option>Наименование 5</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="inputMestoBirthRaionFace">Место рождения (район)</label>
+                            <input type="text" class="form-control" id="inputMestoBirthRaionFace">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="inputMestoBirthNPFace">Место рождения (н.п.)</label>
+                            <input type="text" class="form-control" id="inputMestoBirthNPFace">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="inputRankFace">Воинское (специальное) звание</label>&nbsp;&nbsp;
+                            <a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-rank">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                            <select class="custom-select mr-sm-2" id="inputRankFace">
+                                <option selected></option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                                <option>Звание</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="inputDopolnitInfoFace">Дополнительная информация</label>
+                            <textarea class="form-control" id="inputDopolnitInfoFace" maxlength="100000"></textarea>
+                        </div>
+                    </form>
+                </div>
+            </div>
+<!-- modal-rank -->
+<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-rank" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p style="color: #4a0404;font-size: 22px"><em>Добавить воинское (специальное) звание</em></p>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group col-md-12">
+                        <label for="inputRank">Наименование</label>
+                        <input type="text" class="form-control" id="inputRank">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary">Добавить</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal-adres-ate -->
+<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-adres-ate" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p style="color: #4a0404;font-size: 22px"><em>Добавить адрес АТЕ</em></p>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group col-md-12">
+                        <label for="inputNameAdresAte">Наименование адреса</label>
+                        <input type="text" class="form-control" id="inputNameAdresAte">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary">Добавить</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

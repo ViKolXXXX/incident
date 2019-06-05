@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+     <title>{% block title %}Вход{% endblock title %}</title>
+     {% block link %}<link rel="stylesheet" href={% static "vendor/auth/login.css" %}>{% endblock link %}
+        <link rel="shortcut icon" type="image/x-icon" href={% static "vendor/images/favicon.ico" %}>
+</head>
+<!-- Form-->
+<body style="background: #490808">
+<p style="text-align: center">
+    <img alt="#" src="{% static "vendor/images/logo.png" %}" width="180" height="180">&nbsp;
+    <h1 style="font-size: 24px">Информационная система <br> "ПОДСОБНЫЙ УЧЕТ ГУСБ РОСГВАРДИИ"</h1>
+
+</p>
+ {% block content %}
+	<form id="login" method="post" action={% url "login" %}>
+        {% csrf_token %}
+		<h1>Вход</h1>
+        {% if form.errors %}
+            <p class="error">*Вы неправильно ввели логин или пароль</p>
+        {% endif %}
+		<fieldset id="inputs">
+            {{ form.username }}
+            {{ form.password }}
+		</fieldset>
+		<fieldset id="actions">
+			<input id="submit" value="Войти" type="submit">
+			<!--<a href="">Забыли пароль?</a>--><a href={% url "register" %}>Регистрация</a>
+		</fieldset>
+	</form>
+{% endblock content %}
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Koldomov Viktor">
+
+	<link rel="shortcut icon" type="image/x-icon" href={% static "vendor/images/favicon.ico" %}>
+	<title>{% block title %}Главная{% endblock title %}</title>
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href={% static "vendor/bootstrap/css/bootstrap.min.css" %}>
+	<!-- Font Awesome core CSS -->
+	<link rel="stylesheet" href={% static "vendor/icons/css/all.min.css" %}>
+	<!-- Custom styles for this template -->
+	<link rel="stylesheet" href={% static "css/simple-sidebar.css" %}>
+	<link rel="stylesheet" href={% static "css/my.css" %}>
+	{% block add_js %}{% endblock add_js %}
+</head>
+<body>
+<div class="preloader" id="page-preloader">
+	<div class="loader">
+		<!--<span id="load_perc">0%</span>-->
+	</div>
+</div>
+<div id="wrapper" class="toggled">
+	<!-- Sidebar -->
+	<div id="sidebar-wrapper">
+		<ul class="sidebar-nav">
+
+			<li class="sidebar-brand">
+				<a id="start" href={% url "start" %}> <i class="fas fa-home"></i>&nbsp;&nbsp;В начало </a>
+			</li>
+			<li>
+				<a id="journal" href={% url "journal" %}><i class="far fa-book"></i>&nbsp;&nbsp;Журнал</a>
+			</li>
+			<li>
+				<a id="event" href={% url "event" %}><i class="fas fa-file-alt"></i>&nbsp;&nbsp;Событие</a>
+			</li>
+			<li>
+				<a id="operationalenv" href={% url "operationalenv" %}><i class="far fa-compass"></i>&nbsp;&nbsp;Оперативная обстановка</a>
+			</li>
+			<li>
+				<a id="face" href={% url "face" %}><i class="fas fa-address-card"></i>&nbsp;&nbsp;Лицо</a>
+			</li>
+
+			<li>
+				<a href={% url "analytics" %}><i class="fal fa-analytics"></i>&nbsp;&nbsp;Аналитика</a>
+			</li>
+			<li>
+				<a href={% url 'admin:index' %}><i class="fal fa-tools"></i>&nbsp;&nbsp;Администрирование</a>
+			</li>
+			<li>
+				<a id="about" href={% url "about" %}><i class="far fa-info"></i>&nbsp;&nbsp;О программе</a>
+			</li>
+		</ul>
+	</div>
+	<!-- /#sidebar-wrapper -->
+	<!--<img src="vendor/images/logo.png" height="40">-->
+	<!-- Page Content -->
+	<div class="d-flex justify-content-center">
+		<img alt="#" height="40" src={% static "vendor/images/logo.png" %}>&nbsp;&nbsp;&nbsp;
+		<h5 class="p-2">Информационный банк данных "Орион"</h5>
+	</div>
+	<div id="page-content-wrapper" style="padding-top: 0px">
+		<div class="container-fluid" id="top-menu">
+			<div class="row d-flex align-items-center">
+				<div class="col-2">
+					<a href="#menu-toggle" class="btn btn-outline-secondary" id="menu-toggle"> <i class="fas fa-times"></i> &nbsp;&nbsp;Скрыть меню</a>
+				</div>
+				<div class="col-1 d-flex justify-content-between shadow-lg">
+					<a href="#" style="color: #212529" onclick="javascript:history.back(); return false;"><i class="far fa-reply fa-2x"></i></a>
+					<a href="#" style="color: #212529" onclick="javascript:history.forward(); return false;"><i class="far fa-share fa-2x"></i></a>
+				</div>
+				<div class="col-1">
+				</div>
+				<div class="col-4 d-flex justify-content-center">
+					<h4 style="color: #13010461;">{% block name_page %}<i class="fas fa-home"></i>&nbsp;
+						Главная{% endblock name_page %}</h4>
+				</div>
+				<div class="col-4 d-flex justify-content-end" style="color: #506154">
+					<div class="p-2 bd-highlight"><i class="fas fa-user fa-2x"></i></div>
+					<div class="p-2 bd-highlight"><h5><em><u>{{ user.username }}</u></em></h5></div>
+					<div class="p-2 bd-highlight">
+						<a style="color: #212529" title="Выход из системы" href={% url 'logout' %}>
+							<i class="fas fa-sign-out-alt fa-2x"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid my-2">
+			{% block content %}
+			{% endblock content %}
+		</div>
+	</div>
+	<!-- /#page-content-wrapper -->
+	<div class="fixed-bottom" style="background-color: rgba(13,17,42,0.76); height: 50px;" id="footer">
+		<div class="row m-3" style="color: #cce5ff">
+			<div class="col-4 d-flex justify-content-center "><p><i class="far fa-envelope"></i>&nbsp;Email для связи:
+				incident@rosgvard.ru</p></div>
+			<div class="col-4 d-flex justify-content-center"><p>
+				<img alt="#" height="20" src="{% static "vendor/images/rosgvard_logo_white.png" %}">&nbsp;РОСГВАРДИЯ
+				2018</p></div>
+
+			<div class="col-4 d-flex justify-content-center"><p><i class="fa fa-phone" aria-hidden="true"></i>+7 7777
+				777-77-77 Часы работы: 9:00 - 18:00 </p></div>
+		</div>
+	</div>
+</div>
+{% if messages %}
+		{% for message in messages %}
+			<p id="message" hidden>{{ message }}</p>
+		{% endfor %}
+{% endif %}
+<!-- Modal message -->
+
+<div class="modal fade" id="accessdenied-modal" tabindex="-1" role="dialog" aria-labelledby="accessdenied-modalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="accessdenied-modalTitle"><h3 style="color: #940900">Предупреждение</h3></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		  <p>
+        Уважаемый {{ user.username }}, доступ запрещен. Обратитесь к администратору информационной системы.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Jquery core JavaScript -->
+<script src={% static "vendor/jquery/jquery.min.js" %}></script>
+<!-- Jquery core Popper -->
+<script src={% static "vendor/bootstrap/js/popper.min.js" %}></script>
+<!-- Bootstrap core JavaScript -->
+<script src={% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}></script>
+<script src={% static "vendor/bootstrap/js/bootstrap.min.js" %}></script>
+
+<!-- Font Awesome core JavaScript -->
+<script src={% static "vendor/icons/js/all.min.js" %}></script>
+
+<script src={% static "js/my.js" %}></script>
+<script>
+	$(document).ready(function () {
+		mes = $("#message").text();
+		if (mes == "1")
+		{
+		   $('#accessdenied-modal').modal('show').on("shown", function () {
+					 window.setTimeout(function () {
+					$("#accessdenied-modal").modal("hide");
+				}, 5000);
+			});
+		}
+	})
+</script>
+</body>
+</html>

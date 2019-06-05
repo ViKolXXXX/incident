@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Оперативная обстановка{% endblock title %}
+{% block name_page %}<i class="far fa-compass"></i>&nbsp;Оперативная обстановка{% endblock name_page %}
+{% block content %}
+	<div class="row d-flex justify-content-center ">
+		<div class="btn-group" role="group" aria-label="Basic example">
+			<button type="button" class="btn btn-secondary">
+				<i class="fas fa-plus"></i>&nbsp;Добавить оперативную обстановку
+			</button>
+		</div>
+	</div>
+	<div class="row d-flex justify-content-center my-4 ">
+		<div class="col-6">
+			<form id="operationEnv">
+				<div class="form-group col-md-6">
+					<label for="inputDateOperationalEnv">Дата</label>
+					<input type="date" class="form-control" id="inputDateOperationalEnv">
+				</div>
+				<div class="form-group col-md-12">
+					<label for="inputClassifierDangerOperationalEnv">Классифицирующий признак (угроза)</label>&nbsp;&nbsp;
+					<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-classifierDanger">
+						<i class="fas fa-plus"></i> </a>
+					<select class="custom-select mr-sm-2" id="inputClassifierDangerOperationalEnv">
+						<option selected></option>
+						<option>Свой признак</option>
+						<option>Свой признак</option>
+						<option>Свой признак</option>
+						<option>Свой признак</option>
+						<option>Свой признак</option>
+						<option>Свой признак</option>
+						<option>Свой признак</option>
+						<option>Свой признак</option>
+						<option>Свой признак</option>
+						<option>Свой признак</option>
+						<option>Свой признак</option>
+						<option>Свой признак</option>
+						<option>Свой признак</option>
+						<option>Свой признак</option>
+						<option>Свой признак</option>
+						<option>Свой признак</option>
+						<option>Свой признак</option>
+						<option>Свой признак</option>
+						<option>Свой признак</option>
+					</select>
+				</div>
+				<div class="form-group col-md-12">
+					<label for="inputClassifierTextOperationalEnv">Классифицирующий признак (текст)</label>
+					<input type="text" class="form-control" id="inputClassifierTextOperationalEnv">
+				</div>
+				<div class="form-group col-md-12">
+					<label for="inputSutInformationOperationalEnv">Суть информации</label>
+					<textarea class="form-control" id="inputSutInformationOperationalEnv" maxlength="100000"></textarea>
+				</div>
+				<div class="form-group col-md-12">
+					<label for="inputPrinyatMerOperationalEnv">Принятые меры</label>
+					<textarea class="form-control" id="inputPrinyatMerOperationalEnv" maxlength="100000"></textarea>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- modal-classifierDanger -->
+	<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-classifierDanger" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<p style="color: #4a0404;font-size: 22px"><em>Добавить классифицирующий признак (угроза)</em></p>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group col-md-12">
+							<label for="inputNameClassifierDanger">Наименование признака</label>
+							<input type="text" class="form-control" id="inputNameClassifierDanger">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+					<button type="button" class="btn btn-primary">Добавить</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}

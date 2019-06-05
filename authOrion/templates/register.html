@@ -1,0 +1,23 @@
+{% extends "login.html" %}
+{% load staticfiles %}
+{% block title %}Регистрация{% endblock title %}
+{% block link %}<link rel="stylesheet" href={% static "vendor/auth/register.css" %}>{% endblock link %}
+{% block content %}
+    <form id="login" action="" method="post" autocomplete="off">
+        {% csrf_token %}
+        <h1>Регистрация</h1>
+         <fieldset id="inputs">
+            {% for field in form %}
+                <label for="">{{ field.label }}</label>
+                <div>{{ field }}</div>
+                {% if field.errors %}
+                    <p>{{ field.errors }}</p>
+                {% endif %}
+            {% endfor %}
+         </fieldset>
+         <fieldset id="actions">
+            <input id="submit" value="Зарегистрироваться" type="submit">
+            <a href={% url "login" %}>Вернуться к окну входа</a>
+        </fieldset>
+    </form>
+{% endblock content %}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>{% load static %}
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Koldomov Viktor">
+	<link rel="shortcut icon" type="image/x-icon" href={% static "vendor/images/favicon.ico" %}>
+	<title>Начальная</title>
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href={% static "vendor/bootstrap/css/bootstrap.min.css" %}>
+	<!-- Font Awesome core CSS -->
+	<link rel="stylesheet" href={% static "vendor/icons/css/all.min.css" %}>
+
+	<!-- Jquery core JavaScript -->
+	<script src={% static "vendor/jquery/jquery.min.js" %}></script>
+	<!-- Jquery core Popper -->
+	<script src={% static "vendor/bootstrap/js/popper.min.js" %}></script>
+<!-- Bootstrap core JavaScript -->
+<script src={% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}></script>
+<script src={% static "vendor/bootstrap/js/bootstrap.min.js" %}></script>
+	<!-- Font Awesome core JavaScript -->
+	<script src={% static "vendor/icons/js/all.min.js" %}></script>
+</head>
+<body style="background: #490808">
+<div class="d-flex flex-row-reverse bd-highlight align-items-center" style="color: #9fcdff">
+	<div class="p-2 bd-highlight"><a style="color: #9fcdff" title="Выход из системы" href={% url 'logout' %}>
+		<i class="fas fa-sign-out-alt fa-2x"></i></a></div>
+	<div class="p-2 bd-highlight"><h5><em><u>{{ user.username }}</u></em></h5></div>
+	<div class="p-2 bd-highlight"><i class="fas fa-user fa-2x"></i></div>
+</div>
+<div id="wrapper">
+	<div class="container-fluid ">
+		<div class="row">
+			<div class="col-12 d-flex  justify-content-center">
+				<div class="d-flex align-items-center flex-column">
+					<img height="300" src={% static "/vendor/images/logo.png" %}>&nbsp;
+					<p style="color: #9fcdff; font-size: 20px; text-align: center">ИНФОРМАЦИОННАЯ СИСТЕМА</p>
+					<p style="color: #9fcdff; font-size: 25px; text-align: center">"ПОДСОБНЫЙ УЧЕТ ГУСБ РОСГВАРДИИ"</p>
+				</div>
+			</div>
+		</div>
+		<div class="row d-flex align-items-end">
+			<div class="col-5 d-flex justify-content-end ">
+				<div class="card" style="width: 18rem; height: 200px; background: #542322; text-align: center ">
+					<h4 class="my-3" style="color: #ffeefe;">ИБД "Орион"</h4>
+					<h5 style="color: #8f7f8e">Банк данных по учету поступающих событий</h5>
+					<div class="card-body">
+						<a class="btn btn-outline-secondary" href={% url "journal" %}>ВОЙТИ</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-2 d-flex justify-content-center">
+				<img height="300" src={% static "vendor/images/gusb_logo.png" %}>
+			</div>
+			<div class="col-5 d-flex justify-content-start ">
+				<div class="card" style="width: 18rem; height: 200px; background: #542322; text-align: center ">
+					<h4 class="my-3" style="color: #ffeefe;">ИБД "Кандидат"</h4>
+					<h5 style="color: #8f7f8e">Банк данных по учету кандидатов</h5>
+					<div class="card-body">
+						<a href="#" class="btn btn-outline-secondary"  data-toggle="modal" data-target="#accessdenied-modal">ВОЙТИ</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="accessdenied-modal" tabindex="-1" role="dialog" aria-labelledby="accessdenied-modalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="accessdenied-modalTitle"><h3 style="color: #940900">Предупреждение</h3></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		  <p>
+        Уважаемый {{ user.username }}, доступ к данному банку данных запрещен. Обратитесь к администратору информационной системы.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
