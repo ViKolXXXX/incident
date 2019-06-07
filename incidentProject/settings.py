@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'orion.apps.OrionConfig',
     'authOrion.apps.AuthorionConfig',
+    'adminIncident.apps.AdminincidentConfig',
 
 ]
 

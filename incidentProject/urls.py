@@ -17,15 +17,17 @@ from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 from django.urls import path, re_path, include
 
-from authOrion import views
+from authOrion.views import StartView, RegisterFormView, LoginFormView, LogoutView
+from adminIncident.views import AdminIncidentView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    re_path(r'^adminincident/', include('adminIncident.urls')),
     re_path(r'^orion/', include('orion.urls')),
-    re_path(r'^$', login_required(views.StartView.as_view()), name="start"),
+    re_path(r'^$', login_required(StartView.as_view()), name="start"),
 
     #Auth
-    re_path(r'^register/', views.RegisterFormView.as_view(), name="register"),
-    re_path(r'^login/', views.LoginFormView.as_view(), name="login"),
-    re_path(r'^logout/', views.LogoutView.as_view(), name="logout"),
+    re_path(r'^register/', RegisterFormView.as_view(), name="register"),
+    re_path(r'^login/', LoginFormView.as_view(), name="login"),
+    re_path(r'^logout/', LogoutView.as_view(), name="logout"),
 ]
