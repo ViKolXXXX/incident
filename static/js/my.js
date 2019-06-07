@@ -1,21 +1,19 @@
-
-
 document.body.onload = function () {
     setTimeout(function () {
         var preloader = document.getElementById('page-preloader');
-        if (! preloader.classList.contains('done'))
-        {
+        if (!preloader.classList.contains('done')) {
             preloader.classList.add('done');
         }
 
     }, 70);
     active_link_menu();
+    check_message();
 
 
 };
 
 // Активная ссылка на пункт меню
-function active_link_menu (){
+function active_link_menu() {
     name_title = document.title;
     switch (name_title) {
         case 'Журнал':
@@ -23,32 +21,30 @@ function active_link_menu (){
             break;
         case 'Событие':
             $('#event').addClass('active');
-        break;
+            break;
         case 'Оперативная обстановка':
             $('#operationalenv').addClass('active');
-        break;
+            break;
         case 'Лицо':
             $('#face').addClass('active');
-        break;
+            break;
         case 'О программе':
             $('#about').addClass('active');
-        break;
+            break;
 
     }
 }
+
 //Кнопка скрыть показать меню
 $("#menu-toggle").click(function (e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
-    if ( $("#wrapper").hasClass("toggled"))
-    {
-        $("#menu-toggle").fadeOut(350,function () {
+    if ($("#wrapper").hasClass("toggled")) {
+        $("#menu-toggle").fadeOut(350, function () {
             $("#menu-toggle").html("<i class=\"fas fa-times\"></i> &nbsp;&nbsp;Скрыть меню").fadeIn(350);
         })
-    }
-    else
-    {
-        $("#menu-toggle").fadeOut(350,function () {
+    } else {
+        $("#menu-toggle").fadeOut(350, function () {
             $("#menu-toggle").html("<i class=\"fas fa-bars\"></i> &nbsp;&nbsp;Показать меню").fadeIn(350);
         })
 
@@ -57,7 +53,16 @@ $("#menu-toggle").click(function (e) {
 
 });
 
-
+function check_message() {
+    mes = $("#message").text();
+    if (mes == "1") {
+        $('#accessdenied-modal').modal('show').on("shown", function () {
+            window.setTimeout(function () {
+                $("#accessdenied-modal").modal("hide");
+            }, 5000);
+        });
+    }
+}
 
 
 // preloader в процентах

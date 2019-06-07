@@ -5,7 +5,6 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="author" content="Koldomov Viktor">
-
 	<link rel="shortcut icon" type="image/x-icon" href={% static "vendor/images/favicon.ico" %}>
 	<title>{% block title %}Главная{% endblock title %}</title>
 	<!-- Bootstrap core CSS -->
@@ -107,13 +106,14 @@
 		</div>
 	</div>
 </div>
+
+
 {% if messages %}
 		{% for message in messages %}
 			<p id="message" hidden>{{ message }}</p>
 		{% endfor %}
 {% endif %}
 <!-- Modal message -->
-
 <div class="modal fade" id="accessdenied-modal" tabindex="-1" role="dialog" aria-labelledby="accessdenied-modalTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -138,23 +138,10 @@
 <!-- Bootstrap core JavaScript -->
 <script src={% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}></script>
 <script src={% static "vendor/bootstrap/js/bootstrap.min.js" %}></script>
-
 <!-- Font Awesome core JavaScript -->
 <script src={% static "vendor/icons/js/all.min.js" %}></script>
 
 <script src={% static "js/my.js" %}></script>
-<script>
-	$(document).ready(function () {
-		mes = $("#message").text();
-		if (mes == "1")
-		{
-		   $('#accessdenied-modal').modal('show').on("shown", function () {
-					 window.setTimeout(function () {
-					$("#accessdenied-modal").modal("hide");
-				}, 5000);
-			});
-		}
-	})
-</script>
+
 </body>
 </html>

@@ -11,15 +11,6 @@
 	<!-- Font Awesome core CSS -->
 	<link rel="stylesheet" href={% static "vendor/icons/css/all.min.css" %}>
 
-	<!-- Jquery core JavaScript -->
-	<script src={% static "vendor/jquery/jquery.min.js" %}></script>
-	<!-- Jquery core Popper -->
-	<script src={% static "vendor/bootstrap/js/popper.min.js" %}></script>
-<!-- Bootstrap core JavaScript -->
-<script src={% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}></script>
-<script src={% static "vendor/bootstrap/js/bootstrap.min.js" %}></script>
-	<!-- Font Awesome core JavaScript -->
-	<script src={% static "vendor/icons/js/all.min.js" %}></script>
 </head>
 <body style="background: #490808">
 <div class="d-flex flex-row-reverse bd-highlight align-items-center" style="color: #9fcdff">
@@ -64,8 +55,12 @@
 		</div>
 	</div>
 </div>
-
-<!-- Modal -->
+{% if messages %}
+		{% for message in messages %}
+			<p id="message" hidden>{{ message }}</p>
+		{% endfor %}
+{% endif %}
+<!-- Modal message -->
 <div class="modal fade" id="accessdenied-modal" tabindex="-1" role="dialog" aria-labelledby="accessdenied-modalTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -77,10 +72,20 @@
       </div>
       <div class="modal-body">
 		  <p>
-        Уважаемый {{ user.username }}, доступ к данному банку данных запрещен. Обратитесь к администратору информационной системы.</p>
+        Уважаемый {{ user.username }}, доступ запрещен. Обратитесь к администратору информационной системы.</p>
       </div>
     </div>
   </div>
 </div>
-
+<!-- Jquery core JavaScript -->
+	<script src={% static "vendor/jquery/jquery.min.js" %}></script>
+	<!-- Jquery core Popper -->
+	<script src={% static "vendor/bootstrap/js/popper.min.js" %}></script>
+	<!-- Bootstrap core JavaScript -->
+	<script src={% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}></script>
+	<script src={% static "vendor/bootstrap/js/bootstrap.min.js" %}></script>
+	<!-- Font Awesome core JavaScript -->
+	<script src={% static "vendor/icons/js/all.min.js" %}></script>
+	<script src={% static "js/my.js" %}></script>
 </body>
+</html>
