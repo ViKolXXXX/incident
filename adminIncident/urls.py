@@ -1,11 +1,12 @@
 
 from django.urls import re_path, path
 
-from adminIncident.views import AdminIncidentView
+from adminIncident.views import AdminIncidentView, DeleteUserView, ChangeUserView
 
 urlpatterns = [
-    re_path(r'^adminincident$', AdminIncidentView.as_view(), name="adminincident"),
-    path('delete/<int:id_user>/', AdminIncidentView.delete_user(), name="deleteuser"),
+    re_path(r'^$', AdminIncidentView.as_view(), name="adminincident"),
+    re_path(r'^delete/(?P<id_user>\d+)$', DeleteUserView.as_view(), name="deleteuser"),
+    re_path(r'^change/(?P<id_user>\d+)$', ChangeUserView.as_view(), name="changeuser"),
 
 
     # re_path(r'^headorion$', login_required(headorion_view.HeadOrionView.as_view()), name="headorion"),

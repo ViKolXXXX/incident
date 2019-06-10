@@ -1,0 +1,19 @@
+
+	{% block content %}
+
+	<div class="row d-flex m-3 ">
+		<div class="col-12 border">
+			<p class="my-3"><u> Изменить пользователя </u></p>
+			<form method="post" action="{% url "changeuser" %}" id="calculation_form_id"
+                  style="min-width: 100%">{% csrf_token %}
+
+            </form>
+			<div class="d-flex justify-content-center panel_buttom">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="submit" class="btn btn-outline-dark" form="calculation_form_id">СОХРАНИТЬ РЕЗУЛЬТАТ
+                    </button>
+                </div>
+            </div>
+		</div>
+	</div>
+	{% endblock content %}
