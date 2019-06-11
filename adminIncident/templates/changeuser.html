@@ -4,7 +4,7 @@
 	<div class="row d-flex m-3 ">
 		<div class="col-12 border">
 			<p class="my-3"><u> Изменить пользователя </u></p>
-			<form method="post" action="{% url "changeuser" %}" id="calculation_form_id"
+			<form method="POST" action="{% url "change_user" %}" id="calculation_form_id"
                   style="min-width: 100%">{% csrf_token %}
 
             </form>

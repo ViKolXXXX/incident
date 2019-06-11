@@ -75,7 +75,8 @@
 						<td>{{ user.last_login }}</td>
 						<td>
 							<div class="btn-group" role="group" aria-label="Basic example">
-								<a type="button" class="btn btn-secondary" title="Редактировать" href="change/{{ user.id }}" ><i class="far fa-1x fa-user-edit"></i></a>
+{#								<a type="button" class="btn btn-secondary" title="Редактировать" href="change/{{ user.id }}" ><i class="far fa-1x fa-user-edit"></i></a>#}
+								<a type="button" class="btn btn-secondary" title="Редактировать" href="{% url "change_user"%}?user_id={{ user.id }}" ><i class="far fa-1x fa-user-edit"></i></a>
 							  	<a type="button" class="btn btn-secondary" title="Изменить пароль"><i class="far fa-1x fa-key"></i></a>
 							  	<a type="button" class="btn btn-secondary" title="Удалить" href="delete/{{ user.id }}"><i class="far fa-1x fa-trash-alt"></i></a>
 							</div>
