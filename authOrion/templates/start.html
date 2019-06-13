@@ -14,10 +14,14 @@
 </head>
 <body style="background: #490808">
 <div class="d-flex flex-row-reverse bd-highlight align-items-center" style="color: #9fcdff">
-	<div class="p-2 bd-highlight"><a style="color: #9fcdff" title="Выход из системы" href={% url 'logout' %}>
+	<div class="p-2 bd-highlight">
+		<a style="color: #9fcdff" title="Выход из системы" href={% url 'logout' %}>
 		<i class="fas fa-sign-out-alt fa-2x"></i></a></div>
 	<div class="p-2 bd-highlight"><h5><em><u>{{ user.username }}</u></em></h5></div>
 	<div class="p-2 bd-highlight"><i class="fas fa-user fa-2x"></i></div>
+	 <div class="mr-auto p-2 bd-highlight">
+		 <a style="color: #9fcdff" title="Администрирование системы" href={% url 'adminincident' %}>
+		<i class="fas fa-cog fa-spin fa-2x"></i></a></div>
 </div>
 <div id="wrapper">
 	<div class="container-fluid ">
@@ -86,6 +90,7 @@
 	<script src={% static "vendor/bootstrap/js/bootstrap.min.js" %}></script>
 	<!-- Font Awesome core JavaScript -->
 	<script src={% static "vendor/icons/js/all.min.js" %}></script>
-	<script src={% static "js/my.js" %}></script>
+	<script src={% static "js/my_start.js" %}></script>
+
 </body>
 </html>

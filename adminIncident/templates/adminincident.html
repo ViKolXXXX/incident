@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Koldomov Viktor">
+	<link rel="shortcut icon" type="image/x-icon" href={% static "vendor/images/favicon.ico" %}>
+	<title>Администрирование</title>
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href={% static "vendor/bootstrap/css/bootstrap.min.css" %}>
+	<!-- Font Awesome core CSS -->
+	<link rel="stylesheet" href={% static "vendor/icons/css/all.min.css" %}>
+	<!-- Custom styles for this template -->
+	<link rel="stylesheet" href={% static "css/simple-sidebar.css" %}>
+	<link rel="stylesheet" href={% static "css/my.css" %}>
+</head>
+<body>
+<div class="d-flex justify-content-center">
+	<img alt="#" height="40" src={% static "vendor/images/logo.png" %}>&nbsp;&nbsp;&nbsp;
+	<h5 class="p-2">Информационный банк данных "Орион"</h5>
+</div>
+<div class="container-fluid" id="top-menu">
+	<div class="row d-flex align-items-center">
+		<div class="col-4">
+				<ul id="breadcrumbs" style="margin: 0; padding: 0; list-style: none;">
+						<li><a href={% url "start" %}> <i class="fas fa-home fa-lg"></i></a></li>
+					{% block breadcrumbs %}
+						<li><a class="current" href={% url 'adminincident' %} >Пользователи</a></li>
+					{% endblock breadcrumbs %}
+				</ul>
+		</div>
+		<div class="col-4 d-flex justify-content-center">
+			<h4 style="color: #13010461;"><i class="fal fa-tools"></i>&nbsp;Администрирование</h4>
+		</div>
+		<div class="col-4 d-flex justify-content-end" style="color: #506154">
+			<div class="p-2 bd-highlight"><i class="fas fa-user fa-2x"></i></div>
+			<div class="p-2 bd-highlight"><h5><em><u>{{ user.username }}</u></em></h5></div>
+			<div class="p-2 bd-highlight">
+				<a style="color: #212529" title="Выход из системы" href={% url 'logout' %}>
+					<i class="fas fa-sign-out-alt fa-2x"></i></a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid">
+	{% block content %}
+
+		<div class="row d-flex m-3 ">
+			<div class="col-12 border">
+				<p class="my-3 form-header-admin"><i class="fas fa-users"></i>&nbsp;&nbsp;Пользователи</p>
+				<table class="table">
+					<thead>
+					<tr>
+						<th scope="col">Логин</th>
+						<th scope="col">Имя</th>
+						<th scope="col">Фамилия</th>
+						<th scope="col">Электронный адрес</th>
+						<th scope="col">Группа</th>
+						<th scope="col">Дата регистрации</th>
+						<th scope="col">Последний вход</th>
+						<th scope="col"></th>
+					</tr>
+					</thead>
+					<tbody>
+					{% for user in all_users %}
+						<tr>
+							<td>{{ user.username }}</td>
+							<td>{{ user.first_name }}</td>
+							<td>{{ user.last_name }}</td>
+							<td>{{ user.email }}</td>
+							<td>
+								{% for group in user.groups.all %}
+									{{ group }}
+								{% endfor %}
+							</td>
+							<td>{{ user.date_joined }}</td>
+							<td>{{ user.last_login }}</td>
+							<td>
+								<div class="btn-group" role="group" aria-label="Basic example">
+									{#								<a type="button" class="btn btn-secondary" title="Редактировать" href="change/{{ user.id }}" ><i class="far fa-1x fa-user-edit"></i></a>#}
+									<a type="button" class="btn btn-secondary" title="Редактировать" href="{% url "change_user" %}?user_id={{ user.id }}"><i class="far fa-1x fa-user-edit"></i></a>
+									<a type="button" class="btn btn-secondary" title="Изменить пароль"><i class="far fa-1x fa-key"></i></a>
+									<a type="button" class="btn btn-secondary" title="Удалить" href="delete/{{ user.id }}"><i class="far fa-1x fa-trash-alt"></i></a>
+								</div>
+							</td>
+						</tr>
+					{% endfor %}
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	{% endblock content %}
+</div>
+
+
+<!-- Jquery core JavaScript -->
+<script src={% static "vendor/jquery/jquery.min.js" %}></script>
+<!-- Jquery core Popper -->
+<script src={% static "vendor/bootstrap/js/popper.min.js" %}></script>
+<!-- Bootstrap core JavaScript -->
+<script src={% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}></script>
+<script src={% static "vendor/bootstrap/js/bootstrap.min.js" %}></script>
+<!-- Font Awesome core JavaScript -->
+<script src={% static "vendor/icons/js/all.min.js" %}></script>
+
+
+</body>
+</html>

@@ -12,7 +12,7 @@ document.body.onload = function () {
 
 };
 
-// Активная ссылка на пункт меню
+// Активная ссылка на пункт менюmy.js
 function active_link_menu() {
     name_title = document.title;
     switch (name_title) {
