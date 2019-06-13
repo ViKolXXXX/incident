@@ -22,11 +22,13 @@
 </div>
 <div class="container-fluid" id="top-menu">
 	<div class="row d-flex align-items-center">
-		<div class="col-1 d-flex justify-content-between shadow-lg">
-			<a href="#" style="color: #212529" onclick="javascript:history.back(); return false;"><i class="far fa-reply fa-2x"></i></a>
-			<a href="#" style="color: #212529" onclick="javascript:history.forward(); return false;"><i class="far fa-share fa-2x"></i></a>
-		</div>
-		<div class="col-3">
+		<div class="col-4">
+				<ul id="breadcrumbs" style="margin: 0; padding: 0; list-style: none;">
+						<li><a href={% url "start" %}> <i class="fas fa-home fa-lg"></i></a></li>
+					{% block breadcrumbs %}
+						<li><a class="current" href={% url 'adminincident' %} >Пользователи</a></li>
+					{% endblock breadcrumbs %}
+				</ul>
 		</div>
 		<div class="col-4 d-flex justify-content-center">
 			<h4 style="color: #13010461;"><i class="fal fa-tools"></i>&nbsp;Администрирование</h4>
@@ -41,53 +43,55 @@
 		</div>
 	</div>
 </div>
+
 <div class="container-fluid">
 	{% block content %}
 
-	<div class="row d-flex m-3 ">
-		<div class="col-12 border">
-			<p class="my-3"><u>Пользователи</u></p>
-			<input type="text">
-			<table class="table">
-				<thead>
-				<tr>
-					<th scope="col">Логин</th>
-					<th scope="col">Имя</th>
-					<th scope="col">Фамилия</th>
-					<th scope="col">Электронный адрес</th>
-					<th scope="col">Группа</th>
-					<th scope="col">Дата регистрации</th>
-					<th scope="col">Последний вход</th>
-					<th scope="col"></th>
-
-				</tr>
-				</thead>
-				<tbody>
-				{% for user in all_users %}
+		<div class="row d-flex m-3 ">
+			<div class="col-12 border">
+				<p class="my-3 form-header-admin"><i class="fas fa-users"></i>&nbsp;&nbsp;Пользователи</p>
+				<table class="table">
+					<thead>
 					<tr>
-
-						<td>{{ user.username }}</td>
-						<td>{{ user.first_name }}</td>
-						<td>{{ user.last_name }}</td>
-						<td>{{ user.email }}</td>
-						<td>{{ user.groups.all.0 }}</td>
-						<td>{{ user.date_joined }}</td>
-						<td>{{ user.last_login }}</td>
-						<td>
-							<div class="btn-group" role="group" aria-label="Basic example">
-{#								<a type="button" class="btn btn-secondary" title="Редактировать" href="change/{{ user.id }}" ><i class="far fa-1x fa-user-edit"></i></a>#}
-								<a type="button" class="btn btn-secondary" title="Редактировать" href="{% url "change_user"%}?user_id={{ user.id }}" ><i class="far fa-1x fa-user-edit"></i></a>
-							  	<a type="button" class="btn btn-secondary" title="Изменить пароль"><i class="far fa-1x fa-key"></i></a>
-							  	<a type="button" class="btn btn-secondary" title="Удалить" href="delete/{{ user.id }}"><i class="far fa-1x fa-trash-alt"></i></a>
-							</div>
-						</td>
+						<th scope="col">Логин</th>
+						<th scope="col">Имя</th>
+						<th scope="col">Фамилия</th>
+						<th scope="col">Электронный адрес</th>
+						<th scope="col">Группа</th>
+						<th scope="col">Дата регистрации</th>
+						<th scope="col">Последний вход</th>
+						<th scope="col"></th>
 					</tr>
-				{% endfor %}
+					</thead>
+					<tbody>
+					{% for user in all_users %}
+						<tr>
+							<td>{{ user.username }}</td>
+							<td>{{ user.first_name }}</td>
+							<td>{{ user.last_name }}</td>
+							<td>{{ user.email }}</td>
+							<td>
+								{% for group in user.groups.all %}
+									{{ group }}
+								{% endfor %}
+							</td>
+							<td>{{ user.date_joined }}</td>
+							<td>{{ user.last_login }}</td>
+							<td>
+								<div class="btn-group" role="group" aria-label="Basic example">
+									{#								<a type="button" class="btn btn-secondary" title="Редактировать" href="change/{{ user.id }}" ><i class="far fa-1x fa-user-edit"></i></a>#}
+									<a type="button" class="btn btn-secondary" title="Редактировать" href="{% url "change_user" %}?user_id={{ user.id }}"><i class="far fa-1x fa-user-edit"></i></a>
+									<a type="button" class="btn btn-secondary" title="Изменить пароль"><i class="far fa-1x fa-key"></i></a>
+									<a type="button" class="btn btn-secondary" title="Удалить" href="delete/{{ user.id }}"><i class="far fa-1x fa-trash-alt"></i></a>
+								</div>
+							</td>
+						</tr>
+					{% endfor %}
 
-				</tbody>
-			</table>
+					</tbody>
+				</table>
+			</div>
 		</div>
-	</div>
 	{% endblock content %}
 </div>
 

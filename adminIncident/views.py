@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.views.generic import TemplateView
 
 from incidentProject.mixins import GroupRequiredMixin
@@ -28,16 +28,28 @@ class ChangeUserView(GroupRequiredMixin, TemplateView):
     template_name = "changeuser.html"
 
     def get(self, request, *args, **kwargs):
+
         user_id = request.GET.get("user_id")
-        print(type(user_id))
-        print(user_id)
-        if user_id.isdigit():
-            user = User.objects.get(id=user_id)
-            context = {"user": user}
-            return render(request, self.template_name, context)
-        else:
+
+        if not user_id.isdigit():
             return HttpResponseNotFound('<h1>Нет такой страницы</h1>')
+        else:
+            user = User.objects.get(id=user_id)
+            groups = Group.objects.all()
+            context = {"user": user, "groups": groups}
+            return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        print(request)
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        try:
+            user_id = request.POST.get("user_id")
+            user = User.objects.get(id=user_id)
+            user.first_name = request.POST.get("first_name")
+            user.last_name = request.POST.get("last_name")
+            user.email = request.POST.get("email")
+
+            user.groups.set(request.POST.getlist("group"))
+
+            user.save()
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        except:
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

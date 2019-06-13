@@ -1,19 +1,62 @@
-
-	{% block content %}
+{% extends "adminincident.html" %}
+{% block breadcrumbs %}
+	<li><a  href={% url 'adminincident' %}>Пользователи</a></li>
+	<li><a class="current" href="#">Изменить пользователя</a></li>
+{% endblock breadcrumbs %}
+{% block content %}
 
 	<div class="row d-flex m-3 ">
 		<div class="col-12 border">
-			<p class="my-3"><u> Изменить пользователя </u></p>
-			<form method="POST" action="{% url "change_user" %}" id="calculation_form_id"
-                  style="min-width: 100%">{% csrf_token %}
+			<p class="my-3 form-header-admin"><i class="fas fa-users-cog"></i>&nbsp;&nbsp;Изменить пользователя
+				<i>{{ user.username }}</i></p>
 
-            </form>
+			<form method="POST" action="{% url "change_user" %}" id="id_form_user" style="min-width: 100%">{% csrf_token %}
+				<div style="margin-bottom: 90px">
+					<div class="col-12 border border-secondary">
+						<input hidden name="user_id" value="{{ user.id }}">
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="id_first_name">Имя</label>
+								<input value="{{ user.first_name }}" type="text" class="form-control" id="id_first_name" name="first_name">
+								<small id="id_first_name" class="form-text text-muted">Ввод имени пользователя</small>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="id_last_name">Фамилия</label>
+								<input value="{{ user.last_name }}" type="text" class="form-control" id="id_last_name" name="last_name">
+								<small id="id_last_name" class="form-text text-muted">Ввод фамилии пользователя</small>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="id_email">Электронный адрес</label>
+								<input value="{{ user.email }}" type="email" class="form-control" id="id_email" name="email">
+								<small id="id_email" class="form-text text-muted">Ввод электронного адреса РОСГВАРДИИ
+								</small>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="id_group">Выберите группу пользователю</label>
+								<select id="id_group" class="form-control" multiple name="group">
+									{% for group in groups %}
+										{% if group in user.groups.all %}
+											<option value="{{ group.id }}" selected>{{ group.name }}</option>
+										{% else %}
+											<option value="{{ group.id }}">{{ group.name }}</option>
+										{% endif %}
+									{% endfor %}
+								</select>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</form>
 			<div class="d-flex justify-content-center panel_buttom">
-                <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="submit" class="btn btn-outline-dark" form="calculation_form_id">СОХРАНИТЬ РЕЗУЛЬТАТ
-                    </button>
-                </div>
-            </div>
+				<div class="btn-group" role="group" aria-label="Basic example">
+					<button type="submit" class="btn btn-outline-dark" form="id_form_user">СОХРАНИТЬ РЕЗУЛЬТАТ
+					</button>
+				</div>
+			</div>
 		</div>
 	</div>
-	{% endblock content %}
+{% endblock content %}

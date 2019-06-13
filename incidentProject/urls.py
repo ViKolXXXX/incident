@@ -30,4 +30,5 @@ urlpatterns = [
     re_path(r'^register/', RegisterFormView.as_view(), name="register"),
     re_path(r'^login/', LoginFormView.as_view(), name="login"),
     re_path(r'^logout/', LogoutView.as_view(), name="logout"),
+    re_path(r'^changepassword/', LogoutView.as_view(), name="changepassword"),
 ]
