@@ -1,12 +1,11 @@
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.http import HttpResponseRedirect
-from django.contrib.auth import logout, login
-from django.shortcuts import render
+from django.contrib.auth import logout, login, update_session_auth_hash
+from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
 
 
 class RegisterFormView(FormView):
-
     form_class = UserCreationForm
     success_url = "/login/"
     template_name = "register.html"
@@ -35,9 +34,46 @@ class LogoutView(FormView):
         logout(request)
         return HttpResponseRedirect("/login/")
 
+
 class StartView(FormView):
     def get(self, request):
-
         return render(request, "start.html")
-# Create your views here.
-# Create your views here.
+
+
+class PasswordChangeView(FormView):
+    def get(self, request):
+        form = PasswordChangeForm(request.user)
+
+
+    def post(self, request, *args, **kwargs):
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            return redirect('passswordchange')
+        else:
+            form = PasswordChangeForm(request.user)
+            
+
+        # form_class = PasswordChangeForm
+        # template_name = "passwordchange.html"
+        # success_url = "passwordchange/"
+        #
+        # def get(self, request, *args, **kwargs):
+        #     return render(request, 'passwordchange.html', {'form': form})
+
+    # def post(self, request):
+    #
+    #      form = PasswordChangeForm(request.user, request.POST)
+    #      if form.is_valid():
+    #          user = form.save()
+    #          update_session_auth_hash(request, user)  # Important!
+    #          return redirect('changepassword')
+    #      else:
+    #          form = PasswordChangeForm(request.user)
+    #
+    #
+    #  return render(request, 'passwordchange.html', {'form': form})
+
+    # Create your views here.
+    # Create your views here.

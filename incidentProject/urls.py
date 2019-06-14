@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 from django.urls import path, re_path, include
 
-from authOrion.views import StartView, RegisterFormView, LoginFormView, LogoutView
+from authOrion.views import StartView, RegisterFormView, LoginFormView, LogoutView, PasswordChangeView
 from adminIncident.views import AdminIncidentView
 
 urlpatterns = [
@@ -30,5 +30,5 @@ urlpatterns = [
     re_path(r'^register/', RegisterFormView.as_view(), name="register"),
     re_path(r'^login/', LoginFormView.as_view(), name="login"),
     re_path(r'^logout/', LogoutView.as_view(), name="logout"),
-    re_path(r'^changepassword/', LogoutView.as_view(), name="changepassword"),
+    re_path(r'^passwordchange/', PasswordChangeView.as_view(), name="passwordChange"),
 ]
