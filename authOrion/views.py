@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth import logout, login, update_session_auth_hash
@@ -43,37 +44,15 @@ class StartView(FormView):
 class PasswordChangeView(FormView):
     def get(self, request):
         form = PasswordChangeForm(request.user)
-
+        return render(request, 'passwordchange.html', {'form': form})
 
     def post(self, request, *args, **kwargs):
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)  # Important!
-            return redirect('passswordchange')
+            messages.success(request, "Пароль успешно изменен!!!")
+            return redirect('logout')
         else:
-            form = PasswordChangeForm(request.user)
-            
-
-        # form_class = PasswordChangeForm
-        # template_name = "passwordchange.html"
-        # success_url = "passwordchange/"
-        #
-        # def get(self, request, *args, **kwargs):
-        #     return render(request, 'passwordchange.html', {'form': form})
-
-    # def post(self, request):
-    #
-    #      form = PasswordChangeForm(request.user, request.POST)
-    #      if form.is_valid():
-    #          user = form.save()
-    #          update_session_auth_hash(request, user)  # Important!
-    #          return redirect('changepassword')
-    #      else:
-    #          form = PasswordChangeForm(request.user)
-    #
-    #
-    #  return render(request, 'passwordchange.html', {'form': form})
-
-    # Create your views here.
-    # Create your views here.
+            messages.error(request, "Пароль не изменен!!!")
+            return render(request, 'passwordchange.html', {'form': form})

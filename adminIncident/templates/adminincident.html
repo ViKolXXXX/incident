@@ -16,6 +16,11 @@
 	<link rel="stylesheet" href={% static "css/my.css" %}>
 </head>
 <body>
+{% if messages %}
+	{% for message in messages %}
+		<div id="message" data-tags="{{ message.tags }}" hidden>{{ message }}</div>
+	{% endfor %}
+{% endif %}
 <div class="d-flex justify-content-center">
 	<img alt="#" height="40" src={% static "vendor/images/logo.png" %}>&nbsp;&nbsp;&nbsp;
 	<h5 class="p-2">Информационный банк данных "Орион"</h5>
@@ -105,7 +110,7 @@
 <script src={% static "vendor/bootstrap/js/bootstrap.min.js" %}></script>
 <!-- Font Awesome core JavaScript -->
 <script src={% static "vendor/icons/js/all.min.js" %}></script>
-
-
+<script src={% static "vendor/message/notify.min.js" %}></script>
+<script src={% static "js/my_script_message.js" %}></script>
 </body>
 </html>
