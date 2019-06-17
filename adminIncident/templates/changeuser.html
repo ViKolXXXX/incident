@@ -8,7 +8,7 @@
 	<div class="row d-flex m-3 ">
 		<div class="col-12 border">
 			<p class="my-3 form-header-admin"><i class="fas fa-users-cog"></i>&nbsp;&nbsp;Изменить пользователя
-				<i>{{ user.username }}</i></p>
+				<q class="text-user">{{ user.username }}</q></p>
 
 			<form method="POST" action="{% url "change_user" %}" id="id_form_user" style="min-width: 100%">{% csrf_token %}
 				<div style="margin-bottom: 90px">

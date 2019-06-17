@@ -223,8 +223,6 @@ body {
 .form-header-admin {
     font-size: 20px;
     font-family: "Oswald", "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
-
-
 }
 
 /* хлебные крошки */
@@ -293,3 +291,8 @@ body {
  content: normal;
  }
 
+/*Надпись пользователя в админке*/
+.text-user {
+    color: #8f5a0a;
+    font-size: 25px;
+}

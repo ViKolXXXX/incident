@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
 from django.contrib.auth.models import User, Group
@@ -19,8 +20,13 @@ class DeleteUserView(GroupRequiredMixin, TemplateView):
     group_required = ['orion']
 
     def get(self, request, *args, **kwargs):
-        User.objects.get(id=self.kwargs['id_user']).delete()
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        try:
+            User.objects.get(id=self.kwargs['id_user']).delete()
+            messages.success(request, "Пользователь удален!!!")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        except:
+            messages.error(request, "Что то пошло не так!!!")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 class ChangeUserView(GroupRequiredMixin, TemplateView):
@@ -28,9 +34,7 @@ class ChangeUserView(GroupRequiredMixin, TemplateView):
     template_name = "changeuser.html"
 
     def get(self, request, *args, **kwargs):
-
         user_id = request.GET.get("user_id")
-
         if not user_id.isdigit():
             return HttpResponseNotFound('<h1>Нет такой страницы</h1>')
         else:
@@ -46,10 +50,9 @@ class ChangeUserView(GroupRequiredMixin, TemplateView):
             user.first_name = request.POST.get("first_name")
             user.last_name = request.POST.get("last_name")
             user.email = request.POST.get("email")
-
             user.groups.set(request.POST.getlist("group"))
-
             user.save()
+            messages.success(request, "Пользователь изменен!!!")
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         except:
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

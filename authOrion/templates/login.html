@@ -2,28 +2,34 @@
 {% load static %}
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-     <title>{% block title %}Вход{% endblock title %}</title>
-     {% block link %}<link rel="stylesheet" href={% static "vendor/auth/login.css" %}>{% endblock link %}
-        <link rel="shortcut icon" type="image/x-icon" href={% static "vendor/images/favicon.ico" %}>
+	<meta charset="UTF-8">
+	<title>{% block title %}Вход{% endblock title %}</title>
+	{% block link %}
+		<link rel="stylesheet" href={% static "vendor/auth/login.css" %}>{% endblock link %}
+	<link rel="shortcut icon" type="image/x-icon" href={% static "vendor/images/favicon.ico" %}>
+	<!-- Font Awesome core CSS -->
+	<link rel="stylesheet" href={% static "vendor/icons/css/all.min.css" %}>
 </head>
+
 <!-- Form-->
 <body style="background: #490808">
+{% if messages %}
+	{% for message in messages %}
+		<div id="message" data-tags="{{ message.tags }}" hidden>{{ message }}</div>
+	{% endfor %}
+{% endif %}
 <p style="text-align: center">
-    <img alt="#" src="{% static "vendor/images/logo.png" %}" width="180" height="180">&nbsp;
-    <h1 style="font-size: 24px">Информационная система <br> "ПОДСОБНЫЙ УЧЕТ ГУСБ РОСГВАРДИИ"</h1>
-
-</p>
- {% block content %}
+	<img alt="#" src="{% static "vendor/images/logo.png" %}" width="180" height="180">&nbsp;
+<h1 style="font-size: 24px">Информационная система <br> "ПОДСОБНЫЙ УЧЕТ ГУСБ РОСГВАРДИИ"</h1></p>
+{% block content %}
 	<form id="login" method="post" action={% url "login" %}>
-        {% csrf_token %}
+		{% csrf_token %}
 		<h1>Вход</h1>
-        {% if form.errors %}
-            <p class="error">*Вы неправильно ввели логин или пароль</p>
-        {% endif %}
+		{% if form.errors %}
+			<p class="error">*Вы неправильно ввели логин или пароль</p>
+		{% endif %}
 		<fieldset id="inputs">
-            {{ form.username }}
-            {{ form.password }}
+			{{ form.username }} {{ form.password }}
 		</fieldset>
 		<fieldset id="actions">
 			<input id="submit" value="Войти" type="submit">
@@ -31,5 +37,13 @@
 		</fieldset>
 	</form>
 {% endblock content %}
+
+<!-- Jquery core JavaScript -->
+<script src={% static "vendor/jquery/jquery.min.js" %}></script>
+<!-- Jquery core Popper -->
+<script src={% static "vendor/bootstrap/js/popper.min.js" %}></script>
+<script src={% static "vendor/message/notify.min.js" %}></script>
+<script src={% static "js/my_script_message.js" %}></script>
 </body>
+
 </html>
