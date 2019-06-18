@@ -200,11 +200,11 @@ class Subdivision(models.Model):
         verbose_name_plural = "Подразделения"
 
 
-
 # Кастомизируем модель User и добавляем дополнительные поля
 class UserProfile(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     subdivision = models.ForeignKey("Subdivision", on_delete=models.PROTECT, verbose_name="Подразделение", default="ГУСБ")
+
     # avatar = models.ImageField(upload_to='images/users', verbose_name='Изображение')
 
     def __unicode__(self):
