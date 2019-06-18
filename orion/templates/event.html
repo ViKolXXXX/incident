@@ -2,661 +2,592 @@
 {% block title %}Событие{% endblock title %}
 {% block name_page %}<i class="fas fa-file-alt"></i>&nbsp;Событие{% endblock name_page %}
 {% block content %}
-            <div class="row d-flex justify-content-center ">
-                <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-secondary" form="event"><i class="fas fa-plus"></i>&nbsp;Добавить событие</button>
-                </div>
-            </div>
-            <div class="row d-flex justify-content-center my-4 ">
-                <div class="container-fluid">
-                    <form id="event">
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="inputItemPlan">Тип сообщения</label> <select class="custom-select mr-sm-2" id="inputItemPlan">
-                                <option selected>Тип 1</option>
-                                <option>Тип 2</option>
-                                <option>Тип 3</option>
-                                <option>Тип 4</option>
-                                <option>Тип 5</option>
-                            </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputDocument">Документ</label>&nbsp;&nbsp; <a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-document"><i class="fas fa-plus"></i></a>
-                                <select class="custom-select mr-sm-2" id="inputDocument">
-                                    <option selected></option>
-                                    <option>Наименование документа</option>
-                                    <option>Наименование документа</option>
-                                    <option>Наименование документа</option>
-                                    <option>Наименование документа</option>
-                                    <option>Наименование документа</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputOrganization">Организация</label>&nbsp;&nbsp; <a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-organization"><i class="fas fa-plus"></i> </a>
-                                <select class="custom-select mr-sm-2" id="inputOrganization">
-                                    <option selected></option>
-                                    <option>Наименование организации</option>
-                                    <option>Наименование организации</option>
-                                    <option>Наименование организации</option>
-                                    <option>Наименование организации</option>
-                                    <option>Наименование организации</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputDateRegistartionEvent">Дата регистрации&nbsp;
-                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                </label>
-                                <input type="date" class="form-control" id="inputDateRegistartionEvent" disabled>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputRegistrationNumberEvent">Регистрационный номер</label>
-                                <input type="text" class="form-control" id="inputRegistrationNumberEvent">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label for="inputTargetEvent">Суть информации</label>
-                                <textarea class="form-control" id="inputTargetEvent" maxlength="100000"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputClassifierWUD">Классифицирующий признак (по статье УК РФ, заполняется только при наличии ВУД)</label>&nbsp;&nbsp;
-                                <a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-classifierWUD">
-                                    <i class="fas fa-plus"></i>
-                                </a>
-                                <select class="custom-select mr-sm-2" id="inputClassifierWUD">
-                                    <option selected></option>
-                                    <option>Статья УК</option>
-                                    <option>Статья УК</option>
-                                    <option>Статья УК</option>
-                                    <option>Статья УК</option>
-                                    <option>Статья УК</option>
-                                </select>
-                            </div>
-                           <div class="form-group col-md-6">
-                                <label for="inputClassifierDanger">Классифицирующий признак (угроза)</label>&nbsp;&nbsp;
-                                <a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-classifierDanger">
-                                    <i class="fas fa-plus"></i>
-                                </a>
-                                <select class="custom-select mr-sm-2" id="inputClassifierDanger">
-                                    <option selected></option>
-                                    <option>Свой признак</option>
-                                    <option>Свой признак</option>
-                                    <option>Свой признак</option>
-                                    <option>Свой признак</option>
-                                    <option>Свой признак</option>
-                                    <option>Свой признак</option>
-                                    <option>Свой признак</option>
-                                    <option>Свой признак</option>
-                                    <option>Свой признак</option>
-                                    <option>Свой признак</option>
-                                    <option>Свой признак</option>
-                                    <option>Свой признак</option>
-                                    <option>Свой признак</option>
-                                    <option>Свой признак</option>
-                                    <option>Свой признак</option>
-                                    <option>Свой признак</option>
-                                    <option>Свой признак</option>
-                                    <option>Свой признак</option>
-                                    <option>Свой признак</option>
+	<div class="row d-flex justify-content-center ">
+		<div class="btn-group" role="group" aria-label="Basic example">
+			<button type="button" class="btn btn-secondary" form="event"><i class="fas fa-plus"></i>&nbsp;Добавить
+				событие
+			</button>
+		</div>
+	</div>
+	<div class="row d-flex justify-content-center my-4 ">
+		<div class="container-fluid">
+			<form method="post" action="{% url "event" %}" id="event">
+				<div class="form-row">
+					<div class="form-group col-md-4">
+						<label for="id_type_message">Тип сообщения</label>
+						<select class="custom-select mr-sm-2" id="id_type_message" name="type_message">
+							{% for type_message in type_messages %}
+								<option value="{{ type_message.id }}">{{ type_message.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="id_titul">Документ</label>&nbsp;&nbsp;
+						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-document"><i class="fas fa-plus"></i></a>
+						<select class="custom-select mr-sm-2" id="id_titul" name="titul">
+							{% for titul in tituls %}
+								<option value="{{ titul.id }}">{{ titul.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="id_organizatsiya">Организация</label>&nbsp;&nbsp;
+						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-organization"><i class="fas fa-plus"></i></a>
+						<select class="custom-select mr-sm-2" id="id_organizatsiya" name="organizatsiya">
+							{% for organizatsiya in organizatsii %}
+								<option value="{{ organizatsiya.id }}">{{ organizatsiya.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="inputDateRegistartionEvent">Дата регистрации&nbsp;
+							<i class="fa fa-calendar" aria-hidden="true"></i> </label>
+						<input type="date" class="form-control" id="inputDateRegistartionEvent" disabled>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="inputRegistrationNumberEvent">Регистрационный номер</label>
+						<input type="text" class="form-control" id="inputRegistrationNumberEvent">
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="inputTargetEvent">Суть информации</label>
+						<textarea class="form-control" id="inputTargetEvent" maxlength="100000"></textarea>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="id_klassif_priznak_UK">Классифицирующий признак (по статье УК РФ, заполняется
+							толькопри наличии ВУД)</label>&nbsp;&nbsp;
+						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-classifierWUD">
+							<i class="fas fa-plus"></i> </a>
+						<select class="custom-select mr-sm-2" id="id_klassif_priznaki_UK" name="klassif_priznak_UK">
+							{% for klassif_priznak_UK in klassif_priznaki_UK %}
+								<option value="{{ klassif_priznak_UK.id }}">{{ klassif_priznak_UK.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="id_klassif_priznak_ugroza">Классифицирующий признак (угроза)</label>&nbsp;&nbsp;
+						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-classifierDanger">
+							<i class="fas fa-plus"></i> </a>
+						<select class="custom-select mr-sm-2" id="id_klassif_priznak_ugroza" name="klassif_priznak_ugroza">
+							{% for klassif_priznak_ugroza in klassif_priznaki_ugroza %}
+								<option value="{{ klassif_priznak_ugroza.id }}">{{ klassif_priznak_ugroza.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="inputClassifierTextEvent">Классифицирующий признак (текст)</label>
+						<input type="text" class="form-control" id="inputClassifierTextEvent">
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="inputResolutionEvent">Резолюция руководства ВНГ, ССБ</label>
+						<textarea class="form-control" id="inputResolutionEvent" maxlength="100000"></textarea>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-4">
+						<label for="inputDateStartEvent">Дата начало</label>
+						<input type="date" class="form-control" id="inputDateStartEvent">
+					</div>
+					<div class="col-md-4 d-flex justify-content-center">
+						<label>Срок исполнения&nbsp;<i class="fa fa-calendar" aria-hidden="true"></i></label>
+					</div>
+					<div class="form-group col-md-4">
+						<label for="inputDateEndEvent">Дата окончание</label>
+						<input type="date" class="form-control" id="inputDateEndEvent">
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="inputPerformerOrganEvent">Исполнитель (орган)</label>
+						<input type="text" class="form-control" id="inputPerformerOrganEvent">
+					</div>
+					<div class="form-group col-md-6">
+						<label for="inputPerformerSotrudnikEvent">Исполнитель (сотрудник)</label>
+						<input type="text" class="form-control" id="inputPerformerSotrudnikEvent">
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="inputInfoObrabotkiEvent">Информация полученная в ходе обработки материала</label>
+						<textarea class="form-control" id="inputInfoObrabotkiEvent" maxlength="100000"></textarea>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="id_face">В ходе проверки установлены выявлены (установлены лица)</label>&nbsp;&nbsp;
+						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-face"><i class="fas fa-plus"></i></a>
+						<select class="custom-select mr-sm-2" id="id_face" name="face">
+							{% for face in faces %}
+								<option value="{{ face.id }}">{{ face.familiya }}{{ face.imya }}{{ face.otchestvo }}
+									(face.date_rojdeniya)
+								</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="id_type_proverki">Вид проверки</label>&nbsp;&nbsp;
+						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-typecheck"><i class="fas fa-plus"></i></a>
+						<select class="custom-select mr-sm-2" id="id_type_proverki" name="type_proverki">
+							{% for type_proverki in types_proverki %}
+								<option value="{{ type_proverki.id }}">{{ type_proverki.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="id_rezult_proverki">Результат проверки</label>&nbsp;&nbsp;
+						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-resultcheck"><i class="fas fa-plus"></i>
+						</a> <select class="custom-select mr-sm-2" id="id_rezult_proverki" name="rezult_proverki">
+						{% for rezult_proverki in rezults_proverki %}
+							<option value="{{ rezult_proverki.id }}">{{ rezult_proverki.name }}</option>
+						{% endfor %}
+					</select>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="inputPrinyatMerEvent">Принятые меры</label>
+						<textarea class="form-control" id="inputPrinyatMerEvent" maxlength="100000"></textarea>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="inputResponseEvent">Ответ заявителю</label>
+						<textarea class="form-control" id="inputResponseEvent" maxlength="100000"></textarea>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="inputIspolnenieResolutionEvent">Исполнение резолюции руководства ВНГ, ССБ</label>
+						<textarea class="form-control" id="inputIspolnenieResolutionEvent" maxlength="100000"></textarea>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="inputDateResponseZajavitelEvent">Дата ответа заявителю&nbsp;
+							<i class="fa fa-calendar" aria-hidden="true"></i> </label>
+						<input type="date" class="form-control" id="inputDateResponseZajavitelEvent">
+					</div>
+					<div class="form-group col-md-6">
+						<label for="inputIshNumberDocEvent">Исходящий номер документа</label>
+						<input type="text" class="form-control" id="inputIshNumberDocEvent" maxlength="50">
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="id_operativnaye_obstanovka">Оперативная обстановка</label>&nbsp;&nbsp;
+						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-operationEnv"><i class="fas fa-plus"></i>
+						</a> <select class="custom-select mr-sm-2" id="id_operativnaye_obstanovka" name="operativnaye_obstanovka">
+						{% for operativnaye_obstanovka in operativnaye_obstanovki %}
+							<option value="{{ operativnaye_obstanovka.id }}">{{ operativnaye_obstanovka.sut_info }}</option>
+						{% endfor %}
+					</select>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label for="inputClassifierTextEvent">Классифицирующий признак (текст)</label>
-                                <input type="text" class="form-control" id="inputClassifierTextEvent">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label for="inputResolutionEvent">Резолюция руководства ВНГ, ССБ</label>
-                                <textarea class="form-control" id="inputResolutionEvent" maxlength="100000"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                             <div class="form-group col-md-4">
-                                 <label for="inputDateStartEvent">Дата начало</label>
-                                 <input type="date" class="form-control" id="inputDateStartEvent">
-                             </div>
-                             <div class="col-md-4 d-flex justify-content-center">
-                                <label>Срок исполнения&nbsp;<i class="fa fa-calendar" aria-hidden="true"></i></label>
-                             </div>
-                             <div class="form-group col-md-4">
-                                 <label for="inputDateEndEvent">Дата окончание</label>
-                                 <input type="date" class="form-control" id="inputDateEndEvent">
-                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputPerformerOrganEvent">Исполнитель (орган)</label>
-                                <input type="text" class="form-control" id="inputPerformerOrganEvent">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputPerformerSotrudnikEvent">Исполнитель (сотрудник)</label>
-                                <input type="text" class="form-control" id="inputPerformerSotrudnikEvent">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label for="inputInfoObrabotkiEvent">Информация полученная в ходе обработки материала</label>
-                                <textarea class="form-control" id="inputInfoObrabotkiEvent" maxlength="100000"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label for="inputFaceEvent">В ходе проверки установлены выявлены (установлены лица)</label>&nbsp;&nbsp;
-                                <a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-face"><i class="fas fa-plus"></i></a>
-                                <select class="custom-select mr-sm-2" id="inputFaceEvent">
-                                    <option selected></option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                    <option>Фамилия          Имя           Отчество</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputTypeCheckEvent">Вид проверки</label>&nbsp;&nbsp; <a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-typecheck"><i class="fas fa-plus"></i> </a>
-                                <select class="custom-select mr-sm-2" id="inputTypeCheckEvent">
-                                <option selected></option>
-                                <option>Вид проверки</option>
-                                <option>Вид проверки</option>
-                                <option>Вид проверки</option>
-                                <option>Вид проверки</option>
-                                <option>Вид проверки</option>
-                                <option>Вид проверки</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputResultCheckEvent">Результат проверки</label>&nbsp;&nbsp; <a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-resultcheck"><i class="fas fa-plus"></i> </a>
-                                <select class="custom-select mr-sm-2" id="inputResultCheckEvent">
-                                <option selected></option>
-                                <option>Вид проверки</option>
-                                <option>Вид проверки</option>
-                                <option>Вид проверки</option>
-                                <option>Вид проверки</option>
-                                <option>Вид проверки</option>
-                                <option>Вид проверки</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label for="inputPrinyatMerEvent">Принятые меры</label>
-                                <textarea class="form-control" id="inputPrinyatMerEvent" maxlength="100000"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label for="inputResponseEvent">Ответ заявителю</label>
-                                <textarea class="form-control" id="inputResponseEvent" maxlength="100000"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label for="inputIspolnenieResolutionEvent">Исполнение резолюции руководства ВНГ, ССБ</label>
-                                <textarea class="form-control" id="inputIspolnenieResolutionEvent" maxlength="100000"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputDateResponseZajavitelEvent">Дата ответа заявителю&nbsp;
-                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                </label>
-                                <input type="date" class="form-control" id="inputDateResponseZajavitelEvent">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputIshNumberDocEvent">Исходящий номер документа</label>
-                                <input type="text" class="form-control" id="inputIshNumberDocEvent" maxlength="50">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label for="inputOperationEnvEvent">Оперативная обстановка</label>&nbsp;&nbsp; <a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-operationEnv"><i class="fas fa-plus"></i> </a>
-                                <select class="custom-select mr-sm-2" id="inputOperationEnvEvent">
-                                <option selected></option>
-                                <option>Оперативная обстановка "ИнформацияИнформацияИнформацияИнформацияИнформация" Дата: 12.12.1212 классифицирующий признак: "признакпризнакпризнакпризнак" </option>
-                                <option>Оперативная обстановка "ИнформацияИнформацияИнформацияИнформацияИнформация" Дата: 12.12.1212 классифицирующий признак: "признакпризнакпризнакпризнак" </option>
-                                <option>Оперативная обстановка "ИнформацияИнформацияИнформацияИнформацияИнформация" Дата: 12.12.1212 классифицирующий признак: "признакпризнакпризнакпризнак" </option>
-                                <option>Оперативная обстановка "ИнформацияИнформацияИнформацияИнформацияИнформация" Дата: 12.12.1212 классифицирующий признак: "признакпризнакпризнакпризнак" </option>
-                                <option>Оперативная обстановка "ИнформацияИнформацияИнформацияИнформацияИнформация" Дата: 12.12.1212 классифицирующий признак: "признакпризнакпризнакпризнак" </option>
-                                <option>Оперативная обстановка "ИнформацияИнформацияИнформацияИнформацияИнформация" Дата: 12.12.1212 классифицирующий признак: "признакпризнакпризнакпризнак" </option>
-                                <option>Оперативная обстановка "ИнформацияИнформацияИнформацияИнформацияИнформация" Дата: 12.12.1212 классифицирующий признак: "признакпризнакпризнакпризнак" </option>
-                                <option>Оперативная обстановка "ИнформацияИнформацияИнформацияИнформацияИнформация" Дата: 12.12.1212 классифицирующий признак: "признакпризнакпризнакпризнак" </option>
-                                <option>Оперативная обстановка "ИнформацияИнформацияИнформацияИнформацияИнформация" Дата: 12.12.1212 классифицирующий признак: "признакпризнакпризнакпризнак" </option>
-                                <option>Оперативная обстановка "ИнформацияИнформацияИнформацияИнформацияИнформация" Дата: 12.12.1212 классифицирующий признак: "признакпризнакпризнакпризнак" </option>
-                                <option>Оперативная обстановка "ИнформацияИнформацияИнформацияИнформацияИнформация" Дата: 12.12.1212 классифицирующий признак: "признакпризнакпризнакпризнак" </option>
-                                <option>Оперативная обстановка "ИнформацияИнформацияИнформацияИнформацияИнформация" Дата: 12.12.1212 классифицирующий признак: "признакпризнакпризнакпризнак" </option>
-                                <option>Оперативная обстановка "ИнформацияИнформацияИнформацияИнформацияИнформация" Дата: 12.12.1212 классифицирующий признак: "признакпризнакпризнакпризнак" </option>
+	<!-- modal-operationEnv -->
+	<div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal-operationEnv" role="dialog" aria-labelledby="myLargeModalLabel" style="overflow: hidden auto;" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<p style="color: #4a0404;font-size: 22px"><em>Добавить оперативную обстановку</em></p>
+				</div>
+				<div class="modal-body">
+					<form id="operationEnv">
+						<div class="form-group col-md-6">
+							<label for="inputDateOperationalEnv">Дата</label>
+							<input type="date" class="form-control" id="inputDateOperationalEnv">
+						</div>
+						<div class="form-group col-md-12">
+							<label for="inputClassifierDangerOperationalEnv">Классифицирующий признак (угроза)</label>&nbsp;&nbsp;
+							<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-classifierDanger">
+								<i class="fas fa-plus"></i> </a>
+							<select class="custom-select mr-sm-2" id="inputClassifierDangerOperationalEnv">
+								<option selected></option>
+								<option>Свой признак</option>
+								<option>Свой признак</option>
+								<option>Свой признак</option>
+								<option>Свой признак</option>
+								<option>Свой признак</option>
+								<option>Свой признак</option>
+								<option>Свой признак</option>
+								<option>Свой признак</option>
+								<option>Свой признак</option>
+								<option>Свой признак</option>
+								<option>Свой признак</option>
+								<option>Свой признак</option>
+								<option>Свой признак</option>
+								<option>Свой признак</option>
+								<option>Свой признак</option>
+								<option>Свой признак</option>
+								<option>Свой признак</option>
+								<option>Свой признак</option>
+								<option>Свой признак</option>
+							</select>
+						</div>
+						<div class="form-group col-md-12">
+							<label for="inputClassifierTextOperationalEnv">Классифицирующий признак (текст)</label>
+							<input type="text" class="form-control" id="inputClassifierTextOperationalEnv">
+						</div>
+						<div class="form-group col-md-12">
+							<label for="inputSutInformationOperationalEnv">Суть информации</label>
+							<textarea class="form-control" id="inputSutInformationOperationalEnv" maxlength="100000"></textarea>
+						</div>
+						<div class="form-group col-md-12">
+							<label for="inputPrinyatMerOperationalEnv">Принятые меры</label>
+							<textarea class="form-control" id="inputPrinyatMerOperationalEnv" maxlength="100000"></textarea>
+						</div>
 
-                                </select>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+					<button type="button" class="btn btn-primary" form="operationEnv">Добавить</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- modal-organization -->
+	<div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal-organization" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<p style="color: #4a0404;font-size: 22px"><em>Добавить организацию</em></p>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group col-md-12">
+							<label for="inputNameOrganization">Наименование организации</label>
+							<input type="text" class="form-control" id="inputNameOrganization">
+						</div>
+						<div class="form-group col-md-12">
+							<label for="inputINNOrganization">ИНН (ОГРН)</label>
+							<input type="text" class="form-control" id="inputINNOrganization">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="inputAdresAte">Адрес организации АТЕ</label>&nbsp;&nbsp;
+							<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-adres-ate">
+								<i class="fas fa-plus"></i> </a>
+							<select class="custom-select mr-sm-2" id="inputAdresAte">
+								<option selected>Наименование 1</option>
+								<option>Наименование 2</option>
+								<option>Наименование 3</option>
+								<option>Наименование 4</option>
+								<option>Наименование 5</option>
+							</select>
+						</div>
+						<div class="form-group col-md-12">
+							<label for="inputAdresrOganization">Адрес организации</label>
+							<input type="text" class="form-control" id="inputAdresrOganization">
+						</div>
+						<div class="form-group col-md-12">
+							<label for="inputOtherOganization">Иная информация</label>
+							<input type="text" class="form-control" id="inputOtherOganization">
+						</div>
 
-			<!-- modal-operationEnv -->
-			<div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal-operationEnv" role="dialog" aria-labelledby="myLargeModalLabel"  style="overflow: hidden auto;" aria-hidden="true">
-				<div class="modal-dialog modal-lg">
-					<div class="modal-content">
-						<div class="modal-header">
-							<p style="color: #4a0404;font-size: 22px"><em>Добавить оперативную обстановку</em></p>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+					<button type="button" class="btn btn-primary">Добавить</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- modal-classifierWUD -->
+	<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-classifierWUD" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<p style="color: #4a0404;font-size: 22px"><em>Добавить классифицирующий признак (по статье УК)</em>
+					</p>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group col-md-12">
+							<label for="inputNameClassifierWUD">Наименование признака</label>
+							<input type="text" class="form-control" id="inputNameClassifierWUD">
 						</div>
-						<div class="modal-body">
-							<form id="operationEnv">
-								<div class="form-group col-md-6">
-									<label for="inputDateOperationalEnv">Дата</label>
-									<input type="date" class="form-control" id="inputDateOperationalEnv">
-								</div>
-								<div class="form-group col-md-12">
-										<label for="inputClassifierDangerOperationalEnv">Классифицирующий признак (угроза)</label>&nbsp;&nbsp;
-										<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-classifierDanger">
-											<i class="fas fa-plus"></i>
-										</a>
-										<select class="custom-select mr-sm-2" id="inputClassifierDangerOperationalEnv">
-											<option selected></option>
-											<option>Свой признак</option>
-											<option>Свой признак</option>
-											<option>Свой признак</option>
-											<option>Свой признак</option>
-											<option>Свой признак</option>
-											<option>Свой признак</option>
-											<option>Свой признак</option>
-											<option>Свой признак</option>
-											<option>Свой признак</option>
-											<option>Свой признак</option>
-											<option>Свой признак</option>
-											<option>Свой признак</option>
-											<option>Свой признак</option>
-											<option>Свой признак</option>
-											<option>Свой признак</option>
-											<option>Свой признак</option>
-											<option>Свой признак</option>
-											<option>Свой признак</option>
-											<option>Свой признак</option>
-										</select>
-								</div>
-								<div class="form-group col-md-12">
-									<label for="inputClassifierTextOperationalEnv">Классифицирующий признак (текст)</label>
-									<input type="text" class="form-control" id="inputClassifierTextOperationalEnv">
-								</div>
-								<div class="form-group col-md-12">
-									<label for="inputSutInformationOperationalEnv">Суть информации</label>
-									<textarea class="form-control" id="inputSutInformationOperationalEnv" maxlength="100000"></textarea>
-								</div>
-								<div class="form-group col-md-12">
-									<label for="inputPrinyatMerOperationalEnv">Принятые меры</label>
-									<textarea class="form-control" id="inputPrinyatMerOperationalEnv" maxlength="100000"></textarea>
-								</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+					<button type="button" class="btn btn-primary">Добавить</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- modal-classifierDanger -->
+	<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-classifierDanger" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<p style="color: #4a0404;font-size: 22px"><em>Добавить классифицирующий признак (угроза)</em></p>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group col-md-12">
+							<label for="inputNameClassifierDanger">Наименование признака</label>
+							<input type="text" class="form-control" id="inputNameClassifierDanger">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+					<button type="button" class="btn btn-primary">Добавить</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- modal-document -->
+	<div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal-document" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<p style="color: #4a0404;font-size: 22px"><em>Добавить титул документа</em></p>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group col-md-12">
+							<label for="inputNameDocument">Наименование</label>
+							<input type="text" class="form-control" id="inputNameDocument">
+						</div>
+						<div class="form-group col-md-12">
+							<label for="inputNumberInputDocument">Номер входящего документа</label>
+							<input type="text" class="form-control" id="inputNumberInputDocument">
+						</div>
+						<div class="form-group col-md-12">
+							<label for="inputDataInputDocument">Дата входящего документа</label>
+							<input type="date" class="form-control" id="inputDataInputDocument">
+						</div>
+						<div class="form-group col-md-12">
+							<label for="inputFromWhereDocument">Откуда поступил документ</label>
+							<input type="text" class="form-control" id="inputFromWhereDocument">
+						</div>
+						<div class="form-group col-md-12">
+							<label for="inputNumberOutputDocument">Исходящий номер документа</label>
+							<input type="text" class="form-control" id="inputNumberOutputDocument">
+						</div>
+						<div class="form-group col-md-12">
+							<label for="inputDataOutputDocument">Дата исходящего документа</label>
+							<input type="date" class="form-control" id="inputDataOutputDocument">
+						</div>
+						<div class="form-group col-md-12">
+							<label for="inputDateCreateDocument">Дата внесения документа</label>
+							<input type="date" class="form-control" id="inputDateCreateDocument" disabled>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+					<button type="button" class="btn btn-primary">Добавить</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- modal-face -->
+	<div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal-face" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="overflow: hidden auto;">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<p style="color: #4a0404;font-size: 22px"><em>Добавить лицо</em></p>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group col-md-12">
+							<label for="inputSurnameFace">Фамилия</label>
+							<input type="text" class="form-control" id="inputSurnameFace">
+						</div>
+						<div class="form-group col-md-12">
+							<label for="inputFirstNameFace">Имя</label>
+							<input type="text" class="form-control" id="inputFirstNameFace">
+						</div>
+						<div class="form-group col-md-12">
+							<label for="inputFastNameFace">Отчество</label>
+							<input type="text" class="form-control" id="inputFastNameFace">
+						</div>
+						<div class="form-group col-md-12">
+							<label for="inputBirthdayEvent">Дата рождения</label>
+							<input type="date" class="form-control" id="inputBirthdayEvent">
+						</div>
+						<div class="form-group col-md-12">
+							<label for="inputAdresAteBirthFace">Место рождения (АТЕ)</label>&nbsp;&nbsp;
+							<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-adres-ate">
+								<i class="fas fa-plus"></i> </a>
+							<select class="custom-select mr-sm-2" id="inputAdresAteBirthFace">
+								<option selected>Наименование 1</option>
+								<option>Наименование 2</option>
+								<option>Наименование 3</option>
+								<option>Наименование 4</option>
+								<option>Наименование 5</option>
+							</select>
+						</div>
+						<div class="form-group col-md-12">
+							<label for="inputMestoBirthRaionFace">Место рождения (район)</label>
+							<input type="text" class="form-control" id="inputMestoBirthRaionFace">
+						</div>
+						<div class="form-group col-md-12">
+							<label for="inputMestoBirthNPFace">Место рождения (н.п.)</label>
+							<input type="text" class="form-control" id="inputMestoBirthNPFace">
+						</div>
+						<div class="form-group col-md-12">
+							<label for="inputRankFace">Воинское (специальное) звание</label>&nbsp;&nbsp;
+							<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-rank">
+								<i class="fas fa-plus"></i> </a>
+							<select class="custom-select mr-sm-2" id="inputRankFace">
+								<option selected></option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+								<option>Звание</option>
+							</select>
+						</div>
+						<div class="form-group col-md-12">
+							<label for="inputDopolnitInfoFace">Дополнительная информация</label>
+							<textarea class="form-control" id="inputDopolnitInfoFace" maxlength="100000"></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+					<button type="button" class="btn btn-primary">Добавить</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- modal-typecheck -->
+	<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-typecheck" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<p style="color: #4a0404;font-size: 22px"><em>Добавить вид проверки</em></p>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group col-md-12">
+							<label for="inputNameTypeCheck">Наименование проверки</label>
+							<input type="text" class="form-control" id="inputNameTypeCheck">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+					<button type="button" class="btn btn-primary">Добавить</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- modal-resultcheck -->
+	<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-resultcheck" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<p style="color: #4a0404;font-size: 22px"><em>Добавить результат проверки</em></p>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group col-md-12">
+							<label for="inputNameResultCheck">Наименование проверки</label>
+							<input type="text" class="form-control" id="inputNameResultCheck">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+					<button type="button" class="btn btn-primary">Добавить</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- modal-rank -->
+	<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-rank" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<p style="color: #4a0404;font-size: 22px"><em>Добавить воинское (специальное) звание</em></p>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group col-md-12">
+							<label for="inputRank">Наименование</label>
+							<input type="text" class="form-control" id="inputRank">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+					<button type="button" class="btn btn-primary">Добавить</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- modal-adres-ate -->
+	<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-adres-ate" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<p style="color: #4a0404;font-size: 22px"><em>Добавить адрес АТЕ</em></p>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group col-md-12">
+							<label for="inputNameAdresAte">Наименование адреса</label>
+							<input type="text" class="form-control" id="inputNameAdresAte">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+					<button type="button" class="btn btn-primary">Добавить</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Текущее время-->
 
-							</form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-							<button type="button" class="btn btn-primary" form="operationEnv">Добавить</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- modal-organization -->
-			<div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal-organization" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-lg">
-					<div class="modal-content">
-						<div class="modal-header">
-							<p style="color: #4a0404;font-size: 22px"><em>Добавить организацию</em></p>
-						</div>
-						<div class="modal-body">
-							<form>
-								<div class="form-group col-md-12">
-									<label for="inputNameOrganization">Наименование организации</label>
-									<input type="text" class="form-control" id="inputNameOrganization">
-								</div>
-								<div class="form-group col-md-12">
-									<label for="inputINNOrganization">ИНН (ОГРН)</label>
-									<input type="text" class="form-control" id="inputINNOrganization">
-								</div>
-								<div class="form-group col-md-6">
-									<label for="inputAdresAte">Адрес организации АТЕ</label>&nbsp;&nbsp;
-									<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-adres-ate">
-										<i class="fas fa-plus"></i>
-									</a>
-									<select class="custom-select mr-sm-2" id="inputAdresAte">
-										<option selected>Наименование 1</option>
-										<option>Наименование 2</option>
-										<option>Наименование 3</option>
-										<option>Наименование 4</option>
-										<option>Наименование 5</option>
-									</select>
-								</div>
-								<div class="form-group col-md-12">
-									<label for="inputAdresrOganization">Адрес организации</label>
-									<input type="text" class="form-control" id="inputAdresrOganization">
-								</div>
-								 <div class="form-group col-md-12">
-									<label for="inputOtherOganization">Иная информация</label>
-									<input type="text" class="form-control" id="inputOtherOganization">
-								</div>
-
-							</form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-							<button type="button" class="btn btn-primary">Добавить</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- modal-classifierWUD -->
-			<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-classifierWUD" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-sm">
-					<div class="modal-content">
-						<div class="modal-header">
-							<p style="color: #4a0404;font-size: 22px"><em>Добавить классифицирующий признак (по статье УК)</em></p>
-						</div>
-						<div class="modal-body">
-							<form>
-								<div class="form-group col-md-12">
-									<label for="inputNameClassifierWUD">Наименование признака</label>
-									<input type="text" class="form-control" id="inputNameClassifierWUD">
-								</div>
-							</form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-							<button type="button" class="btn btn-primary">Добавить</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- modal-classifierDanger -->
-			<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-classifierDanger" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-sm">
-					<div class="modal-content">
-						<div class="modal-header">
-							<p style="color: #4a0404;font-size: 22px"><em>Добавить классифицирующий признак (угроза)</em></p>
-						</div>
-						<div class="modal-body">
-							<form>
-								<div class="form-group col-md-12">
-									<label for="inputNameClassifierDanger">Наименование признака</label>
-									<input type="text" class="form-control" id="inputNameClassifierDanger">
-								</div>
-							</form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-							<button type="button" class="btn btn-primary">Добавить</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- modal-document -->
-			<div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal-document" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-lg">
-					<div class="modal-content">
-						<div class="modal-header">
-							<p style="color: #4a0404;font-size: 22px"><em>Добавить титул документа</em></p>
-						</div>
-						<div class="modal-body">
-							<form>
-								<div class="form-group col-md-12">
-									<label for="inputNameDocument">Наименование</label> <input type="text" class="form-control" id="inputNameDocument">
-								</div>
-								<div class="form-group col-md-12">
-									<label for="inputNumberInputDocument">Номер входящего документа</label> <input type="text" class="form-control" id="inputNumberInputDocument">
-								</div>
-								<div class="form-group col-md-12">
-									<label for="inputDataInputDocument">Дата входящего документа</label> <input type="date" class="form-control" id="inputDataInputDocument">
-								</div>
-								<div class="form-group col-md-12">
-									<label for="inputFromWhereDocument">Откуда поступил документ</label> <input type="text" class="form-control" id="inputFromWhereDocument">
-								</div>
-								<div class="form-group col-md-12">
-									<label for="inputNumberOutputDocument">Исходящий номер документа</label> <input type="text" class="form-control" id="inputNumberOutputDocument">
-								</div>
-								<div class="form-group col-md-12">
-									<label for="inputDataOutputDocument">Дата исходящего документа</label> <input type="date" class="form-control" id="inputDataOutputDocument">
-								</div>
-								<div class="form-group col-md-12">
-									<label for="inputDateCreateDocument">Дата внесения документа</label> <input type="date" class="form-control" id="inputDateCreateDocument" disabled>
-								</div>
-							</form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-							<button type="button" class="btn btn-primary">Добавить</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- modal-face -->
-			<div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal-face" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="overflow: hidden auto;">
-				<div class="modal-dialog modal-lg">
-					<div class="modal-content">
-						<div class="modal-header">
-							<p style="color: #4a0404;font-size: 22px"><em>Добавить лицо</em></p>
-						</div>
-						<div class="modal-body">
-							<form>
-								<div class="form-group col-md-12">
-									<label for="inputSurnameFace">Фамилия</label>
-									<input type="text" class="form-control" id="inputSurnameFace">
-								</div>
-								<div class="form-group col-md-12">
-									<label for="inputFirstNameFace">Имя</label>
-									<input type="text" class="form-control" id="inputFirstNameFace">
-								</div>
-								<div class="form-group col-md-12">
-									<label for="inputFastNameFace">Отчество</label>
-									<input type="text" class="form-control" id="inputFastNameFace">
-								</div>
-								<div class="form-group col-md-12">
-									<label for="inputBirthdayEvent">Дата рождения</label>
-									<input type="date" class="form-control" id="inputBirthdayEvent">
-								</div>
-								<div class="form-group col-md-12">
-									<label for="inputAdresAteBirthFace">Место рождения (АТЕ)</label>&nbsp;&nbsp;
-									<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-adres-ate">
-										<i class="fas fa-plus"></i>
-									</a>
-									<select class="custom-select mr-sm-2" id="inputAdresAteBirthFace">
-										<option selected>Наименование 1</option>
-										<option>Наименование 2</option>
-										<option>Наименование 3</option>
-										<option>Наименование 4</option>
-										<option>Наименование 5</option>
-									</select>
-								</div>
-								<div class="form-group col-md-12">
-									<label for="inputMestoBirthRaionFace">Место рождения (район)</label>
-									<input type="text" class="form-control" id="inputMestoBirthRaionFace">
-								</div>
-								<div class="form-group col-md-12">
-									<label for="inputMestoBirthNPFace">Место рождения (н.п.)</label>
-									<input type="text" class="form-control" id="inputMestoBirthNPFace">
-								</div>
-								<div class="form-group col-md-12">
-									<label for="inputRankFace">Воинское (специальное) звание</label>&nbsp;&nbsp;
-									<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-rank">
-										<i class="fas fa-plus"></i>
-									</a>
-									<select class="custom-select mr-sm-2" id="inputRankFace">
-										<option selected></option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-										<option>Звание</option>
-									</select>
-								</div>
-								<div class="form-group col-md-12">
-									<label for="inputDopolnitInfoFace">Дополнительная информация</label>
-									<textarea class="form-control" id="inputDopolnitInfoFace" maxlength="100000"></textarea>
-								</div>
-							</form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-							<button type="button" class="btn btn-primary">Добавить</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- modal-typecheck -->
-			<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-typecheck" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-sm">
-					<div class="modal-content">
-						<div class="modal-header">
-							<p style="color: #4a0404;font-size: 22px"><em>Добавить вид проверки</em></p>
-						</div>
-						<div class="modal-body">
-							<form>
-								<div class="form-group col-md-12">
-									<label for="inputNameTypeCheck">Наименование проверки</label>
-									<input type="text" class="form-control" id="inputNameTypeCheck">
-								</div>
-							</form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-							<button type="button" class="btn btn-primary">Добавить</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- modal-resultcheck -->
-			<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-resultcheck" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-sm">
-					<div class="modal-content">
-						<div class="modal-header">
-							<p style="color: #4a0404;font-size: 22px"><em>Добавить результат проверки</em></p>
-						</div>
-						<div class="modal-body">
-							<form>
-								<div class="form-group col-md-12">
-									<label for="inputNameResultCheck">Наименование проверки</label>
-									<input type="text" class="form-control" id="inputNameResultCheck">
-								</div>
-							</form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-							<button type="button" class="btn btn-primary">Добавить</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- modal-rank -->
-			<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-rank" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-sm">
-					<div class="modal-content">
-						<div class="modal-header">
-							<p style="color: #4a0404;font-size: 22px"><em>Добавить воинское (специальное) звание</em></p>
-						</div>
-						<div class="modal-body">
-							<form>
-								<div class="form-group col-md-12">
-									<label for="inputRank">Наименование</label>
-									<input type="text" class="form-control" id="inputRank">
-								</div>
-							</form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-							<button type="button" class="btn btn-primary">Добавить</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- modal-adres-ate -->
-			<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-adres-ate" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-sm">
-					<div class="modal-content">
-						<div class="modal-header">
-							<p style="color: #4a0404;font-size: 22px"><em>Добавить адрес АТЕ</em></p>
-						</div>
-						<div class="modal-body">
-							<form>
-								<div class="form-group col-md-12">
-									<label for="inputNameAdresAte">Наименование адреса</label>
-									<input type="text" class="form-control" id="inputNameAdresAte">
-								</div>
-							</form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-							<button type="button" class="btn btn-primary">Добавить</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--Текущее время-->
-
-<script>
-    date = new Date();
-    document.getElementById("inputDateCreateDocument").valueAsDate = date;
-    // Todo: Сделать общую функцию
-    document.getElementById("inputDateRegistartionEvent").valueAsDate = date;
-</script>
+	<script>
+        date = new Date();
+        document.getElementById("inputDateCreateDocument").valueAsDate = date;
+        // Todo: Сделать общую функцию
+        document.getElementById("inputDateRegistartionEvent").valueAsDate = date;
+	</script>
 {% endblock content %}

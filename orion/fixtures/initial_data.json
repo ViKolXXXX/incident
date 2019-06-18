@@ -2721,5 +2721,68 @@
     "fields": {
       "name": "Иные территории, включая город и космодром Байконур"
     }
+  },
+  {
+    "model": "orion.Subdivision",
+    "pk": 1,
+    "fields": {
+      "name": "ГУСБ"
+    }
+  },
+  {
+    "model": "orion.Subdivision",
+    "pk": 2,
+    "fields": {
+      "name": "ОСБ ЦО"
+    }
+  },
+  {
+    "model": "orion.Subdivision",
+    "pk": 3,
+    "fields": {
+      "name": "ОСБ СЗО"
+    }
+  },
+  {
+    "model": "orion.Subdivision",
+    "pk": 4,
+    "fields": {
+      "name": "ОСБ ЮО"
+    }
+  },
+  {
+    "model": "orion.Subdivision",
+    "pk": 5,
+    "fields": {
+      "name": "ОСБ СКО"
+    }
+  },
+  {
+    "model": "orion.Subdivision",
+    "pk": 6,
+    "fields": {
+      "name": "ОСБ ПривО"
+    }
+  },
+  {
+    "model": "orion.Subdivision",
+    "pk": 7,
+    "fields": {
+      "name": "ОСБ УрО"
+    }
+  },
+  {
+    "model": "orion.Subdivision",
+    "pk": 8,
+    "fields": {
+      "name": "ОСБ СибО"
+    }
+  },
+  {
+    "model": "orion.Subdivision",
+    "pk": 9,
+    "fields": {
+      "name": "ОСБ ВО"
+    }
   }
 ]
