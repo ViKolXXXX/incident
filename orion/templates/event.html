@@ -11,7 +11,9 @@
 	</div>
 	<div class="row d-flex justify-content-center my-4 ">
 		<div class="container-fluid">
-			<form method="post" action="{% url "event" %}" id="event">
+			<form method="post" action="{% url "event" %}" id="event">{% csrf_token %}
+
+				{{ event_form.type_message }}
 				<div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="id_type_message">Тип сообщения</label>
@@ -196,6 +198,7 @@
 					</select>
 					</div>
 				</div>
+
 			</form>
 		</div>
 	</div>

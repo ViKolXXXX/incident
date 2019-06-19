@@ -5,13 +5,14 @@ from django.contrib.auth.models import User, Group
 from django.views.generic import TemplateView
 
 from incidentProject.mixins import GroupRequiredMixin
+from orion.models import Subdivision
 
 
 class AdminIncidentView(GroupRequiredMixin, TemplateView):
     group_required = ['orion']
 
     def get(self, request, *args, **kwargs):
-        all_users = User.objects.all()
+        all_users = User.objects.all().exclude(username='admin')
         context = {"all_users": all_users}
         return render(request, "adminincident.html", context)
 
@@ -40,7 +41,8 @@ class ChangeUserView(GroupRequiredMixin, TemplateView):
         else:
             user = User.objects.get(id=user_id)
             groups = Group.objects.all()
-            context = {"user": user, "groups": groups}
+            subdivisions = Subdivision.objects.all()
+            context = {"user": user, "groups": groups, "subdivisions": subdivisions}
             return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
@@ -51,6 +53,7 @@ class ChangeUserView(GroupRequiredMixin, TemplateView):
             user.last_name = request.POST.get("last_name")
             user.email = request.POST.get("email")
             user.groups.set(request.POST.getlist("group"))
+            user.userprofile.subdivision_id = request.POST.get("subdivision")
             user.save()
             messages.success(request, "Пользователь изменен!!!")
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

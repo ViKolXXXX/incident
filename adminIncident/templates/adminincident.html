@@ -63,6 +63,7 @@
 						<th scope="col">Фамилия</th>
 						<th scope="col">Электронный адрес</th>
 						<th scope="col">Группа</th>
+						<th scope="col">Подразделение</th>
 						<th scope="col">Дата регистрации</th>
 						<th scope="col">Последний вход</th>
 						<th scope="col"></th>
@@ -79,6 +80,9 @@
 								{% for group in user.groups.all %}
 									{{ group }}
 								{% endfor %}
+							</td>
+							<td>
+								{{ user.userprofile.subdivision }}
 							</td>
 							<td>{{ user.date_joined }}</td>
 							<td>{{ user.last_login }}</td>

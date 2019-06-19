@@ -1,6 +1,9 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 class Event(models.Model):
     type_message = models.ForeignKey("TypeMessage", blank=True, on_delete=models.PROTECT, verbose_name="Тип сообщения")
@@ -13,7 +16,8 @@ class Event(models.Model):
     klassif_priznak_ugroza = models.ForeignKey("KlassifPriznakUgroza", blank=True, on_delete=models.PROTECT, verbose_name="Классифицирующий признак (угроза)")
     klassif_priznak_text = models.TextField(verbose_name="Классифицирующий признак (текст)", blank=True)
     rezolyutsiya_rukovodstva = models.TextField(verbose_name="Резолюция руководства ВНГ, ГУСБ", blank=True)
-    srok_ispolneniya = models.DurationField(verbose_name="Срок исполнения", blank=True)
+    date_start = models.DateField(verbose_name="Дата начало", null=True)
+    date_finish = models.DateField(verbose_name="Дата конец", null=True)
     ispolnitel_organ = models.CharField(max_length=100, blank=True, verbose_name="Исполнитель (Орган)")
     ispolnitel_sotrudnik = models.CharField(max_length=100, blank=True, verbose_name="Исполннитель (сотрудник)")
     info_otrabotki_materiala = models.TextField(verbose_name="Информация, полученная в ходе отработки материала", blank=True)
@@ -203,7 +207,7 @@ class Subdivision(models.Model):
 # Кастомизируем модель User и добавляем дополнительные поля
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    subdivision = models.ForeignKey("Subdivision", on_delete=models.PROTECT, verbose_name="Подразделение", default="ГУСБ")
+    subdivision = models.ForeignKey("Subdivision", on_delete=models.PROTECT, verbose_name="Подразделение", default=1)
     # avatar = models.ImageField(upload_to='images/users', verbose_name='Изображение')
 
     def __unicode__(self):
@@ -212,3 +216,14 @@ class UserProfile(models.Model):
     class Meta:
         verbose_name = 'Профиль пользователя'
         verbose_name_plural = 'Профили пользователя'
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.userprofile.save()

@@ -1,6 +1,6 @@
 {% extends "adminincident.html" %}
 {% block breadcrumbs %}
-	<li><a  href={% url 'adminincident' %}>Пользователи</a></li>
+	<li><a href={% url 'adminincident' %}>Пользователи</a></li>
 	<li><a class="current" href="#">Изменить пользователя</a></li>
 {% endblock breadcrumbs %}
 {% block content %}
@@ -41,6 +41,18 @@
 											<option value="{{ group.id }}" selected>{{ group.name }}</option>
 										{% else %}
 											<option value="{{ group.id }}">{{ group.name }}</option>
+										{% endif %}
+									{% endfor %}
+								</select>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="id_subdivision">Выберите подразделение пользователю</label>
+								<select id="id_subdivision" class="form-control" name="subdivision">
+									{% for subdivision in subdivisions %}
+										{% if subdivision.id == user.userprofile.subdivision_id %}
+											<option value="{{ subdivision.id }}" selected>{{ subdivision.name }}</option>
+										{% else %}
+											<option value="{{ subdivision.id }}">{{ subdivision.name }}</option>
 										{% endif %}
 									{% endfor %}
 								</select>
