@@ -2784,5 +2784,26 @@
     "fields": {
       "name": "ОСБ ВО"
     }
+  },
+  {
+    "model": "orion.Status",
+    "pk": 1,
+    "fields": {
+      "name": "На контроль (включен в доклад)"
+    }
+  },
+  {
+    "model": "orion.Status",
+    "pk": 2,
+    "fields": {
+      "name": "На контроль"
+    }
+  },
+  {
+    "model": "orion.Status",
+    "pk": 3,
+    "fields": {
+      "name": "Информационный"
+    }
   }
 ]

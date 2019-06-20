@@ -9,6 +9,8 @@
 	<title>{% block title %}Главная{% endblock title %}</title>
 	<!-- Bootstrap core CSS -->
 	<link rel="stylesheet" href={% static "vendor/bootstrap/css/bootstrap.min.css" %}>
+	<link rel="stylesheet" href={% static "vendor/bootstrap-select/css/bootstrap-select.min.css" %}>
+
 	<!-- Font Awesome core CSS -->
 	<link rel="stylesheet" href={% static "vendor/icons/css/all.min.css" %}>
 	<!-- Custom styles for this template -->
@@ -81,7 +83,7 @@
 				</div>
 				<div class="col-4 d-flex justify-content-end" style="color: #506154">
 					<div class="p-2 bd-highlight"><i class="fas fa-user fa-2x"></i></div>
-					<div class="p-2 bd-highlight"><h5 class="form-header-admin"><em><u>{{ user.username }}&nbsp;({{ user.userprofile.subdivision }}&nbsp;</u></em></h5></div>
+					<div class="p-2 bd-highlight"><h5 class="form-header-admin"><em><u>{{ user.username }}&nbsp;({{ user.userprofile.subdivision }})&nbsp;</u></em></h5></div>
 					<div class="p-2 bd-highlight">
 						<a style="color: #212529" title="Выход из системы" href={% url 'logout' %}>
 							<i class="fas fa-sign-out-alt fa-2x"></i></a>
@@ -141,6 +143,7 @@
 <!-- Bootstrap core JavaScript -->
 <script src={% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}></script>
 <script src={% static "vendor/bootstrap/js/bootstrap.min.js" %}></script>
+<script src={% static "vendor/bootstrap-select/js/bootstrap-select.min.js" %}></script>
 <!-- Font Awesome core JavaScript -->
 <script src={% static "vendor/icons/js/all.min.js" %}></script>
 

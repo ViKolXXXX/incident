@@ -12,190 +12,303 @@
 	<div class="row d-flex justify-content-center my-4 ">
 		<div class="container-fluid">
 			<form method="post" action="{% url "event" %}" id="event">{% csrf_token %}
-
-				{{ event_form.type_message }}
 				<div class="form-row">
-					<div class="form-group col-md-4">
-						<label for="id_type_message">Тип сообщения</label>
-						<select class="custom-select mr-sm-2" id="id_type_message" name="type_message">
-							{% for type_message in type_messages %}
-								<option value="{{ type_message.id }}">{{ type_message.name }}</option>
+					<div class="form-group col-md-6">
+						{{ event_form.type_message.label_tag }} {{ event_form.type_message }}
+						{% if event_form.type_message.errors %}
+							{% for error in event_form.type_message.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
 							{% endfor %}
-						</select>
+						{% endif %}
+					</div>
+					<div class="form-group col-md-6">
+						{{ event_form.status.label_tag }} {{ event_form.status }}
+						{% if event_form.status.errors %}
+							{% for error in event_form.status.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+						{% endif %}
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<label for="id_titul">Документ</label>&nbsp;&nbsp;
-						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-document"><i class="fas fa-plus"></i></a>
-						<select class="custom-select mr-sm-2" id="id_titul" name="titul">
-							{% for titul in tituls %}
-								<option value="{{ titul.id }}">{{ titul.name }}</option>
+						{{ event_form.titul.label_tag }} {{ event_form.titul }}
+						{% if event_form.titul.errors %}
+							{% for error in event_form.titul.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
 							{% endfor %}
-						</select>
+						{% endif %}
 					</div>
 					<div class="form-group col-md-6">
-						<label for="id_organizatsiya">Организация</label>&nbsp;&nbsp;
-						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-organization"><i class="fas fa-plus"></i></a>
-						<select class="custom-select mr-sm-2" id="id_organizatsiya" name="organizatsiya">
-							{% for organizatsiya in organizatsii %}
-								<option value="{{ organizatsiya.id }}">{{ organizatsiya.name }}</option>
+						{{ event_form.organizatsiya.label_tag }} {{ event_form.organizatsiya }}
+						{% if event_form.organizatsiya.errors %}
+							{% for error in event_form.organizatsiya.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
 							{% endfor %}
-						</select>
+						{% endif %}
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<label for="inputDateRegistartionEvent">Дата регистрации&nbsp;
-							<i class="fa fa-calendar" aria-hidden="true"></i> </label>
-						<input type="date" class="form-control" id="inputDateRegistartionEvent" disabled>
+						{{ event_form.date_registratsii.label_tag }} {{ event_form.date_registratsii }}
+						{% if event_form.date_registratsii.errors %}
+							{% for error in event_form.date_registratsii.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+						{% endif %}
 					</div>
 					<div class="form-group col-md-6">
-						<label for="inputRegistrationNumberEvent">Регистрационный номер</label>
-						<input type="text" class="form-control" id="inputRegistrationNumberEvent">
+						{{ event_form.reg_number.label_tag }} {{ event_form.reg_number }}
+						{% if event_form.reg_number.errors %}
+							{% for error in event_form.reg_number.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+						{% endif %}
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-12">
-						<label for="inputTargetEvent">Суть информации</label>
-						<textarea class="form-control" id="inputTargetEvent" maxlength="100000"></textarea>
+						{{ event_form.sut_info.label_tag }} {{ event_form.sut_info }}
+						{% if event_form.sut_info.errors %}
+							{% for error in event_form.sut_info.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+						{% endif %}
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-group col-md-6">
-						<label for="id_klassif_priznak_UK">Классифицирующий признак (по статье УК РФ, заполняется
-							толькопри наличии ВУД)</label>&nbsp;&nbsp;
+					<div class="form-group col-md-12">
+						{{ event_form.klassif_priznak_UK.label_tag }}
 						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-classifierWUD">
-							<i class="fas fa-plus"></i> </a>
-						<select class="custom-select mr-sm-2" id="id_klassif_priznaki_UK" name="klassif_priznak_UK">
-							{% for klassif_priznak_UK in klassif_priznaki_UK %}
-								<option value="{{ klassif_priznak_UK.id }}">{{ klassif_priznak_UK.name }}</option>
+							<i class="fas fa-plus"></i> </a> {{ event_form.klassif_priznak_UK }}
+
+						{% if event_form.klassif_priznak_UK.errors %}
+							{% for error in event_form.klassif_priznak_UK.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
 							{% endfor %}
-						</select>
+						{% endif %}
 					</div>
-					<div class="form-group col-md-6">
-						<label for="id_klassif_priznak_ugroza">Классифицирующий признак (угроза)</label>&nbsp;&nbsp;
+					<div class="form-group col-md-12">
+						{{ event_form.klassif_priznak_ugroza.label_tag }}
 						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-classifierDanger">
-							<i class="fas fa-plus"></i> </a>
-						<select class="custom-select mr-sm-2" id="id_klassif_priznak_ugroza" name="klassif_priznak_ugroza">
-							{% for klassif_priznak_ugroza in klassif_priznaki_ugroza %}
-								<option value="{{ klassif_priznak_ugroza.id }}">{{ klassif_priznak_ugroza.name }}</option>
+							<i class="fas fa-plus"></i> </a> {{ event_form.klassif_priznak_ugroza }}
+						{% if event_form.klassif_priznak_ugroza.errors %}
+							{% for error in event_form.klassif_priznak_ugroza.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
 							{% endfor %}
-						</select>
+						{% endif %}
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-12">
-						<label for="inputClassifierTextEvent">Классифицирующий признак (текст)</label>
-						<input type="text" class="form-control" id="inputClassifierTextEvent">
+						{{ event_form.klassif_priznak_text.label_tag }} {{ event_form.klassif_priznak_text }}
+						{% if event_form.klassif_priznak_text.errors %}
+							{% for error in event_form.klassif_priznak_text.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+						{% endif %}
 					</div>
 				</div>
+
 				<div class="form-row">
 					<div class="form-group col-md-12">
-						<label for="inputResolutionEvent">Резолюция руководства ВНГ, ССБ</label>
-						<textarea class="form-control" id="inputResolutionEvent" maxlength="100000"></textarea>
+						{{ event_form.rezolyutsiya_rukovodstva.label_tag }} {{ event_form.rezolyutsiya_rukovodstva }}
+						{% if event_form.rezolyutsiya_rukovodstva.errors %}
+							{% for error in event_form.rezolyutsiya_rukovodstva.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+						{% endif %}
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-4">
-						<label for="inputDateStartEvent">Дата начало</label>
-						<input type="date" class="form-control" id="inputDateStartEvent">
+						{{ event_form.date_start.label_tag }} {{ event_form.date_start }}
+						{% if event_form.date_start.errors %}
+							{% for error in event_form.date_start.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+						{% endif %}
 					</div>
 					<div class="col-md-4 d-flex justify-content-center">
 						<label>Срок исполнения&nbsp;<i class="fa fa-calendar" aria-hidden="true"></i></label>
 					</div>
 					<div class="form-group col-md-4">
-						<label for="inputDateEndEvent">Дата окончание</label>
-						<input type="date" class="form-control" id="inputDateEndEvent">
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						<label for="inputPerformerOrganEvent">Исполнитель (орган)</label>
-						<input type="text" class="form-control" id="inputPerformerOrganEvent">
-					</div>
-					<div class="form-group col-md-6">
-						<label for="inputPerformerSotrudnikEvent">Исполнитель (сотрудник)</label>
-						<input type="text" class="form-control" id="inputPerformerSotrudnikEvent">
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-12">
-						<label for="inputInfoObrabotkiEvent">Информация полученная в ходе обработки материала</label>
-						<textarea class="form-control" id="inputInfoObrabotkiEvent" maxlength="100000"></textarea>
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-12">
-						<label for="id_face">В ходе проверки установлены выявлены (установлены лица)</label>&nbsp;&nbsp;
-						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-face"><i class="fas fa-plus"></i></a>
-						<select class="custom-select mr-sm-2" id="id_face" name="face">
-							{% for face in faces %}
-								<option value="{{ face.id }}">{{ face.familiya }}{{ face.imya }}{{ face.otchestvo }}
-									(face.date_rojdeniya)
-								</option>
+						{{ event_form.date_finish.label_tag }} {{ event_form.date_finish }}
+						{% if event_form.date_finish.errors %}
+							{% for error in event_form.date_finish.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
 							{% endfor %}
-						</select>
+						{% endif %}
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<label for="id_type_proverki">Вид проверки</label>&nbsp;&nbsp;
-						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-typecheck"><i class="fas fa-plus"></i></a>
-						<select class="custom-select mr-sm-2" id="id_type_proverki" name="type_proverki">
-							{% for type_proverki in types_proverki %}
-								<option value="{{ type_proverki.id }}">{{ type_proverki.name }}</option>
+						{{ event_form.ispolnitel_organ.label_tag }} {{ event_form.ispolnitel_organ }}
+						{% if event_form.ispolnitel_organ.errors %}
+							{% for error in event_form.ispolnitel_organ.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
 							{% endfor %}
-						</select>
+						{% endif %}
 					</div>
 					<div class="form-group col-md-6">
-						<label for="id_rezult_proverki">Результат проверки</label>&nbsp;&nbsp;
-						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-resultcheck"><i class="fas fa-plus"></i>
-						</a> <select class="custom-select mr-sm-2" id="id_rezult_proverki" name="rezult_proverki">
-						{% for rezult_proverki in rezults_proverki %}
-							<option value="{{ rezult_proverki.id }}">{{ rezult_proverki.name }}</option>
-						{% endfor %}
-					</select>
+						{{ event_form.ispolnitel_sotrudnik.label_tag }} {{ event_form.ispolnitel_sotrudnik }}
+						{% if event_form.ispolnitel_sotrudnik.errors %}
+							{% for error in event_form.ispolnitel_sotrudnik.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+						{% endif %}
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-12">
-						<label for="inputPrinyatMerEvent">Принятые меры</label>
-						<textarea class="form-control" id="inputPrinyatMerEvent" maxlength="100000"></textarea>
+						{{ event_form.info_otrabotki_materiala.label_tag }} {{ event_form.info_otrabotki_materiala }}
+						{% if event_form.info_otrabotki_materiala.errors %}
+							{% for error in event_form.info_otrabotki_materiala.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+						{% endif %}
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-12">
-						<label for="inputResponseEvent">Ответ заявителю</label>
-						<textarea class="form-control" id="inputResponseEvent" maxlength="100000"></textarea>
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-12">
-						<label for="inputIspolnenieResolutionEvent">Исполнение резолюции руководства ВНГ, ССБ</label>
-						<textarea class="form-control" id="inputIspolnenieResolutionEvent" maxlength="100000"></textarea>
+						{{ event_form.identified_face.label_tag }}
+						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-face"><i class="fas fa-plus"></i></a> {{ event_form.identified_face }}
+						{% if event_form.identified_face.errors %}
+							{% for error in event_form.identified_face.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+						{% endif %}
+
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<label for="inputDateResponseZajavitelEvent">Дата ответа заявителю&nbsp;
-							<i class="fa fa-calendar" aria-hidden="true"></i> </label>
-						<input type="date" class="form-control" id="inputDateResponseZajavitelEvent">
+						{{ event_form.type_proverki.label_tag }}
+						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-typecheck"><i class="fas fa-plus"></i></a> {{ event_form.type_proverki }}
+						{% if event_form.type_proverki.errors %}
+							{% for error in event_form.type_proverki.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+						{% endif %}
 					</div>
 					<div class="form-group col-md-6">
-						<label for="inputIshNumberDocEvent">Исходящий номер документа</label>
-						<input type="text" class="form-control" id="inputIshNumberDocEvent" maxlength="50">
+						{{ event_form.rezult_proverki.label_tag }}
+						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-resultcheck"><i class="fas fa-plus"></i></a>{{ event_form.rezult_proverki }}
+						{% if event_form.rezult_proverki.errors %}
+							{% for error in event_form.rezult_proverki.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+						{% endif %}
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-12">
-						<label for="id_operativnaye_obstanovka">Оперативная обстановка</label>&nbsp;&nbsp;
+						{{ event_form.prinyatie_meri.label_tag }} {{ event_form.prinyatie_meri }}
+						{% if event_form.prinyatie_meri.errors %}
+							{% for error in event_form.prinyatie_meri.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+						{% endif %}
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						{{ event_form.otvet_zayavitelyu.label_tag }} {{ event_form.otvet_zayavitelyu }}
+						{% if event_form.otvet_zayavitelyu.errors %}
+							{% for error in event_form.otvet_zayavitelyu.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+						{% endif %}
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						{{ event_form.ispolnenie_rezolyucii.label_tag }} {{ event_form.ispolnenie_rezolyucii }}
+						{% if event_form.ispolnenie_rezolyucii.errors %}
+							{% for error in event_form.ispolnenie_rezolyucii.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+						{% endif %}
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						{{ event_form.data_otveta.label_tag }} {{ event_form.data_otveta }}
+						{% if event_form.data_otveta.errors %}
+							{% for error in event_form.data_otveta.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+						{% endif %}
+					</div>
+					<div class="form-group col-md-6">
+						{{ event_form.ishodyaschii_nomer.label_tag }} {{ event_form.ishodyaschii_nomer }}
+						{% if event_form.ishodyaschii_nomer.errors %}
+							{% for error in event_form.ishodyaschii_nomer.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+						{% endif %}
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						{{ event_form.operativnaya_obstanovka.label_tag }}
 						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-operationEnv"><i class="fas fa-plus"></i>
-						</a> <select class="custom-select mr-sm-2" id="id_operativnaye_obstanovka" name="operativnaye_obstanovka">
-						{% for operativnaye_obstanovka in operativnaye_obstanovki %}
-							<option value="{{ operativnaye_obstanovka.id }}">{{ operativnaye_obstanovka.sut_info }}</option>
-						{% endfor %}
-					</select>
+						</a>{{ event_form.operativnaya_obstanovka }}
+						{% if event_form.operativnaya_obstanovka.errors %}
+							{% for error in event_form.operativnaya_obstanovka.errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}
+						{% endif %}
 					</div>
 				</div>
 
@@ -585,12 +698,13 @@
 			</div>
 		</div>
 	</div>
-	<!--Текущее время-->
 
-	<script>
-        date = new Date();
-        document.getElementById("inputDateCreateDocument").valueAsDate = date;
-        // Todo: Сделать общую функцию
-        document.getElementById("inputDateRegistartionEvent").valueAsDate = date;
-	</script>
+	<!--Текущее время-->
+{##}
+{#	<script>#}
+{#        date = new Date();#}
+{#        document.getElementById("inputDateCreateDocument").valueAsDate = date;#}
+{#        // Todo: Сделать общую функцию#}
+{#        document.getElementById("inputDateRegistartionEvent").valueAsDate = date;#}
+{#	</script>#}
 {% endblock content %}

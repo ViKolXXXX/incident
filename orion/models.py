@@ -6,7 +6,7 @@ from django.dispatch import receiver
 
 
 class Event(models.Model):
-    type_message = models.ForeignKey("TypeMessage", blank=True, on_delete=models.PROTECT, verbose_name="Тип сообщения")
+    type_message = models.ForeignKey("TypeMessage", on_delete=models.PROTECT, verbose_name="Тип сообщения")
     titul = models.ForeignKey("Titul", blank=True, on_delete=models.PROTECT, verbose_name="Титул")
     organizatsiya = models.ForeignKey("Organizatsiya", blank=True, on_delete=models.PROTECT, verbose_name="Организация")
     date_registratsii = models.DateField(verbose_name="Дата регистрации")
@@ -33,7 +33,7 @@ class Event(models.Model):
     # Свои поля
     date_creation = models.DateField(auto_now=True, verbose_name="Дата создания")
     user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name="Пользователь")
-    status = models.ForeignKey("Status", on_delete=models.PROTECT, verbose_name="Пользователь")
+    status = models.ForeignKey("Status", on_delete=models.PROTECT, verbose_name="Статус")
     subdivision = models.ForeignKey("Subdivision", on_delete=models.PROTECT, verbose_name="Подразделение", default="ГУСБ")
 
 
