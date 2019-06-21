@@ -9,7 +9,6 @@ document.body.onload = function () {
     active_link_menu();
     check_message();
 
-
 };
 
 // Активная ссылка на пункт менюmy.js

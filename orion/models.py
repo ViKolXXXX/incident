@@ -7,13 +7,13 @@ from django.dispatch import receiver
 
 class Event(models.Model):
     type_message = models.ForeignKey("TypeMessage", on_delete=models.PROTECT, verbose_name="Тип сообщения")
-    titul = models.ForeignKey("Titul", blank=True, on_delete=models.PROTECT, verbose_name="Титул")
-    organizatsiya = models.ForeignKey("Organizatsiya", blank=True, on_delete=models.PROTECT, verbose_name="Организация")
+    titul = models.ForeignKey("Titul", blank=True, null=True, on_delete=models.PROTECT, verbose_name="Титул")
+    organizatsiya = models.ForeignKey("Organizatsiya", blank=True, null=True, on_delete=models.PROTECT, verbose_name="Организация")
     date_registratsii = models.DateField(verbose_name="Дата регистрации")
     reg_number = models.CharField(max_length=50, verbose_name="Регистрационный номер")
     sut_info = models.TextField(verbose_name="Суть информации")
-    klassif_priznak_UK = models.ForeignKey("KlassifPriznakUK", blank=True, on_delete=models.PROTECT, verbose_name="Классифицирующий признак (по статье УК РФ)")
-    klassif_priznak_ugroza = models.ForeignKey("KlassifPriznakUgroza", blank=True, on_delete=models.PROTECT, verbose_name="Классифицирующий признак (угроза)")
+    klassif_priznak_UK = models.ForeignKey("KlassifPriznakUK", blank=True, null=True, on_delete=models.PROTECT, verbose_name="Классифицирующий признак (по статье УК РФ)")
+    klassif_priznak_ugroza = models.ForeignKey("KlassifPriznakUgroza", blank=True, null=True, on_delete=models.PROTECT, verbose_name="Классифицирующий признак (угроза)")
     klassif_priznak_text = models.TextField(verbose_name="Классифицирующий признак (текст)", blank=True)
     rezolyutsiya_rukovodstva = models.TextField(verbose_name="Резолюция руководства ВНГ, ГУСБ", blank=True)
     date_start = models.DateField(verbose_name="Дата начало", null=True)
@@ -21,15 +21,15 @@ class Event(models.Model):
     ispolnitel_organ = models.CharField(max_length=100, blank=True, verbose_name="Исполнитель (Орган)")
     ispolnitel_sotrudnik = models.CharField(max_length=100, blank=True, verbose_name="Исполннитель (сотрудник)")
     info_otrabotki_materiala = models.TextField(verbose_name="Информация, полученная в ходе отработки материала", blank=True)
-    identified_face = models.ForeignKey("Face", blank=True, on_delete=models.PROTECT, verbose_name="В ходе проверки выявлены (установленны лица)")
-    type_proverki = models.ForeignKey("TypeProverki", blank=True, on_delete=models.PROTECT, verbose_name="Вид проверки")
-    rezult_proverki = models.ForeignKey("ResultProverki", blank=True, on_delete=models.PROTECT, verbose_name="Результат проверки")
+    identified_face = models.ForeignKey("Face", blank=True, null=True, on_delete=models.PROTECT, verbose_name="В ходе проверки выявлены (установленны лица)")
+    type_proverki = models.ForeignKey("TypeProverki", blank=True, null=True, on_delete=models.PROTECT, verbose_name="Вид проверки")
+    rezult_proverki = models.ForeignKey("ResultProverki", blank=True, null=True, on_delete=models.PROTECT, verbose_name="Результат проверки")
     prinyatie_meri = models.TextField(verbose_name="Принятые меры", blank=True)
     otvet_zayavitelyu = models.TextField(verbose_name="Ответ заявителю", blank=True)
     ispolnenie_rezolyucii = models.TextField(verbose_name="Исполнение резолюции руководства ВНГ, ГУСБ", blank=True)
-    data_otveta = models.DateField(verbose_name="Дата ответа заявителю", blank=True)
+    data_otveta = models.DateField(verbose_name="Дата ответа заявителю", blank=True, null=True)
     ishodyaschii_nomer = models.CharField(max_length=50, blank=True, verbose_name="Исходящий номер документа")
-    operativnaya_obstanovka = models.ForeignKey("OperativnayaObstanovka", blank=True, on_delete=models.PROTECT, verbose_name="Оперативная обстановка")
+    operativnaya_obstanovka = models.ForeignKey("OperativnayaObstanovka", blank=True, null=True, on_delete=models.PROTECT, verbose_name="Оперативная обстановка")
     # Свои поля
     date_creation = models.DateField(auto_now=True, verbose_name="Дата создания")
     user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name="Пользователь")
@@ -51,11 +51,11 @@ class TypeMessage(models.Model):
 class Titul(models.Model):
     name = models.CharField(max_length=300, verbose_name="Наименование")
     nomer_vhodyaschego = models.CharField(max_length=300, blank=True, verbose_name="Номер входящего документа")
-    date_vhodyaschego = models.DateField(verbose_name="Дата входящего документа", blank=True)
+    date_vhodyaschego = models.DateField(verbose_name="Дата входящего документа", blank=True, null=True)
     otkuda = models.CharField(max_length=100, blank=True, verbose_name="Откуда поступил документ")
     ishodyaschii_nomer = models.CharField(max_length=50, blank=True, verbose_name="Исходящий номер документа")
-    date_ishodyaschego = models.DateField(verbose_name="Дата исходящего документа", blank=True)
-    date_vneseniya = models.DateTimeField(verbose_name="Дата вненсения документа в ИБД", blank=True)
+    date_ishodyaschego = models.DateField(verbose_name="Дата исходящего документа", blank=True, null=True)
+    date_vneseniya = models.DateTimeField(verbose_name="Дата вненсения документа в ИБД", auto_now=True)
 
     def __str__(self):
         return self.name

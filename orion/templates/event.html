@@ -4,20 +4,20 @@
 {% block content %}
 	<div class="row d-flex justify-content-center ">
 		<div class="btn-group" role="group" aria-label="Basic example">
-			<button type="button" class="btn btn-secondary" form="event"><i class="fas fa-plus"></i>&nbsp;Добавить
+			<button type="submit" class="btn btn-secondary" form="id_event_form"><i class="fas fa-plus"></i>&nbsp;Добавить
 				событие
 			</button>
 		</div>
 	</div>
-	<div class="row d-flex justify-content-center my-4 ">
-		<div class="container-fluid">
-			<form method="post" action="{% url "event" %}" id="event">{% csrf_token %}
+	<div class="row d-flex justify-content-center my-4">
+		<div class="container-fluid" style="height:700px;overflow-y:scroll;">
+			<form method="post" action="{% url "event" %}" id="id_event_form">{% csrf_token %}
 				<div class="form-row">
 					<div class="form-group col-md-6">
 						{{ event_form.type_message.label_tag }} {{ event_form.type_message }}
 						{% if event_form.type_message.errors %}
 							{% for error in event_form.type_message.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -27,7 +27,7 @@
 						{{ event_form.status.label_tag }} {{ event_form.status }}
 						{% if event_form.status.errors %}
 							{% for error in event_form.status.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -38,11 +38,10 @@
 					<div class="form-group col-md-6">
 						{{ event_form.titul.label_tag }}
 						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-titul">
-							<i class="fas fa-plus"></i> </a>
-						{{ event_form.titul }}
+							<i class="fas fa-plus"></i> </a> {{ event_form.titul }}
 						{% if event_form.titul.errors %}
 							{% for error in event_form.titul.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -51,11 +50,10 @@
 					<div class="form-group col-md-6">
 						{{ event_form.organizatsiya.label_tag }}
 						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-organizatsiya">
-							<i class="fas fa-plus"></i> </a>
-						{{ event_form.organizatsiya }}
+							<i class="fas fa-plus"></i> </a> {{ event_form.organizatsiya }}
 						{% if event_form.organizatsiya.errors %}
 							{% for error in event_form.organizatsiya.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -67,7 +65,7 @@
 						{{ event_form.date_registratsii.label_tag }} {{ event_form.date_registratsii }}
 						{% if event_form.date_registratsii.errors %}
 							{% for error in event_form.date_registratsii.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -77,7 +75,7 @@
 						{{ event_form.reg_number.label_tag }} {{ event_form.reg_number }}
 						{% if event_form.reg_number.errors %}
 							{% for error in event_form.reg_number.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -89,7 +87,7 @@
 						{{ event_form.sut_info.label_tag }} {{ event_form.sut_info }}
 						{% if event_form.sut_info.errors %}
 							{% for error in event_form.sut_info.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -99,13 +97,12 @@
 				<div class="form-row">
 					<div class="form-group col-md-12">
 						{{ event_form.klassif_priznak_UK.label_tag }}
-						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-classifierWUD">
-							<i class="fas fa-plus"></i> </a>
-						{{ event_form.klassif_priznak_UK }}
+						{#						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-classifierWUD">#}
+						{#							<i class="fas fa-plus"></i> </a>#} {{ event_form.klassif_priznak_UK }}
 
 						{% if event_form.klassif_priznak_UK.errors %}
 							{% for error in event_form.klassif_priznak_UK.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -113,11 +110,11 @@
 					</div>
 					<div class="form-group col-md-12">
 						{{ event_form.klassif_priznak_ugroza.label_tag }}
-						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-classifierDanger">
-							<i class="fas fa-plus"></i> </a> {{ event_form.klassif_priznak_ugroza }}
+						{#						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-classifierDanger">#}
+						{#							<i class="fas fa-plus"></i> </a> #} {{ event_form.klassif_priznak_ugroza }}
 						{% if event_form.klassif_priznak_ugroza.errors %}
 							{% for error in event_form.klassif_priznak_ugroza.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -129,7 +126,7 @@
 						{{ event_form.klassif_priznak_text.label_tag }} {{ event_form.klassif_priznak_text }}
 						{% if event_form.klassif_priznak_text.errors %}
 							{% for error in event_form.klassif_priznak_text.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -142,7 +139,7 @@
 						{{ event_form.rezolyutsiya_rukovodstva.label_tag }} {{ event_form.rezolyutsiya_rukovodstva }}
 						{% if event_form.rezolyutsiya_rukovodstva.errors %}
 							{% for error in event_form.rezolyutsiya_rukovodstva.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -154,7 +151,7 @@
 						{{ event_form.date_start.label_tag }} {{ event_form.date_start }}
 						{% if event_form.date_start.errors %}
 							{% for error in event_form.date_start.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -167,7 +164,7 @@
 						{{ event_form.date_finish.label_tag }} {{ event_form.date_finish }}
 						{% if event_form.date_finish.errors %}
 							{% for error in event_form.date_finish.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -179,7 +176,7 @@
 						{{ event_form.ispolnitel_organ.label_tag }} {{ event_form.ispolnitel_organ }}
 						{% if event_form.ispolnitel_organ.errors %}
 							{% for error in event_form.ispolnitel_organ.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -189,7 +186,7 @@
 						{{ event_form.ispolnitel_sotrudnik.label_tag }} {{ event_form.ispolnitel_sotrudnik }}
 						{% if event_form.ispolnitel_sotrudnik.errors %}
 							{% for error in event_form.ispolnitel_sotrudnik.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -201,7 +198,7 @@
 						{{ event_form.info_otrabotki_materiala.label_tag }} {{ event_form.info_otrabotki_materiala }}
 						{% if event_form.info_otrabotki_materiala.errors %}
 							{% for error in event_form.info_otrabotki_materiala.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -214,7 +211,7 @@
 						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-face"><i class="fas fa-plus"></i></a> {{ event_form.identified_face }}
 						{% if event_form.identified_face.errors %}
 							{% for error in event_form.identified_face.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -225,10 +222,10 @@
 				<div class="form-row">
 					<div class="form-group col-md-6">
 						{{ event_form.type_proverki.label_tag }}
-						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-typecheck"><i class="fas fa-plus"></i></a> {{ event_form.type_proverki }}
+						{#						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-typecheck"><i class="fas fa-plus"></i></a> #} {{ event_form.type_proverki }}
 						{% if event_form.type_proverki.errors %}
 							{% for error in event_form.type_proverki.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -236,10 +233,10 @@
 					</div>
 					<div class="form-group col-md-6">
 						{{ event_form.rezult_proverki.label_tag }}
-						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-resultcheck"><i class="fas fa-plus"></i></a>{{ event_form.rezult_proverki }}
+						{#						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-resultcheck"><i class="fas fa-plus"></i></a>#} {{ event_form.rezult_proverki }}
 						{% if event_form.rezult_proverki.errors %}
 							{% for error in event_form.rezult_proverki.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -251,7 +248,7 @@
 						{{ event_form.prinyatie_meri.label_tag }} {{ event_form.prinyatie_meri }}
 						{% if event_form.prinyatie_meri.errors %}
 							{% for error in event_form.prinyatie_meri.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -263,7 +260,7 @@
 						{{ event_form.otvet_zayavitelyu.label_tag }} {{ event_form.otvet_zayavitelyu }}
 						{% if event_form.otvet_zayavitelyu.errors %}
 							{% for error in event_form.otvet_zayavitelyu.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -275,7 +272,7 @@
 						{{ event_form.ispolnenie_rezolyucii.label_tag }} {{ event_form.ispolnenie_rezolyucii }}
 						{% if event_form.ispolnenie_rezolyucii.errors %}
 							{% for error in event_form.ispolnenie_rezolyucii.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -287,7 +284,7 @@
 						{{ event_form.data_otveta.label_tag }} {{ event_form.data_otveta }}
 						{% if event_form.data_otveta.errors %}
 							{% for error in event_form.data_otveta.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -297,7 +294,7 @@
 						{{ event_form.ishodyaschii_nomer.label_tag }} {{ event_form.ishodyaschii_nomer }}
 						{% if event_form.ishodyaschii_nomer.errors %}
 							{% for error in event_form.ishodyaschii_nomer.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -311,7 +308,7 @@
 						</a>{{ event_form.operativnaya_obstanovka }}
 						{% if event_form.operativnaya_obstanovka.errors %}
 							{% for error in event_form.operativnaya_obstanovka.errors %}
-								<div class="alert alert-danger">
+								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
@@ -485,40 +482,19 @@
 					<p style="color: #4a0404;font-size: 22px"><em>Добавить титул документа</em></p>
 				</div>
 				<div class="modal-body">
-					<form>
-						<div class="form-group col-md-12">
-							<label for="inputNameDocument">Наименование</label>
-							<input type="text" class="form-control" id="inputNameDocument">
-						</div>
-						<div class="form-group col-md-12">
-							<label for="inputNumberInputDocument">Номер входящего документа</label>
-							<input type="text" class="form-control" id="inputNumberInputDocument">
-						</div>
-						<div class="form-group col-md-12">
-							<label for="inputDataInputDocument">Дата входящего документа</label>
-							<input type="date" class="form-control" id="inputDataInputDocument">
-						</div>
-						<div class="form-group col-md-12">
-							<label for="inputFromWhereDocument">Откуда поступил документ</label>
-							<input type="text" class="form-control" id="inputFromWhereDocument">
-						</div>
-						<div class="form-group col-md-12">
-							<label for="inputNumberOutputDocument">Исходящий номер документа</label>
-							<input type="text" class="form-control" id="inputNumberOutputDocument">
-						</div>
-						<div class="form-group col-md-12">
-							<label for="inputDataOutputDocument">Дата исходящего документа</label>
-							<input type="date" class="form-control" id="inputDataOutputDocument">
-						</div>
-						<div class="form-group col-md-12">
-							<label for="inputDateCreateDocument">Дата внесения документа</label>
-							<input type="date" class="form-control" id="inputDateCreateDocument" disabled>
-						</div>
+					<form method="post" action="{% url "event" %}" id="id_form_titul">{% csrf_token %}
+						{% for field in titul_form %}
+							<div class="form-group">
+								{{ field.label_tag }}
+								<div>{{ field }}</div>
+								<div class="error">{{ field.errors }}</div>
+							</div>
+						{% endfor %}
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-					<button type="button" class="btn btn-primary">Добавить</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" >Закрыть</button>
+					<button type="submit" class="btn btn-primary" form="id_form_titul">Добавить</button>
 				</div>
 			</div>
 		</div>
@@ -705,13 +681,22 @@
 			</div>
 		</div>
 	</div>
-
 	<!--Текущее время-->
-{##}
-{#	<script>#}
-{#        date = new Date();#}
-{#        document.getElementById("inputDateCreateDocument").valueAsDate = date;#}
-{#        // Todo: Сделать общую функцию#}
-{#        document.getElementById("inputDateRegistartionEvent").valueAsDate = date;#}
-{#	</script>#}
+	{##}
+	{#	<script>#}
+	{#        date = new Date();#}
+	{#        document.getElementById("inputDateCreateDocument").valueAsDate = date;#}
+	{#        // Todo: Сделать общую функцию#}
+	{#        document.getElementById("inputDateRegistartionEvent").valueAsDate = date;#}
+	{#	</script>#}
 {% endblock content %}
+{% block js %}
+	<script>
+        $(document).ready(function () {
+            $('.selectpicker').selectpicker({
+                noneResultsText: 'Результат не найден!!!'
+            });
+        });
+	</script>
+
+{% endblock js %}
