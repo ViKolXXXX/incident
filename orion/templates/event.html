@@ -36,7 +36,10 @@
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						{{ event_form.titul.label_tag }} {{ event_form.titul }}
+						{{ event_form.titul.label_tag }}
+						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-titul">
+							<i class="fas fa-plus"></i> </a>
+						{{ event_form.titul }}
 						{% if event_form.titul.errors %}
 							{% for error in event_form.titul.errors %}
 								<div class="alert alert-danger">
@@ -46,7 +49,10 @@
 						{% endif %}
 					</div>
 					<div class="form-group col-md-6">
-						{{ event_form.organizatsiya.label_tag }} {{ event_form.organizatsiya }}
+						{{ event_form.organizatsiya.label_tag }}
+						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-organizatsiya">
+							<i class="fas fa-plus"></i> </a>
+						{{ event_form.organizatsiya }}
 						{% if event_form.organizatsiya.errors %}
 							{% for error in event_form.organizatsiya.errors %}
 								<div class="alert alert-danger">
@@ -94,7 +100,8 @@
 					<div class="form-group col-md-12">
 						{{ event_form.klassif_priznak_UK.label_tag }}
 						<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-classifierWUD">
-							<i class="fas fa-plus"></i> </a> {{ event_form.klassif_priznak_UK }}
+							<i class="fas fa-plus"></i> </a>
+						{{ event_form.klassif_priznak_UK }}
 
 						{% if event_form.klassif_priznak_UK.errors %}
 							{% for error in event_form.klassif_priznak_UK.errors %}
@@ -379,7 +386,7 @@
 		</div>
 	</div>
 	<!-- modal-organization -->
-	<div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal-organization" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal-organizatsiya" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -470,8 +477,8 @@
 			</div>
 		</div>
 	</div>
-	<!-- modal-document -->
-	<div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal-document" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<!-- modal-titul -->
+	<div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal-titul" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">

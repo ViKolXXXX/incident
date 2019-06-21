@@ -296,3 +296,8 @@ body {
     color: #8f5a0a;
     font-size: 25px;
 }
+
+/*Надпись пользователя в админке*/
+.font-size-option span  {
+    font-size: 12px;
+}

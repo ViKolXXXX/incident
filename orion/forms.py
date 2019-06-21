@@ -21,17 +21,18 @@ class EventForm(ModelForm):
     sut_info = forms.CharField(label="Суть информации", required=True, widget=forms.Textarea(attrs={"class": "form-control", "cols": 2, "rows": 2}))
 
     klassif_priznak_UK = forms.ModelChoiceField(label="Классифицирующий признак (по статье УК РФ)", queryset=KlassifPriznakUK.objects.all(),
-                                                widget=forms.Select(attrs={"class": "form-control selectpicker show-tick", "data-live-search":"true"}))
+                                                widget=forms.Select(attrs={"class": "form-control selectpicker show-tick font-size-option", "data-live-search": "true",
+                                                                           "data-size": "7"}))
 
     klassif_priznak_ugroza = forms.ModelChoiceField(label="Классифицирующий признак (угроза)", queryset=KlassifPriznakUgroza.objects.all(),
-                                                    widget=forms.Select(attrs={"class": "form-control form-control-sm"}))
+                                                    widget=forms.Select(attrs={"class": "form-control selectpicker show-tick font-size-option", "data-live-search": "true",
+                                                                           "data-size": "7"}))
     klassif_priznak_text = forms.CharField(label="Классифицирующий признак (текст)", widget=forms.TextInput(attrs={"class": "form-control "}))
     rezolyutsiya_rukovodstva = forms.CharField(label="Резолюция руководства ВНГ, ГУСБ", widget=forms.Textarea(attrs={"class": "form-control", "cols": 2, "rows": 2}))
     date_start = forms.DateField(label="Дата начало", required=True, widget=forms.DateInput(attrs={"class": "form-control", "type": "date"}))
     date_finish = forms.DateField(label="Дата конец", required=True, widget=forms.DateInput(attrs={"class": "form-control", "type": "date"}))
     ispolnitel_organ = forms.CharField(label="Исполнитель (Орган)", max_length=100, widget=forms.TextInput(attrs={"class": "form-control"}))
     ispolnitel_sotrudnik = forms.CharField(label="Исполннитель (сотрудник)", max_length=100, widget=forms.TextInput(attrs={"class": "form-control"}))
-
     info_otrabotki_materiala = forms.CharField(label="Информация, полученная в ходе отработки материала",
                                                widget=forms.Textarea(attrs={"class": "form-control", "cols": 2, "rows": 2}))
 
@@ -49,8 +50,6 @@ class EventForm(ModelForm):
     ishodyaschii_nomer = forms.CharField(label="Исходящий номер документа", max_length=50, widget=forms.TextInput(attrs={"class": "form-control"}))
     operativnaya_obstanovka = forms.ModelChoiceField(label="Оперативная обстановка", queryset=OperativnayaObstanovka.objects.all(),
                                                      widget=forms.Select(attrs={"class": "custom-select mr-sm-2"}))
-
-
 
     class Meta:
         model = Event
