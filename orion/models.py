@@ -70,7 +70,7 @@ class Organizatsiya(models.Model):
     inn_ogrn = models.CharField(max_length=100, blank=True, verbose_name="ИНН (ОГРН)")
     adres_organiz_ate = models.ForeignKey("AdresAte", blank=True, on_delete=models.PROTECT, verbose_name="Адрес организации (АТЕ)")
     adres_organiz = models.CharField(max_length=100, blank=True, verbose_name="Адрес организации")
-    inaya_informaciya = models.TextField(blank=True, verbose_name="Иная организация")
+    inaya_informaciya = models.TextField(blank=True, verbose_name="Иная информация")
 
     def __str__(self):
         return self.name

@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 
-from orion.models import Event, TypeMessage, Titul, Organizatsiya, KlassifPriznakUK, KlassifPriznakUgroza, Face, TypeProverki, ResultProverki, OperativnayaObstanovka, Status
+from orion.models import Event, TypeMessage, Titul, Organizatsiya, KlassifPriznakUK, KlassifPriznakUgroza, Face, TypeProverki, ResultProverki, OperativnayaObstanovka, Status, AdresAte
 
 
 class EventForm(ModelForm):
@@ -41,7 +41,7 @@ class EventForm(ModelForm):
 
 
 class TitulForm(ModelForm):
-    name = forms.CharField(label="Наименование", required=True, max_length=300, widget=forms.TextInput(attrs={"class": "form-control"}))
+    name = forms.CharField(label="Наименование документа", required=True, max_length=300, widget=forms.TextInput(attrs={"class": "form-control"}))
     nomer_vhodyaschego = forms.CharField(label="Номер входящего документа", required=False, max_length=300, widget=forms.TextInput(attrs={"class": "form-control"}))
     date_vhodyaschego = forms.DateField(label="Дата входящего документа", required=False, widget=forms.DateInput(attrs={"class": "form-control", "type": "date"}))
     otkuda = forms.CharField(label="Откуда поступил документ", max_length=100, required=False, widget=forms.TextInput(attrs={"class": "form-control"}))
@@ -51,3 +51,15 @@ class TitulForm(ModelForm):
     class Meta:
         model = Titul
         exclude = ['date_vneseniya']
+
+
+class OrganizatsiyaForm(ModelForm):
+    name = forms.CharField(label="Наименование организации", required=True, max_length=300, widget=forms.TextInput(attrs={"class": "form-control"}))
+    inn_ogrn = forms.CharField(label="ИНН (ОГРН)", required=False, max_length=300, widget=forms.TextInput(attrs={"class": "form-control"}))
+    adres_organiz_ate = forms.ModelChoiceField(label="Адрес организации (АТЕ)", queryset=AdresAte.objects.all(), widget=forms.Select(attrs={"class": "custom-select mr-sm-2"}))
+    adres_organiz = forms.CharField(label="Адрес организации", max_length=100, required=False, widget=forms.TextInput(attrs={"class": "form-control"}))
+    inaya_informaciya = forms.CharField(label="Иная информация", required=True, widget=forms.Textarea(attrs={"class": "form-control", "cols": 2, "rows": 2}))
+
+    class Meta:
+        model = Organizatsiya
+        fields = '__all__'

@@ -8,9 +8,29 @@ document.body.onload = function () {
     }, 70);
     active_link_menu();
     check_message();
+    message();
 
 };
-
+function message() {
+    message_text = $("#message").text();
+    message_tags = $("#message").attr("data-tags");
+    switch (message_tags) {
+        case 'success':  // if (x === 'value1')
+            $.notify(message_text, "success");
+            break;
+        case 'info':
+            $.notify(message_text, "info");
+            break;
+        case 'warning':
+            $.notify(message_text, "warn");
+            break;
+        case 'error':
+            $.notify(message_text, "error");
+            break;
+        default:
+            break;
+    }
+};
 // Активная ссылка на пункт менюmy.js
 function active_link_menu() {
     name_title = document.title;

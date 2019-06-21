@@ -33,3 +33,19 @@ class EventView(OrionView):
             context = {"event_form": event_form}
             return render(request, self.template_name, context)
 
+
+class TitulView(OrionView):
+    group_required = ['orion']
+    template_name = "event.html"
+
+    def post(self, request, *args, **kwargs):
+
+        titul_form = TitulForm(request.POST)
+
+        if titul_form.is_valid():
+            titul_form.save()
+            messages.success(request, "Данные успешно сохранены!!!")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        else:
+            messages.error(request, "Форма имеет не правильные значения!!!")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

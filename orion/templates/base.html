@@ -24,6 +24,11 @@
 		<!--<span id="load_perc">0%</span>-->
 	</div>
 </div>
+{% if messages %}
+	{% for message in messages %}
+		<div id="message" data-tags="{{ message.tags }}" hidden>{{ message }}</div>
+	{% endfor %}
+{% endif %}
 <div id="wrapper" class="toggled">
 	<!-- Sidebar -->
 	<div id="sidebar-wrapper">
@@ -35,11 +40,16 @@
 				<a id="journal" href={% url "journal" %}><i class="far fa-book"></i>&nbsp;&nbsp;Журнал</a>
 			</li>
 			<li>
-				<a id="event" href={% url "event" %}><i class="fas fa-file-alt"></i>&nbsp;&nbsp;Событие</a>
+				<a id="event" href={% url "event" %}><i class="fas fa-file-invoice"></i>&nbsp;&nbsp;Событие</a>
 			</li>
 			<li>
-				<a id="operationalenv" href={% url "operationalenv" %}><i class="far fa-compass"></i>&nbsp;&nbsp;Оперативная
-					обстановка</a>
+				<a id="event" href={% url "titul" %}><i class="fas fa-file-alt"></i>&nbsp;&nbsp;Документ</a>
+			</li>
+			<li>
+				<a id="event" href={% url "organizatsiya" %}><i class="fas fa-hotel"></i>&nbsp;&nbsp;Организация</a>
+			</li>
+			<li>
+				<a id="operationalenv" href={% url "operationalenv" %}><i class="far fa-compass"></i>&nbsp;&nbsp;Оперативнаяобстановка</a>
 			</li>
 			<li>
 				<a id="face" href={% url "face" %}><i class="fas fa-address-card"></i>&nbsp;&nbsp;Лицо</a>
@@ -104,18 +114,15 @@
 				incident@rosgvard.ru</p></div>
 			<div class="col-4 d-flex justify-content-center"><p>
 				<img alt="#" height="20" src="{% static "vendor/images/rosgvard_logo_white.png" %}">&nbsp;РОСГВАРДИЯ
-				2018</p></div>
-
-			<div class="col-4 d-flex justify-content-center"><p><i class="fa fa-phone" aria-hidden="true"></i>+7 7777
-				777-77-77 Часы работы: 9:00 - 18:00 </p></div>
+				2019</p>
+			</div>
+			<div class="col-4 d-flex justify-content-center">
+				<p><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;&nbsp;( 71-01 ) 68-75 Часы работы: 9:00 - 18:00
+				</p>
+			</div>
 		</div>
 	</div>
 </div>
-{% if messages %}
-	{% for message in messages %}
-		<p id="message" hidden>{{ message }}</p>
-	{% endfor %}
-{% endif %}
 <!-- Modal message -->
 <div class="modal fade" id="accessdenied-modal" tabindex="-1" role="dialog" aria-labelledby="accessdenied-modalTitle" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
@@ -139,14 +146,12 @@
 <script src={% static "vendor/jquery/jquery.min.js" %}></script>
 <!-- Jquery core Popper -->
 <script src={% static "vendor/bootstrap/js/popper.min.js" %}></script>
-<!-- Bootstrap core JavaScript -->
-{#<script src={% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}></script>#}
+<!-- Bootstrap core JavaScript -->{#<script src={% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}></script>#}
 <script src={% static "vendor/bootstrap/js/bootstrap.min.js" %}></script>
 <script src={% static "vendor/bootstrap-select/js/bootstrap-select.min.js" %}></script>
 <!-- Font Awesome core JavaScript -->
 <script src={% static "vendor/icons/js/all.min.js" %}></script>
 <script src={% static "vendor/message/notify.min.js" %}></script>
-<script src={% static "js/my_script_message.js" %}></script>
 <script src={% static "js/my.js" %}></script>
 {% block js %}
 {% endblock js %}
