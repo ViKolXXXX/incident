@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Организация{% endblock title %}
+{% block name_page %}<i class="fas fa-hotel"></i>&nbsp;Организация{% endblock name_page %}
+{% block breadcrumbs %}
+	<li><a href={% url 'organizatsiya' %} >Организации</a></li>
+	<li><a class="current" href="#" >Изменить организацию</a></li>
+{% endblock breadcrumbs %}
+{% block content %}
+	<div class="row d-flex justify-content-center my-4" style="height:700px;overflow-y:auto;">
+		<div class="col-8">
+			<form method="post" action="{% url "change_organizatsiya" %}" id="id_form_organizatsiya">
+				{% csrf_token %} <input hidden name="organizatsiya_id" value="{{ organizatsiya_id }}">
+				{% for field in organizatsiya_form %}
+					<div class="form-group">
+						{{ field.label_tag }}
+						<div>{{ field }}</div>
+						<div class="error">{{ field.errors }}</div>
+					</div>
+				{% endfor %}
+				<button type="submit" class="btn btn-secondary"><i class="far fa-save"></i>&nbsp;Сохранить</button>
+			</form>
+		</div>
+	</div>
+{% endblock content %}

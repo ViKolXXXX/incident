@@ -31,7 +31,7 @@ function message() {
             break;
     }
 };
-// Активная ссылка на пункт менюmy.js
+// Активная ссылка на пункт меню
 function active_link_menu() {
     name_title = document.title;
     switch (name_title) {
@@ -49,6 +49,12 @@ function active_link_menu() {
             break;
         case 'О программе':
             $('#about').addClass('active');
+            break;
+         case 'Организация':
+            $('#organizatsiya').addClass('active');
+            break;
+         case 'Титул':
+            $('#titul').addClass('active');
             break;
 
     }

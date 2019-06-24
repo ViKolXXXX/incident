@@ -1,17 +1,15 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Титул{% endblock title %}
 {% block name_page %}<i class="fas fa-file-alt"></i>&nbsp;Титул{% endblock name_page %}
+{% block breadcrumbs %}
+	<li><a class="current" href={% url 'titul' %} >Титулы документов</a></li>
+{% endblock breadcrumbs %}
 {% block content %}
-	<div class="row d-flex justify-content-center ">
-		<div class="btn-group" role="group" aria-label="Basic example">
-			<button type="submit" class="btn btn-secondary" form="id_event_form"><i class="fas fa-plus"></i>&nbsp;Добавить
-				событие
-			</button>
-		</div>
-	</div>
-	<div class="row d-flex justify-content-center my-4">
-		<div class="container-fluid" style="height:700px;overflow-y:scroll;">
-			<form method="post" action="{% url "titul" %}" id="id_form_titul">{% csrf_token %}
+	<div class="row d-flex justify-content-center my-4" style="height:700px;overflow-y:auto;">
+		<div class="col-4">
+			<form method="post" action="{% url "titul" %}" id="id_form_titul">
+				{% csrf_token %}
 				{% for field in titul_form %}
 					<div class="form-group">
 						{{ field.label_tag }}
@@ -19,7 +17,59 @@
 						<div class="error">{{ field.errors }}</div>
 					</div>
 				{% endfor %}
+				<button type="submit" class="btn btn-secondary"><i class="far fa-save"></i>&nbsp;Сохранить</button>
 			</form>
+		</div>
+		<div class="col-8">
+				<table id="id_table_titul" class="table table-striped table-bordered" style="width:100%">
+					<thead>
+					<tr>
+						<th>Наименование документа</th>
+						<th>Номер входящего документа</th>
+						<th>Дата входящего документа</th>
+						<th>Откуда поступил документ</th>
+						<th>Исходящий номер документа</th>
+						<th>Дата исходящего документа</th>
+						<th>Дата вненсения документа в ИБД</th>
+						<th>Действие</th>
+					</tr>
+					</thead>
+					<tbody>
+					{% for titul  in tituls %}
+						<tr>
+							<td>{{ titul.name }}</td>
+							<td>{{ titul.nomer_vhodyaschego }}</td>
+							<td>{{ titul.date_vhodyaschego|default_if_none:"" }}</td>
+							<td>{{ titul.otkuda }}</td>
+							<td>{{ titul.ishodyaschii_nomer }}</td>
+							<td>{{ titul.date_ishodyaschego|default_if_none:"" }}</td>
+							<td>{{ titul.date_vneseniya }}</td>
+							<td>
+								<div class="btn-group" role="group" aria-label="Basic example">
+									<a type="button" class="btn btn-secondary" title="Редактировать" href="{% url "change_titul" %}?titul_id={{ titul.id }}">
+										<i class="far fa-edit"></i> </a>
+									<a type="button" class="btn btn-secondary" title="Удалить" href="{% url "delete_titul" %}?titul_id={{ titul.id }}"><i class="far fa-1x fa-trash-alt"></i></a>
+								</div>
+							</td>
+						</tr>
+					{% endfor %}
+				</table>
 		</div>
 	</div>
 {% endblock content %}
+{% block js %}
+	<script>
+        $(document).ready(function () {
+            $('#id_table_titul').DataTable(
+                {
+                    "pageLength": 5,
+                    "lengthChange": false,
+                    "language": {
+                        "url": "{% static "vendor/data_tables/ru.json" %}"
+                    }
+                }
+            );
+        });
+	</script>
+
+{% endblock js %}

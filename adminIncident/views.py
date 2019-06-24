@@ -26,7 +26,7 @@ class DeleteUserView(GroupRequiredMixin, TemplateView):
             messages.success(request, "Пользователь удален!!!")
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         except:
-            messages.error(request, "Что то пошло не так!!!")
+            messages.error(request, "Пользователь не удален!!!")
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 

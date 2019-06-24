@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 
-from orion.models import Event, TypeMessage, Titul, Organizatsiya, KlassifPriznakUK, KlassifPriznakUgroza, Face, TypeProverki, ResultProverki, OperativnayaObstanovka, Status, AdresAte
+from orion.models import Event, TypeMessage, Titul, Organizatsiya, KlassifPriznakUK, KlassifPriznakUgroza, Face, TypeProverki, ResultProverki, OperativnayaObstanovka, Status, AdresAte, Zvanie
 
 
 class EventForm(ModelForm):
@@ -62,4 +62,32 @@ class OrganizatsiyaForm(ModelForm):
 
     class Meta:
         model = Organizatsiya
+        fields = '__all__'
+
+class OperativnayaObstanovkaForm(ModelForm):
+    date = forms.DateField(label="Дата", required=True, widget=forms.DateInput(attrs={"class": "form-control", "type": "date"}))
+    klassif_priznak_ugroza = forms.ModelChoiceField(label="Классифицирующий признак (угроза)", queryset=KlassifPriznakUgroza.objects.all(), required=False,
+                                                    widget=forms.Select(attrs={"class": "form-control selectpicker show-tick font-size-option", "data-live-search": "true", "data-size": "7"}))
+    klassif_priznak_text = forms.CharField(label="Классифицирующий признак (текст)", required=False, widget=forms.TextInput(attrs={"class": "form-control "}))
+    sut_info = forms.CharField(label="Суть информации", required=True, widget=forms.Textarea(attrs={"class": "form-control", "cols": 2, "rows": 2}))
+    prinyatie_meri = forms.CharField(label="Принятые меры", required=False, widget=forms.Textarea(attrs={"class": "form-control", "cols": 2, "rows": 2}))
+
+    class Meta:
+        model = OperativnayaObstanovka
+        fields = '__all__'
+
+class FaceForm(ModelForm):
+    familiya = forms.CharField(label="Фамилия", required=True, max_length=100, widget=forms.TextInput(attrs={"class": "form-control"}))
+    imya = forms.CharField(label="Имя", required=True, max_length=100, widget=forms.TextInput(attrs={"class": "form-control"}))
+    otchestvo = forms.CharField(label="Отчество", required=True, max_length=100, widget=forms.TextInput(attrs={"class": "form-control"}))
+    date_rojdeniya = forms.DateField(label="Дата рождения", required=True, widget=forms.DateInput(attrs={"class": "form-control", "type": "date"}))
+    mesto_rojdeniya_ATE = forms.ModelChoiceField(label="Место рождения (АТЕ)", required=True, queryset=AdresAte.objects.all(), widget=forms.Select(attrs={"class": "custom-select mr-sm-2"}))
+    mesto_rojdeniya_raion = forms.CharField(label="Место рождения (район)", required=False, max_length=100, widget=forms.TextInput(attrs={"class": "form-control"}))
+    mesto_rojdeniya_np = forms.CharField(label="Место рождения (н.п.)", required=False, max_length=100, widget=forms.TextInput(attrs={"class": "form-control"}))
+    zvanie = forms.ModelChoiceField(label="Воинское (специальное) звание", required=True, queryset=Zvanie.objects.all(), widget=forms.Select(attrs={"class": "custom-select mr-sm-2"}))
+    dopolnitelnaya_info = forms.CharField(label="Дополнительная информация", required=False, widget=forms.Textarea(attrs={"class": "form-control", "cols": 2, "rows": 2}))
+
+
+    class Meta:
+        model = Face
         fields = '__all__'

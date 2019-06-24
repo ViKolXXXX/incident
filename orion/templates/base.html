@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+
 <html lang="ru">
 <head>
 	<meta charset="utf-8">
@@ -10,7 +11,8 @@
 	<!-- Bootstrap core CSS -->
 	<link rel="stylesheet" href={% static "vendor/bootstrap/css/bootstrap.min.css" %}>
 	<link rel="stylesheet" href={% static "vendor/bootstrap-select/css/bootstrap-select.min.css" %}>
-
+	<!-- Data Tables core CSS -->
+	<link rel="stylesheet" href={% static "vendor/data_tables/datatables.min.css" %}>
 	<!-- Font Awesome core CSS -->
 	<link rel="stylesheet" href={% static "vendor/icons/css/all.min.css" %}>
 	<!-- Custom styles for this template -->
@@ -43,13 +45,14 @@
 				<a id="event" href={% url "event" %}><i class="fas fa-file-invoice"></i>&nbsp;&nbsp;Событие</a>
 			</li>
 			<li>
-				<a id="event" href={% url "titul" %}><i class="fas fa-file-alt"></i>&nbsp;&nbsp;Документ</a>
+				<a id="titul" href={% url "titul" %}><i class="fas fa-file-alt"></i>&nbsp;&nbsp;Документ</a>
 			</li>
 			<li>
-				<a id="event" href={% url "organizatsiya" %}><i class="fas fa-hotel"></i>&nbsp;&nbsp;Организация</a>
+				<a id="organizatsiya" href={% url "organizatsiya" %}><i class="fas fa-hotel"></i>&nbsp;&nbsp;Организация</a>
 			</li>
 			<li>
-				<a id="operationalenv" href={% url "operationalenv" %}><i class="far fa-compass"></i>&nbsp;&nbsp;Оперативнаяобстановка</a>
+				<a id="operationalenv" href={% url "operationalenv" %}><i class="far fa-compass"></i>&nbsp;&nbsp;Оперативная
+					обстановка</a>
 			</li>
 			<li>
 				<a id="face" href={% url "face" %}><i class="fas fa-address-card"></i>&nbsp;&nbsp;Лицо</a>
@@ -80,12 +83,6 @@
 						<i class="fas fa-times"></i> &nbsp;&nbsp;Скрыть меню</a>
 				</div>
 				<div class="col-2">
-					<ul id="breadcrumbs" style="margin: 0; padding: 0; list-style: none;">
-						<li><a href={% url "start" %}> <i class="fas fa-home fa-lg"></i></a></li>
-						{% block breadcrumbs %}
-
-						{% endblock breadcrumbs %}
-					</ul>
 				</div>
 				<div class="col-4 d-flex justify-content-center">
 					<h4 style="color: #13010461;">{% block name_page %}<i class="fas fa-home"></i>&nbsp;
@@ -103,6 +100,14 @@
 			</div>
 		</div>
 		<div class="container-fluid my-2">
+			<div class="row">
+				<ul id="breadcrumbs" style="margin: 0; padding: 0; list-style: none;">
+					<li><a href={% url "start" %}> <i class="fas fa-home fa-lg"></i></a></li>
+					{% block breadcrumbs %}
+
+					{% endblock breadcrumbs %}
+				</ul>
+			</div>
 			{% block content %}
 			{% endblock content %}
 		</div>
@@ -149,6 +154,8 @@
 <!-- Bootstrap core JavaScript -->{#<script src={% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}></script>#}
 <script src={% static "vendor/bootstrap/js/bootstrap.min.js" %}></script>
 <script src={% static "vendor/bootstrap-select/js/bootstrap-select.min.js" %}></script>
+<!-- Data Tables core JavaScript -->
+<script src={% static "vendor/data_tables/datatables.min.js" %}></script>
 <!-- Font Awesome core JavaScript -->
 <script src={% static "vendor/icons/js/all.min.js" %}></script>
 <script src={% static "vendor/message/notify.min.js" %}></script>
