@@ -38,7 +38,6 @@ class ChangeOperativnayaObstanovkaView(OrionView):
         oper_obstanovka_id = request.GET.get("oper_obstanovka_id")
         oper_obstanovka = OperativnayaObstanovka.objects.get(id=oper_obstanovka_id)
         oper_obstanovka_form = OperativnayaObstanovkaForm(None, instance=oper_obstanovka)
-
         context = {"oper_obstanovka_form": oper_obstanovka_form, "oper_obstanovka_id": oper_obstanovka_id}
         return render(request, self.template_name, context)
 

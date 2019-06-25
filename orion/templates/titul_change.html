@@ -9,7 +9,7 @@
 {% block content %}
 	<div class="row d-flex justify-content-center my-4" style="height:700px;overflow-y:auto;">
 		<div class="col-8">
-			<form method="post" action="{% url "change_titul" %}" id="id_form_titul">
+			<form class="compact-form" method="post" action="{% url "change_titul" %}" id="id_form_titul">
 				{% csrf_token %}
 			 	<input hidden name="titul_id" value="{{ titul_id }}">
 				{% for field in titul_form %}
@@ -19,7 +19,7 @@
 						<div class="error">{{ field.errors }}</div>
 					</div>
 				{% endfor %}
-				<button type="submit" class="btn btn-secondary"><i class="far fa-save"></i>&nbsp;Сохранить</button>
+				<button type="submit" class="btn btn-sm btn-secondary"><i class="far fa-save"></i>&nbsp;Сохранить</button>
 			</form>
 		</div>
 	</div>

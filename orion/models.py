@@ -36,6 +36,13 @@ class Event(models.Model):
     status = models.ForeignKey("Status", on_delete=models.PROTECT, verbose_name="Статус")
     subdivision = models.ForeignKey("Subdivision", on_delete=models.PROTECT, verbose_name="Подразделение", default="ГУСБ")
 
+    @staticmethod
+    def available_requests(subdivision):
+
+        if subdivision == "ГУСБ":
+            return Event.objects.all()
+        else:
+            return Event.objects.filter(subdivision=subdivision)
 
 class TypeMessage(models.Model):
     name = models.TextField(verbose_name="Наименование")
@@ -68,7 +75,7 @@ class Titul(models.Model):
 class Organizatsiya(models.Model):
     name = models.CharField(max_length=300, verbose_name="Наименование организации")
     inn_ogrn = models.CharField(max_length=100, blank=True, verbose_name="ИНН (ОГРН)")
-    adres_organiz_ate = models.ForeignKey("AdresAte", blank=True, on_delete=models.PROTECT, verbose_name="Адрес организации (АТЕ)")
+    adres_organiz_ate = models.ForeignKey("AdresAte", null=True, blank=True, on_delete=models.PROTECT, verbose_name="Адрес организации (АТЕ)")
     adres_organiz = models.CharField(max_length=100, blank=True, verbose_name="Адрес организации")
     inaya_informaciya = models.TextField(blank=True, verbose_name="Иная информация")
 
@@ -126,7 +133,7 @@ class Face(models.Model):
     rodstvennie_svyazi = models.ManyToManyField('self', blank=True, symmetrical=False, verbose_name="Родственные связи")
 
     def __str__(self):
-        return self.familiya
+        return "{} {} {}".format(self.familiya, self.imya, self.otchestvo)
 
     class Meta:
         unique_together = (['familiya', 'imya', 'otchestvo', 'date_rojdeniya', 'mesto_rojdeniya_ATE'])
@@ -169,7 +176,7 @@ class ResultProverki(models.Model):
 
 class OperativnayaObstanovka(models.Model):
     date = models.DateField(verbose_name="Дата")
-    klassif_priznak_ugroza = models.ForeignKey("KlassifPriznakUgroza", blank=True, on_delete=models.PROTECT, verbose_name="Классифицирующий признак (угроза)")
+    klassif_priznak_ugroza = models.ForeignKey("KlassifPriznakUgroza", null=True, blank=True, on_delete=models.PROTECT, verbose_name="Классифицирующий признак (угроза)")
     klassif_priznak_text = models.TextField(verbose_name="Классифицирующий признак (текст)", blank=True)
     sut_info = models.TextField(verbose_name="Суть информации")
     prinyatie_meri = models.TextField(verbose_name="Принятые меры", blank=True)

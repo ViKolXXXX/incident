@@ -7,8 +7,8 @@
 {% endblock breadcrumbs %}
 {% block content %}
 	<div class="row d-flex justify-content-center my-4" style="height:700px;overflow-y:auto;">
-		<div class="col-4">
-			<form method="post" action="{% url "titul" %}" id="id_form_titul">
+		<div class="col-6 border border-secondary">
+			<form class="compact-form" method="post" action="{% url "titul" %}" id="id_form_titul">
 				{% csrf_token %}
 				{% for field in titul_form %}
 					<div class="form-group">
@@ -17,11 +17,11 @@
 						<div class="error">{{ field.errors }}</div>
 					</div>
 				{% endfor %}
-				<button type="submit" class="btn btn-secondary"><i class="far fa-save"></i>&nbsp;Сохранить</button>
+				<button type="submit" class="my-2 btn btn-sm btn-secondary"><i class="far fa-save"></i>&nbsp;Сохранить</button>
 			</form>
 		</div>
-		<div class="col-8">
-				<table id="id_table_titul" class="table table-striped table-bordered" style="width:100%">
+		<div class="col-12">
+				<table id="id_table_titul" class="table table-striped table-bordered compact-table" style="width:100%">
 					<thead>
 					<tr>
 						<th>Наименование документа</th>
@@ -46,9 +46,9 @@
 							<td>{{ titul.date_vneseniya }}</td>
 							<td>
 								<div class="btn-group" role="group" aria-label="Basic example">
-									<a type="button" class="btn btn-secondary" title="Редактировать" href="{% url "change_titul" %}?titul_id={{ titul.id }}">
+									<a type="button" class="btn btn-sm btn-secondary" title="Редактировать" href="{% url "change_titul" %}?titul_id={{ titul.id }}">
 										<i class="far fa-edit"></i> </a>
-									<a type="button" class="btn btn-secondary" title="Удалить" href="{% url "delete_titul" %}?titul_id={{ titul.id }}"><i class="far fa-1x fa-trash-alt"></i></a>
+									<a type="button" class="btn btn-sm  btn-secondary" title="Удалить" href="{% url "delete_titul" %}?titul_id={{ titul.id }}"><i class="far fa-1x fa-trash-alt"></i></a>
 								</div>
 							</td>
 						</tr>

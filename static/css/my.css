@@ -301,3 +301,22 @@ body {
 .font-size-option span  {
     font-size: 12px;
 }
+.font-size-option li  {
+    width: 900px;
+}
+
+/*Компактные формы*/
+.compact-form div {
+    margin-bottom: 0px;
+    font-size: 14px;
+    line-height: 18px;
+
+}
+.compact-form div label{
+    margin-bottom: 0px;
+
+}
+/*Таблицы*/
+.compact-table {
+    font-size: 14px;
+}
