@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
@@ -10,8 +11,10 @@ class JournalView(OrionView):
     template_name = "journal.html"
 
     def get(self, request, *args, **kwargs):
-        print(request.user.userprofile.subdivision)
-        context = {
-            "events": Event.available_requests(request.user.userprofile.subdivision.name)
-        }
-        return render(request, self.template_name, context)
+        try:
+            events = Event.available_requests(request.user.userprofile.subdivision.pk)
+            return render(request, self.template_name, {"events": events})
+
+        except:
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+

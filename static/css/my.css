@@ -318,5 +318,11 @@ body {
 }
 /*Таблицы*/
 .compact-table {
+    vertical-align: center;
+    text-align: center;
     font-size: 14px;
+}
+.compact-table td {
+    vertical-align: middle;
+    text-align: center;
 }

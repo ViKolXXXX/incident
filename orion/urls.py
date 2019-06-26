@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.urls import re_path, path, include
 
-from orion.views import headorion_view, event_view, operationalenv_view, face_view, journal_view, analytics_view, about_view, titul_view, organization_view
+from orion.views import headorion_view, event_view, operationalenv_view, face_view, journal_view, analytics_view, about_view, titul_view, organization_view, ajax_view
 
 urlpatterns = [
 
@@ -35,4 +35,7 @@ urlpatterns = [
     re_path(r'^anlytics$', login_required(analytics_view.AnalyticsView.as_view()), name="analytics"),
     re_path(r'^about$', login_required(about_view.AboutView.as_view()), name="about"),
 
-    ]
+    # AJAX
+    re_path(r'^count_event/', login_required(ajax_view.CountEventView.as_view()), name="count_event"),
+
+]

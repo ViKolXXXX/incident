@@ -36,13 +36,16 @@ class Event(models.Model):
     status = models.ForeignKey("Status", on_delete=models.PROTECT, verbose_name="Статус")
     subdivision = models.ForeignKey("Subdivision", on_delete=models.PROTECT, verbose_name="Подразделение", default="ГУСБ")
 
+    # Доступные запросы
     @staticmethod
-    def available_requests(subdivision):
+    def available_requests(subdivision_pk):
+        return Event.objects.all() if subdivision_pk == 1 else Event.objects.filter(subdivision__pk=subdivision_pk)
 
-        if subdivision == "ГУСБ":
-            return Event.objects.all()
-        else:
-            return Event.objects.filter(subdivision=subdivision)
+    # ДоступныЙ запрос
+    @staticmethod
+    def available_request(subdivision_pk, id):
+        return Event.objects.get(id=id) if subdivision_pk == 1 else Event.objects.get(subdivision__pk=subdivision_pk, id=id)
+
 
 class TypeMessage(models.Model):
     name = models.TextField(verbose_name="Наименование")
@@ -215,6 +218,7 @@ class Subdivision(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     subdivision = models.ForeignKey("Subdivision", on_delete=models.PROTECT, verbose_name="Подразделение", default=1)
+
     # avatar = models.ImageField(upload_to='images/users', verbose_name='Изображение')
 
     def __unicode__(self):

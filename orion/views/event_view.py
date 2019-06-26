@@ -37,7 +37,7 @@ class ChangeEventView(OrionView):
 
     def get(self, request, *args, **kwargs):
         event_id = request.GET.get("event_id")
-        event = Event.objects.get(id=event_id)
+        event = Event.available_request(request.user.userprofile.subdivision.pk, event_id)
         event_form = EventForm(None, instance=event)
 
         context = {"event_form": event_form, "event_id": event_id}
@@ -45,7 +45,7 @@ class ChangeEventView(OrionView):
 
     def post(self, request, *args, **kwargs):
         event_id = request.POST.get("event_id")
-        event = Event.objects.get(id=event_id)
+        event = Event.available_request(request.user.userprofile.subdivision.pk, event_id)
         event_form = EventForm(request.POST, instance=event)
         if event_form.is_valid():
             event_form.save(commit=False)
@@ -66,7 +66,7 @@ class DeleteEventView(OrionView):
     def get(self, request, *args, **kwargs):
         try:
             event_id = request.GET.get("event_id")
-            Event.objects.get(id=event_id).delete()
+            Event.available_request(request.user.userprofile.subdivision.pk, event_id).delete()
             messages.success(request, "Успешно удалено!!!")
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         except:
