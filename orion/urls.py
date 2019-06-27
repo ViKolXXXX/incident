@@ -37,5 +37,6 @@ urlpatterns = [
 
     # AJAX
     re_path(r'^count_event/', login_required(ajax_view.CountEventView.as_view()), name="count_event"),
+    re_path(r'^show_event/', login_required(ajax_view.ShowEventView.as_view()), name="show_event"),
 
 ]

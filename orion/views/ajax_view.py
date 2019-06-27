@@ -1,5 +1,7 @@
 from django.http import JsonResponse
+from django.shortcuts import render
 
+from orion.forms import EventForm
 from orion.models import Event
 from orion.views.abstract.orion_view import OrionView
 
@@ -26,3 +28,14 @@ class CountEventView(OrionView):
                 element = 0
         context = {"element": element}
         return JsonResponse(context)
+
+
+class ShowEventView(OrionView):
+    group_required = ['orion']
+
+    def get(self, request, *args, **kwargs):
+        event_id = request.GET.get("event_id")
+        event = Event.available_request(request.user.userprofile.subdivision.pk, event_id)
+        event_form = EventForm(None, instance=event)
+        context = {"event_form": event_form, "event_id":event_id}
+        return render(request, "event_body_modal.html", context)
