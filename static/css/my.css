@@ -307,7 +307,7 @@ body {
 
 /*Компактные формы*/
 .compact-form div {
-    margin-bottom: 0px;
+    margin-bottom: 2px;
     font-size: 14px;
     line-height: 18px;
 

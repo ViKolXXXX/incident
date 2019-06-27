@@ -18,6 +18,7 @@ urlpatterns = [
     ])),
     re_path(r'^titul/', include([
         re_path(r'^$', titul_view.TitulView.as_view(), name="titul"),
+        re_path(r'^add$', titul_view.AddTitulView.as_view(), name="add_titul"),
         re_path(r'^change$', titul_view.ChangeTitulView.as_view(), name="change_titul"),
         re_path(r'^delete$', titul_view.DeleteTitulView.as_view(), name="delete_titul"),
     ])),

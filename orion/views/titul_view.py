@@ -13,9 +13,17 @@ class TitulView(OrionView):
 
     def get(self, request, *args, **kwargs):
         context = {
-            "tituls": Titul.objects.all(),
-            "titul_form": TitulForm()
+            "tituls": Titul.objects.all()
         }
+        return render(request, self.template_name, context)
+
+
+class AddTitulView(OrionView):
+    group_required = ['orion']
+    template_name = "titul_content_modal_add.html"
+
+    def get(self, request, *args, **kwargs):
+        context = {"titul_form": TitulForm()}
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
@@ -27,12 +35,11 @@ class TitulView(OrionView):
         else:
             context = {"titul_form": titul_form, "tituls": Titul.objects.all()}
             messages.error(request, "Данные не сохранены!!!")
-            return render(request, self.template_name, context)
-
+            return render(request, "titul.html", context)
 
 class ChangeTitulView(OrionView):
     group_required = ['orion']
-    template_name = "titul_change.html"
+    template_name = "titul_content_modal_change.html"
 
     def get(self, request, *args, **kwargs):
         titul_id = request.GET.get("titul_id")
