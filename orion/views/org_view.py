@@ -2,36 +2,35 @@ from django.contrib import messages
 from django.db.models import ProtectedError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-
-from orion.models import Face
+from orion.models import Org
 from orion.views.abstract.orion_view import OrionView
-from orion.forms import FaceForm
+from orion.forms import OrgForm
 
 
-class FaceView(OrionView):
+class OrgView(OrionView):
     group_required = ['Орион']
-    template_name = "face.html"
+    template_name = "org.html"
 
     def get(self, request, *args, **kwargs):
         context = {
-            "faces": Face.objects.all(),
+            "orgs": Org.objects.all(),
         }
         return render(request, self.template_name, context)
 
 
-class AddFaceView(OrionView):
+class AddOrgView(OrionView):
     group_required = ['Орион']
-    template_name = "face_content_modal_add.html"
+    template_name = "org_content_modal_add.html"
 
     def get(self, request, *args, **kwargs):
-        context = {"face_form": FaceForm()}
+        context = {"org_form": OrgForm()}
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
         try:
-            face_form = FaceForm(request.POST)
-            if face_form.is_valid():
-                face_form.save()
+            org_form = OrgForm(request.POST)
+            if org_form.is_valid():
+                org_form.save()
                 messages.success(request, "Данные успешно сохранены!!!")
                 return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
             else:
@@ -42,24 +41,24 @@ class AddFaceView(OrionView):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-class ChangeFaceView(OrionView):
+class ChangeOrgView(OrionView):
     group_required = ['Орион']
-    template_name = "face_content_modal_change.html"
+    template_name = "org_content_modal_change.html"
 
     def get(self, request, *args, **kwargs):
-        face_id = request.GET.get("face_id")
-        face = Face.objects.get(id=face_id)
-        face_form = FaceForm(None, instance=face)
-        context = {"face_form": face_form, "face_id": face_id}
+        org_id = request.GET.get("org_id")
+        org = Org.objects.get(id=org_id)
+        org_form = OrgForm(None, instance=org)
+        context = {"org_form": org_form, "org_id": org_id}
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
         try:
-            face_id = request.POST.get("face_id")
-            face = Face.objects.get(id=face_id)
-            face_form = FaceForm(request.POST, instance=face)
-            if face_form.is_valid():
-                face_form.save()
+            org_id = request.POST.get("org_id")
+            org = Org.objects.get(id=org_id)
+            org_form = OrgForm(request.POST, instance=org)
+            if org_form.is_valid():
+                org_form.save()
                 messages.success(request, "Данные успешно сохранены!!!")
                 return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
             else:
@@ -70,14 +69,14 @@ class ChangeFaceView(OrionView):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-class DeleteFaceView(OrionView):
+class DeleteOrgView(OrionView):
     group_required = ['Орион']
-    template_name = "face.html"
+    template_name = "org.html"
 
     def get(self, request, *args, **kwargs):
         try:
-            face_id = request.GET.get("face_id")
-            Face.objects.get(id=face_id).delete()
+            org_id = request.GET.get("org_id")
+            Org.objects.get(id=org_id).delete()
             messages.success(request, "Успешно удалено!!!")
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         except ProtectedError:

@@ -1,8 +1,6 @@
-<button type="submit" class="btn btn-secondary" form="id_event_form"><i class="fas fa-plus"></i>&nbsp;Добавить
-    событие
-</button>
-<form class="compact-form" method="post" action="{% url "change_event" %}" id="id_event_form">{% csrf_token %}
-<input hidden name="event_id" value="{{ event_id }}">
+
+
+
     <div class="form-row">
         <div class="form-group col-md-6">
             {{ event_form.type_message.label_tag }} {{ event_form.type_message }}
@@ -37,9 +35,9 @@
             {% endif %}
         </div>
         <div class="form-group col-md-6">
-            {{ event_form.organizatsiya.label_tag }} {{ event_form.organizatsiya }}
-            {% if event_form.organizatsiya.errors %}
-                {% for error in event_form.organizatsiya.errors %}
+            {{ event_form.org.label_tag }} {{ event_form.org }}
+            {% if event_form.org.errors %}
+                {% for error in event_form.org.errors %}
                     <div class="invalid-feedback d-block">
                         {{ error }}
                     </div>

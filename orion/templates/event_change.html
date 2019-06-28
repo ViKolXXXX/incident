@@ -49,9 +49,9 @@
 						{% endif %}
 					</div>
 					<div class="form-group col-md-6">
-						{{ event_form.organizatsiya.label_tag }} {{ event_form.organizatsiya }}
-						{% if event_form.organizatsiya.errors %}
-							{% for error in event_form.organizatsiya.errors %}
+						{{ event_form.org.label_tag }} {{ event_form.org }}
+						{% if event_form.org.errors %}
+							{% for error in event_form.org.errors %}
 								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>

@@ -2787,13 +2787,6 @@
   },
   {
     "model": "orion.Status",
-    "pk": 1,
-    "fields": {
-      "name": "На контроль (включен в доклад)"
-    }
-  },
-  {
-    "model": "orion.Status",
     "pk": 2,
     "fields": {
       "name": "На контроль"
@@ -2801,9 +2794,45 @@
   },
   {
     "model": "orion.Status",
-    "pk": 3,
+    "pk": 1,
     "fields": {
       "name": "Информационный"
+    }
+  },
+  {
+    "model": "orion.Status",
+    "pk": 3,
+    "fields": {
+      "name": "На контроль (включен в доклад)"
+    }
+  },
+  {
+    "model": "auth.Group",
+    "pk": 1,
+    "fields": {
+      "name": "Орион"
+    }
+  },
+  {
+    "model": "auth.Group",
+    "pk": 2,
+    "fields": {
+      "name": "Кандидат"
+    }
+  },
+  {
+    "model": "auth.Group",
+    "pk": 3,
+    "fields": {
+      "name": "Админ"
+    }
+  },
+  {
+    "model": "orion.UserProfile",
+    "pk": 1,
+    "fields": {
+      "user_id": "1",
+      "subdivision": "1"
     }
   }
 ]

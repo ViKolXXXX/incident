@@ -7,6 +7,9 @@
 {% block content %}
     <div class="row d-flex justify-content-center my-4" style="height:700px;overflow-y:auto;">
         <div class="col-12">
+            <a class="m-2 btn btn-sm btn-secondary" href={% url "event" %}>
+                <img alt="#" height="30" src="{% static "vendor/color_icons/db_add_8760.ico" %}"/>&nbsp;Добавить событие
+            </a>
             <table id="id_table_event" class="table table-striped table-bordered compact-table" style="width:100%">
                 <thead>
                 <tr>
@@ -26,7 +29,9 @@
                 {% for event  in events %}
                     <tr>
                         <td onclick="show_event({{ event.id }})" style="cursor: pointer">{{ event.type_message }}</td>
-                        <td>{{ event.status }}</td>
+                        <td>
+                            <div class="status_{{ event.status.id }}">{{ event.status }}</div>
+                        </td>
                         <td>{{ event.date_registratsii }}</td>
                         <td>{{ event.klassif_priznak_UK.name }}</td>
                         <td>{{ event.klassif_priznak_ugroza.name }}</td>
@@ -36,11 +41,8 @@
                         <td>{{ event.subdivision.name }}</td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <a type="button" class="btn btn-secondary" title="Редактировать"
-                                   href="{% url "change_event" %}?event_id={{ event.id }}"> <i class="far fa-edit"></i>
-                                </a> <a type="button" class="btn btn-secondary" title="Удалить"
-                                        href="{% url "delete_event" %}?event_id={{ event.id }}"><i
-                                    class="far fa-1x fa-trash-alt"></i></a>
+                                <a type="button" class="btn btn-secondary" title="Редактировать" href="{% url "change_event" %}?event_id={{ event.id }}"> <i class="far fa-edit"></i></a>
+                                <a type="button" class="btn btn-sm  btn-secondary" title="Удалить" href="#" onclick="delete_event({{ event.id }},'{{ event.date_registratsii }}')"><i class="far fa-1x fa-trash-alt"></i></a>
                             </div>
                         </td>
                     </tr>
@@ -50,22 +52,32 @@
     </div>
 
 
-    <div class="modal fade " tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
-         aria-hidden="true" id="myModal">
+    <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" id="id_modal_event">
         <div class="modal-dialog modal-xl">
-            <div class="modal-content">
+            <div class="modal-content" >
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h4>Информация о событии</h4>
                 </div>
-                <div class="modal-body">
-                    ...
+                <div class="modal-body"  id="id_modal_body">
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Модальное окно удаления -->
+    <div class="modal fade" id="id_modal_del" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Вы точно хотите удалить запись?</h5>
+                </div>
+                <div class="modal-body" id="id_body_del">
+
+                </div>
+                <div class="modal-footer" id="id_footer_del">
                 </div>
             </div>
         </div>
@@ -90,11 +102,16 @@
                 "event_id": event_id
             };
             $.get("{% url "show_event" %}", params, function (data) {
-                $('#myModal').modal('toggle');
-                $('.modal-body').empty();
-                $('.modal-body').append(data);
+                $('#id_modal_event').modal('toggle');
+                $('#id_modal_body').empty().append(data);
 
             })
+        }
+
+        function delete_event(event_id, event_date) {
+            $('#id_modal_del').modal('toggle');
+            $('#id_body_del').empty().append(event_date);
+            $('#id_footer_del').empty().append("<a type=\"button\" class=\"btn btn-sm  btn-secondary\" title=\"Удалить\" href=\"{% url "delete_event" %}?event_id=" + event_id + "\"><i class=\"far fa-1x fa-trash-alt\"></i> ДА</a>");
         }
     </script>
 {% endblock js %}

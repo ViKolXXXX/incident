@@ -1,69 +1,87 @@
 from django.contrib import messages
+from django.db.models import ProtectedError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from orion.models import OperativnayaObstanovka
 from orion.views.abstract.orion_view import OrionView
-from orion.forms import OperativnayaObstanovkaForm
+from orion.forms import OperationalEnvForm
 
 
-class OperativnayaObstanovkaView(OrionView):
-    group_required = ['orion']
+class OperationalEnvView(OrionView):
+    group_required = ['Орион']
     template_name = "operationalenv.html"
 
     def get(self, request, *args, **kwargs):
         context = {
-            "oper_obstanovki": OperativnayaObstanovka.objects.all(),
-            "oper_obstanovka_form": OperativnayaObstanovkaForm()
+            "operationalenvs": OperativnayaObstanovka.objects.all(),
         }
         return render(request, self.template_name, context)
 
-    def post(self, request, *args, **kwargs):
-        oper_obstanovka_form = OperativnayaObstanovkaForm(request.POST)
-        if oper_obstanovka_form.is_valid():
-            oper_obstanovka_form.save()
-            messages.success(request, "Данные успешно сохранены!!!")
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-        else:
-            context = {"oper_obstanovka_form": oper_obstanovka_form, "oper_obstanovki": OperativnayaObstanovka.objects.all()}
-            messages.error(request, "Данные не сохранены!!!")
-            return render(request, self.template_name, context)
 
-
-class ChangeOperativnayaObstanovkaView(OrionView):
-    group_required = ['orion']
-    template_name = "operationalenv_change.html"
+class AddOperationalEnvView(OrionView):
+    group_required = ['Орион']
+    template_name = "operationalenv_content_modal_add_.html"
 
     def get(self, request, *args, **kwargs):
-        oper_obstanovka_id = request.GET.get("oper_obstanovka_id")
-        oper_obstanovka = OperativnayaObstanovka.objects.get(id=oper_obstanovka_id)
-        oper_obstanovka_form = OperativnayaObstanovkaForm(None, instance=oper_obstanovka)
-        context = {"oper_obstanovka_form": oper_obstanovka_form, "oper_obstanovka_id": oper_obstanovka_id}
+        context = {"operationalenv_form": OperationalEnvForm()}
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-
-        oper_obstanovka_id = request.POST.get("oper_obstanovka_id")
-        oper_obstanovka = OperativnayaObstanovka.objects.get(id=oper_obstanovka_id)
-        oper_obstanovka_form = OperativnayaObstanovkaForm(request.POST, instance=oper_obstanovka)
-        if oper_obstanovka_form.is_valid():
-            oper_obstanovka_form.save()
-            messages.success(request, "Данные успешно сохранены!!!")
+        try:
+            operationalenv_form = OperationalEnvForm(request.POST)
+            if operationalenv_form.is_valid():
+                operationalenv_form.save()
+                messages.success(request, "Данные успешно сохранены!!!")
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            else:
+                messages.error(request, "Данные не сохранены!!!")
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        except:
+            messages.error(request, "Ошибка!!!")
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-        else:
-            messages.error(request, "Данные не сохранены!!!")
+
+
+class ChangeOperationalEnvView(OrionView):
+    group_required = ['Орион']
+    template_name = "operationalenv_content_modal_change.html"
+
+    def get(self, request, *args, **kwargs):
+        operationalenv_id = request.GET.get("operationalenv_id")
+        operationalenv = OperativnayaObstanovka.objects.get(id=operationalenv_id)
+        operationalenv_form = OperationalEnvForm(None, instance=operationalenv)
+        context = {"operationalenv_form": operationalenv_form, "operationalenv_id": operationalenv_id}
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        try:
+            operationalenv_id = request.POST.get("operationalenv_id")
+            operationalenv = OperativnayaObstanovka.objects.get(id=operationalenv_id)
+            operationalenv_form = OperationalEnvForm(request.POST, instance=operationalenv)
+            if operationalenv_form.is_valid():
+                operationalenv_form.save()
+                messages.success(request, "Данные успешно сохранены!!!")
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            else:
+                messages.error(request, "Данные не сохранены!!!")
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        except:
+            messages.error(request, "Ошибка!!!")
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-class DeleteOperativnayaObstanovkaView(OrionView):
-    group_required = ['orion']
+class DeleteOperationalEnvView(OrionView):
+    group_required = ['Орион']
     template_name = "operationalenv.html"
 
     def get(self, request, *args, **kwargs):
         try:
-            oper_obstanovka_id = request.GET.get("oper_obstanovka_id")
-            OperativnayaObstanovka.objects.get(id=oper_obstanovka_id).delete()
+            operationalenv_id = request.GET.get("operationalenv_id")
+            OperativnayaObstanovka.objects.get(id=operationalenv_id).delete()
             messages.success(request, "Успешно удалено!!!")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        except ProtectedError:
+            messages.error(request, "Нельзя удалить, используется!!!")
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         except:
             messages.error(request, "Ошибка при удалении!!!")

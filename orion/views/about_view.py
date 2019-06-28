@@ -6,6 +6,6 @@ from orion.views.abstract.orion_view import OrionView
 
 
 class AboutView(OrionView):
-    group_required = ['orion']
+    group_required = ['Орион']
     def get(self, request, *args, **kwargs):
         return render(request, "about.html")

@@ -2,13 +2,13 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-from orion.models import TypeMessage, Event, Organizatsiya, KlassifPriznakUK, KlassifPriznakUgroza, Face, TypeProverki, ResultProverki, OperativnayaObstanovka
+from orion.models import TypeMessage, Event, Org, KlassifPriznakUK, KlassifPriznakUgroza, Face, TypeProverki, ResultProverki, OperativnayaObstanovka
 from orion.views.abstract.orion_view import OrionView
 from orion.forms import EventForm, EventForm
 
 
 class EventView(OrionView):
-    group_required = ['orion']
+    group_required = ['Орион']
     template_name = "event.html"
 
     def get(self, request, *args, **kwargs):
@@ -32,7 +32,7 @@ class EventView(OrionView):
             return render(request, self.template_name, context)
 
 class ChangeEventView(OrionView):
-    group_required = ['orion']
+    group_required = ['Орион']
     template_name = "event_change.html"
 
     def get(self, request, *args, **kwargs):
@@ -60,7 +60,7 @@ class ChangeEventView(OrionView):
 
 
 class DeleteEventView(OrionView):
-    group_required = ['orion']
+    group_required = ['Орион']
     template_name = "journal.html"
 
     def get(self, request, *args, **kwargs):

@@ -11,7 +11,6 @@
             <button class="m-2 btn btn-sm btn-secondary" onclick="add_titul()">
                 <img alt="#" height="30" src="{% static "vendor/color_icons/db_add_8760.ico" %}"/>&nbsp;Добавить титул документа
             </button>
-
             <table id="id_table_titul" class="table table-striped table-bordered compact-table" style="width:100%">
                 <thead>
                 <tr>
@@ -38,7 +37,7 @@
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a type="button" class="btn btn-sm btn-secondary" title="Редактировать" href="#" onclick="change_titul({{ titul.id }})"> <i class="far fa-edit"></i> </a>
-                                <a type="button" class="btn btn-sm  btn-secondary" title="Удалить" href="#" onclick="delete_titul({{ titul.id }})"><i class="far fa-1x fa-trash-alt"></i></a>
+                                <a type="button" class="btn btn-sm  btn-secondary" title="Удалить" href="#" onclick="delete_titul({{ titul.id }},'{{ titul.name }}')"><i class="far fa-1x fa-trash-alt"></i></a>
                             </div>
                         </td>
                     </tr>
@@ -56,13 +55,16 @@
     </div>
     <!--Модальное окно удаления -->
     <div class="modal fade" id="id_modal_del" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5>Вы точно хотите удалить запись?</h5>
-            </div>
-            <div class="modal-body" id="id_body_del">
-                <h5>Вы точно хотите удалить запись?</h5>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Вы точно хотите удалить запись?</h5>
+                </div>
+                <div class="modal-body" id="id_body_del">
+
+                </div>
+                <div class="modal-footer" id="id_footer_del">
+                </div>
             </div>
         </div>
     </div>
@@ -80,14 +82,12 @@
                 }
             );
         });
-
         function add_titul() {
             $.get("{% url "add_titul" %}", function (data) {
                 $('#id_modal_titul').modal('toggle');
                 $('#id_modal_content').empty().append(data);
             })
         }
-
         function change_titul(titul_id) {
             var params = {
                 "titul_id": titul_id
@@ -97,13 +97,11 @@
                 $('#id_modal_content').empty().append(data);
             })
         }
-
-        function delete_titul(titul_id) {
+        function delete_titul(titul_id, titul_name) {
             $('#id_modal_del').modal('toggle');
-            $('#id_body_del').empty().append("<a type=\"button\" class=\"btn btn-sm  btn-secondary\" title=\"Удалить\" href=\"{% url "delete_titul" %}?titul_id=" + titul_id + "\"><i class=\"far fa-1x fa-trash-alt\"></i> ДА</a>");
+            $('#id_body_del').empty().append(titul_name);
+            $('#id_footer_del').empty().append("<a type=\"button\" class=\"btn btn-sm  btn-secondary\" title=\"Удалить\" href=\"{% url "delete_titul" %}?titul_id=" + titul_id + "\"><i class=\"far fa-1x fa-trash-alt\"></i> ДА</a>");
         }
-
-
     </script>
 
 {% endblock js %}

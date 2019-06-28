@@ -7,7 +7,7 @@ from orion.views.abstract.orion_view import OrionView
 
 
 class CountEventView(OrionView):
-    group_required = ['orion']
+    group_required = ['Орион']
     regions = {"ОСБ ЦО": "Центральный федеральный округ",
                "ОСБ СЗО": "Северо-Западный федеральный округ",
                "ОСБ ЮО": "Южный федеральный округ",
@@ -31,11 +31,11 @@ class CountEventView(OrionView):
 
 
 class ShowEventView(OrionView):
-    group_required = ['orion']
+    group_required = ['Орион']
 
     def get(self, request, *args, **kwargs):
         event_id = request.GET.get("event_id")
         event = Event.available_request(request.user.userprofile.subdivision.pk, event_id)
         event_form = EventForm(None, instance=event)
-        context = {"event_form": event_form, "event_id":event_id}
+        context = {"event_form": event_form}
         return render(request, "event_body_modal.html", context)

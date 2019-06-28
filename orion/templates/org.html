@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Организация{% endblock title %}
+{% block name_page %}<i class="fas fa-hotel"></i>&nbsp;Организация{% endblock name_page %}
+{% block breadcrumbs %}
+    <li><a class="current" href={% url 'org' %}>Организации</a></li>
+{% endblock breadcrumbs %}
+{% block content %}
+    <div class="row d-flex justify-content-center my-4" style="height:700px;overflow-y:auto;">
+        <div class="col-12">
+            <button class="m-2 btn btn-sm btn-secondary" onclick="add_org()">
+                <img alt="#" height="30" src="{% static "vendor/color_icons/db_add_8760.ico" %}"/>&nbsp;Добавить организацию
+            </button>
+            <table id="id_table_org" class="table table-striped table-bordered compact-table" style="width:100%">
+                <thead>
+                <tr>
+                    <th>Наименование организации</th>
+                    <th>ИНН (ОГРН)</th>
+                    <th>Адрес организации (АТЕ)</th>
+                    <th>Адрес организации</th>
+                    <th>Иная информация</th>
+                    <th>Действие</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for org  in orgs %}
+                    <tr>
+                        <td>{{ org.name }}</td>
+                        <td>{{ org.inn_ogrn }}</td>
+                        <td>{{ org.adres_organiz_ate.name }}</td>
+                        <td>{{ org.adres_organiz }}</td>
+                        <td>{{ org.inaya_informaciya }}</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a type="button" class="btn btn-sm btn-secondary" title="Редактировать" href="#" onclick="change_org({{ org.id }})"> <i class="far fa-edit"></i> </a>
+                                <a type="button" class="btn btn-sm  btn-secondary" title="Удалить" href="#" onclick="delete_org({{ org.id }},'{{ org.name }}')"><i class="far fa-1x fa-trash-alt"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <!--Модальное окно Организации -->
+    <div class="modal fade" id="id_modal_org" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" id="id_modal_content">
+            </div>
+        </div>
+    </div>
+    <!--Модальное окно удаления -->
+    <div class="modal fade" id="id_modal_del" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Вы точно хотите удалить запись?</h5>
+                </div>
+                <div class="modal-body" id="id_body_del">
+
+                </div>
+                <div class="modal-footer" id="id_footer_del">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+{% block js %}
+    <script>
+        $(document).ready(function () {
+            $('#id_table_org').DataTable(
+                {
+                    "pageLength": 5,
+                    "lengthChange": false,
+                    "language": {
+                        "url": "{% static "vendor/data_tables/ru.json" %}"
+                    }
+                }
+            );
+        });
+        function add_org() {
+            $.get("{% url "add_org" %}", function (data) {
+                $('#id_modal_org').modal('toggle');
+                $('#id_modal_content').empty().append(data);
+            })
+        }
+        function change_org(org_id) {
+            var params = {
+                "org_id": org_id
+            };
+            $.get("{% url "change_org" %}", params, function (data) {
+                $('#id_modal_org').modal('toggle');
+                $('#id_modal_content').empty().append(data);
+            })
+        }
+        function delete_org(org_id, org_name) {
+            $('#id_modal_del').modal('toggle');
+            $('#id_body_del').empty().append(org_name);
+            $('#id_footer_del').empty().append("<a type=\"button\" class=\"btn btn-sm  btn-secondary\" title=\"Удалить\" href=\"{% url "delete_org" %}?org_id=" + org_id + "\"><i class=\"far fa-1x fa-trash-alt\"></i> ДА</a>");
+        }
+    </script>
+
+{% endblock js %}

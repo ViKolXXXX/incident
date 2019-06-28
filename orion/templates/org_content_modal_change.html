@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <h4>Изменить организацию</h4>
+</div>
+<div class="modal-body">
+    <form class="compact-form" method="post" action="{% url "change_org" %}" id="id_form_org">
+        {% csrf_token %}
+        <input hidden name="org_id" value="{{ org_id }}">
+        {% for field in org_form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                <div>{{ field }}</div>
+                <div class="error">{{ field.errors }}</div>
+            </div>
+        {% endfor %}
+    </form>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-sm btn-secondary" form="id_form_org"><i class="far fa-save"></i>&nbsp;Сохранить</button>
+    </div>
+</div>

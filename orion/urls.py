@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.urls import re_path, path, include
 
-from orion.views import headorion_view, event_view, operationalenv_view, face_view, journal_view, analytics_view, about_view, titul_view, organization_view, ajax_view
+from orion.views import headorion_view, event_view, operationalenv_view, face_view, journal_view, analytics_view, about_view, titul_view, org_view, ajax_view
 
 urlpatterns = [
 
@@ -13,6 +13,7 @@ urlpatterns = [
     ])),
     re_path(r'^face/', include([
         re_path(r'^$', face_view.FaceView.as_view(), name="face"),
+        re_path(r'^add$', face_view.AddFaceView.as_view(), name="add_face"),
         re_path(r'^change$', face_view.ChangeFaceView.as_view(), name="change_face"),
         re_path(r'^delete$', face_view.DeleteFaceView.as_view(), name="delete_face"),
     ])),
@@ -22,15 +23,17 @@ urlpatterns = [
         re_path(r'^change$', titul_view.ChangeTitulView.as_view(), name="change_titul"),
         re_path(r'^delete$', titul_view.DeleteTitulView.as_view(), name="delete_titul"),
     ])),
-    re_path(r'^organizatsiya/', include([
-        re_path(r'^$', organization_view.OrganizationView.as_view(), name="organizatsiya"),
-        re_path(r'^change$', organization_view.ChangeOrganizationView.as_view(), name="change_organizatsiya"),
-        re_path(r'^delete$', organization_view.DeleteOrganizationView.as_view(), name="delete_organizatsiya"),
+    re_path(r'^org/', include([
+        re_path(r'^$', org_view.OrgView.as_view(), name="org"),
+        re_path(r'^add$', org_view.AddOrgView.as_view(), name="add_org"),
+        re_path(r'^change$', org_view.ChangeOrgView.as_view(), name="change_org"),
+        re_path(r'^delete$', org_view.DeleteOrgView.as_view(), name="delete_org"),
     ])),
     re_path(r'^operationalenv/', include([
-        re_path(r'^$', operationalenv_view.OperativnayaObstanovkaView.as_view(), name="operationalenv"),
-        re_path(r'^change$', operationalenv_view.ChangeOperativnayaObstanovkaView.as_view(), name="change_operationalenv"),
-        re_path(r'^delete$', operationalenv_view.DeleteOperativnayaObstanovkaView.as_view(), name="delete_operationalenv"),
+        re_path(r'^$', operationalenv_view.OperationalEnvView.as_view(), name="operationalenv"),
+        re_path(r'^add$', operationalenv_view.AddOperationalEnvView.as_view(), name="add_operationalenv"),
+        re_path(r'^change$', operationalenv_view.ChangeOperationalEnvView.as_view(), name="change_operationalenv"),
+        re_path(r'^delete$', operationalenv_view.DeleteOperationalEnvView.as_view(), name="delete_operationalenv"),
     ])),
     re_path(r'^journal$', login_required(journal_view.JournalView.as_view()), name="journal"),
     re_path(r'^anlytics$', login_required(analytics_view.AnalyticsView.as_view()), name="analytics"),

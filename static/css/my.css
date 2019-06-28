@@ -326,3 +326,17 @@ body {
     vertical-align: middle;
     text-align: center;
 }
+
+/*Цвет статусов*/
+.status_3{
+    background: #e0ff12;
+    color: #000000;
+}
+.status_2{
+    background: #273eff;
+    color: #000000;
+}
+.status_1{
+    background: #ff1712;
+    color: #000000;
+}

@@ -11,6 +11,7 @@ document.body.onload = function () {
     message();
 
 };
+
 function message() {
     message_text = $("#message").text();
     message_tags = $("#message").attr("data-tags");
@@ -31,6 +32,7 @@ function message() {
             break;
     }
 };
+
 // Активная ссылка на пункт меню
 function active_link_menu() {
     name_title = document.title;
@@ -50,10 +52,10 @@ function active_link_menu() {
         case 'О программе':
             $('#about').addClass('active');
             break;
-         case 'Организация':
-            $('#organizatsiya').addClass('active');
+        case 'Организация':
+            $('#org').addClass('active');
             break;
-         case 'Титул':
+        case 'Титул':
             $('#titul').addClass('active');
             break;
 
@@ -89,6 +91,12 @@ function check_message() {
     }
 }
 
+function init_select() {
+    $('.selectpicker').selectpicker({
+        noneResultsText: 'Результат не найден!!!'
+    });
+
+}
 
 // preloader в процентах
 // var

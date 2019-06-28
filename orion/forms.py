@@ -1,14 +1,14 @@
 from django import forms
 from django.forms import ModelForm
 
-from orion.models import Event, TypeMessage, Titul, Organizatsiya, KlassifPriznakUK, KlassifPriznakUgroza, Face, TypeProverki, ResultProverki, OperativnayaObstanovka, Status, AdresAte, Zvanie
+from orion.models import Event, TypeMessage, Titul, Org, KlassifPriznakUK, KlassifPriznakUgroza, Face, TypeProverki, ResultProverki, OperativnayaObstanovka, Status, AdresAte, Zvanie
 
 
 class EventForm(ModelForm):
     status = forms.ModelChoiceField(label="Статус", required=True, empty_label=None, queryset=Status.objects.all(), widget=forms.Select(attrs={"class": "custom-select mr-sm-2"}))
     type_message = forms.ModelChoiceField(label="Тип сообщения", queryset=TypeMessage.objects.all(), empty_label=None, required=True, widget=forms.Select(attrs={"class": "custom-select mr-sm-2"}))
     titul = forms.ModelChoiceField(label="Документ", queryset=Titul.objects.all(), required=False, widget=forms.Select(attrs={"class": "custom-select mr-sm-2"}))
-    organizatsiya = forms.ModelChoiceField(label="Организация", queryset=Organizatsiya.objects.all(), required=False, widget=forms.Select(attrs={"class": "custom-select mr-sm-2"}))
+    org = forms.ModelChoiceField(label="Организация", queryset=Org.objects.all(), required=False, widget=forms.Select(attrs={"class": "custom-select mr-sm-2"}))
     date_registratsii = forms.DateField(label="Дата регистрации", required=True, widget=forms.DateInput(format='%Y-%m-%d', attrs={"class": "form-control form-control-sm", "type": "date"}))
     reg_number = forms.CharField(label="Регистрационный номер", required=True, max_length=50, widget=forms.TextInput(attrs={"class": "form-control form-control-sm"}))
     sut_info = forms.CharField(label="Суть информации", required=True, widget=forms.Textarea(attrs={"class": "form-control form-control-sm", "cols": 2, "rows": 2}))
@@ -43,7 +43,7 @@ class EventForm(ModelForm):
 class TitulForm(ModelForm):
     name = forms.CharField(label="Наименование документа", required=True, max_length=300, widget=forms.TextInput(attrs={"class": "form-control form-control-sm"}))
     nomer_vhodyaschego = forms.CharField(label="Номер входящего документа", required=False, max_length=300, widget=forms.TextInput(attrs={"class": "form-control form-control-sm"}))
-    date_vhodyaschego = forms.DateField(label="Дата входящего документа",  required=False, widget=forms.DateInput(format='%Y-%m-%d', attrs={"class": "form-control form-control-sm", "type": "date"}))
+    date_vhodyaschego = forms.DateField(label="Дата входящего документа", required=False, widget=forms.DateInput(format='%Y-%m-%d', attrs={"class": "form-control form-control-sm", "type": "date"}))
     otkuda = forms.CharField(label="Откуда поступил документ", max_length=100, required=False, widget=forms.TextInput(attrs={"class": "form-control form-control-sm"}))
     ishodyaschii_nomer = forms.CharField(label="Исходящий номер документа", max_length=50, required=False, widget=forms.TextInput(attrs={"class": "form-control form-control-sm"}))
     date_ishodyaschego = forms.DateField(label="Дата исходящего документа", required=False, widget=forms.DateInput(format='%Y-%m-%d', attrs={"class": "form-control form-control-sm", "type": "date"}))
@@ -53,7 +53,7 @@ class TitulForm(ModelForm):
         exclude = ['date_vneseniya']
 
 
-class OrganizatsiyaForm(ModelForm):
+class OrgForm(ModelForm):
     name = forms.CharField(label="Наименование организации", required=True, max_length=300, widget=forms.TextInput(attrs={"class": "form-control form-control-sm"}))
     inn_ogrn = forms.CharField(label="ИНН (ОГРН)", required=False, max_length=300, widget=forms.TextInput(attrs={"class": "form-control form-control-sm"}))
     adres_organiz_ate = forms.ModelChoiceField(label="Адрес организации (АТЕ)", queryset=AdresAte.objects.all(), widget=forms.Select(attrs={"class": "custom-select mr-sm-2"}))
@@ -61,10 +61,11 @@ class OrganizatsiyaForm(ModelForm):
     inaya_informaciya = forms.CharField(label="Иная информация", required=True, widget=forms.Textarea(attrs={"class": "form-control form-control-sm", "cols": 2, "rows": 2}))
 
     class Meta:
-        model = Organizatsiya
+        model = Org
         fields = '__all__'
 
-class OperativnayaObstanovkaForm(ModelForm):
+
+class OperationalEnvForm(ModelForm):
     date = forms.DateField(label="Дата", required=True, widget=forms.DateInput(format='%Y-%m-%d', attrs={"class": "form-control form-control-sm", "type": "date"}))
     klassif_priznak_ugroza = forms.ModelChoiceField(label="Классифицирующий признак (угроза)", queryset=KlassifPriznakUgroza.objects.all(), required=False,
                                                     widget=forms.Select(attrs={"class": "form-control form-control-sm selectpicker show-tick font-size-option", "data-live-search": "true", "data-size": "7"}))
@@ -76,6 +77,7 @@ class OperativnayaObstanovkaForm(ModelForm):
         model = OperativnayaObstanovka
         fields = '__all__'
 
+
 class FaceForm(ModelForm):
     familiya = forms.CharField(label="Фамилия", required=True, max_length=100, widget=forms.TextInput(attrs={"class": "form-control form-control-sm "}))
     imya = forms.CharField(label="Имя", required=True, max_length=100, widget=forms.TextInput(attrs={"class": "form-control form-control-sm "}))
@@ -86,7 +88,6 @@ class FaceForm(ModelForm):
     mesto_rojdeniya_np = forms.CharField(label="Место рождения (н.п.)", required=False, max_length=100, widget=forms.TextInput(attrs={"class": "form-control form-control-sm "}))
     zvanie = forms.ModelChoiceField(label="Воинское (специальное) звание", required=True, queryset=Zvanie.objects.all(), widget=forms.Select(attrs={"class": "custom-select mr-sm-2"}))
     dopolnitelnaya_info = forms.CharField(label="Дополнительная информация", required=False, widget=forms.Textarea(attrs={"class": "form-control form-control-sm ", "cols": 2, "rows": 2}))
-
 
     class Meta:
         model = Face

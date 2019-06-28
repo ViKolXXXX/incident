@@ -8,7 +8,7 @@ from django.dispatch import receiver
 class Event(models.Model):
     type_message = models.ForeignKey("TypeMessage", on_delete=models.PROTECT, verbose_name="Тип сообщения")
     titul = models.ForeignKey("Titul", blank=True, null=True, on_delete=models.PROTECT, verbose_name="Титул")
-    organizatsiya = models.ForeignKey("Organizatsiya", blank=True, null=True, on_delete=models.PROTECT, verbose_name="Организация")
+    org = models.ForeignKey("Org", blank=True, null=True, on_delete=models.PROTECT, verbose_name="Организация")
     date_registratsii = models.DateField(verbose_name="Дата регистрации")
     reg_number = models.CharField(max_length=50, verbose_name="Регистрационный номер")
     sut_info = models.TextField(verbose_name="Суть информации")
@@ -33,7 +33,7 @@ class Event(models.Model):
     # Свои поля
     date_creation = models.DateField(auto_now=True, verbose_name="Дата создания")
     user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name="Пользователь")
-    status = models.ForeignKey("Status", on_delete=models.PROTECT, verbose_name="Статус")
+    status = models.ForeignKey("Status", on_delete=models.PROTECT, verbose_name="Статус", default="Информационный")
     subdivision = models.ForeignKey("Subdivision", on_delete=models.PROTECT, verbose_name="Подразделение", default="ГУСБ")
 
     # Доступные запросы
@@ -75,7 +75,7 @@ class Titul(models.Model):
         verbose_name_plural = "Титулы"
 
 
-class Organizatsiya(models.Model):
+class Org(models.Model):
     name = models.CharField(max_length=300, verbose_name="Наименование организации")
     inn_ogrn = models.CharField(max_length=100, blank=True, verbose_name="ИНН (ОГРН)")
     adres_organiz_ate = models.ForeignKey("AdresAte", null=True, blank=True, on_delete=models.PROTECT, verbose_name="Адрес организации (АТЕ)")

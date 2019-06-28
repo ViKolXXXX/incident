@@ -9,7 +9,7 @@ from orion.models import Subdivision
 
 
 class AdminIncidentView(GroupRequiredMixin, TemplateView):
-    group_required = ['orion']
+    group_required = ['Админ']
 
     def get(self, request, *args, **kwargs):
         all_users = User.objects.all().exclude(username='admin')
@@ -18,7 +18,7 @@ class AdminIncidentView(GroupRequiredMixin, TemplateView):
 
 
 class DeleteUserView(GroupRequiredMixin, TemplateView):
-    group_required = ['orion']
+    group_required = ['Админ']
 
     def get(self, request, *args, **kwargs):
         try:
@@ -31,7 +31,7 @@ class DeleteUserView(GroupRequiredMixin, TemplateView):
 
 
 class ChangeUserView(GroupRequiredMixin, TemplateView):
-    group_required = ['orion']
+    group_required = ['Админ']
     template_name = "changeuser.html"
 
     def get(self, request, *args, **kwargs):

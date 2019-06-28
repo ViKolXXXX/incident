@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <h4>Изменить лицо</h4>
+</div>
+<div class="modal-body">
+    <form class="compact-form" method="post" action="{% url "change_face" %}" id="id_form_face">
+        {% csrf_token %}
+        <input hidden name="face_id" value="{{ face_id }}">
+        {% for field in face_form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                <div>{{ field }}</div>
+                <div class="error">{{ field.errors }}</div>
+            </div>
+        {% endfor %}
+    </form>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-sm btn-secondary" form="id_form_face"><i class="far fa-save"></i>&nbsp;Сохранить</button>
+    </div>
+</div>

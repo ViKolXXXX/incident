@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.db.models import ProtectedError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
@@ -8,7 +9,7 @@ from orion.forms import TitulForm
 
 
 class TitulView(OrionView):
-    group_required = ['orion']
+    group_required = ['Орион']
     template_name = "titul.html"
 
     def get(self, request, *args, **kwargs):
@@ -19,7 +20,7 @@ class TitulView(OrionView):
 
 
 class AddTitulView(OrionView):
-    group_required = ['orion']
+    group_required = ['Орион']
     template_name = "titul_content_modal_add.html"
 
     def get(self, request, *args, **kwargs):
@@ -27,44 +28,50 @@ class AddTitulView(OrionView):
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        titul_form = TitulForm(request.POST)
-        if titul_form.is_valid():
-            titul_form.save()
-            messages.success(request, "Данные успешно сохранены!!!")
+        try:
+            titul_form = TitulForm(request.POST)
+            if titul_form.is_valid():
+                titul_form.save()
+                messages.success(request, "Данные успешно сохранены!!!")
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            else:
+                messages.error(request, "Данные не сохранены!!!")
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        except:
+            messages.error(request, "Ошибка!!!")
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-        else:
-            context = {"titul_form": titul_form, "tituls": Titul.objects.all()}
-            messages.error(request, "Данные не сохранены!!!")
-            return render(request, "titul.html", context)
+
 
 class ChangeTitulView(OrionView):
-    group_required = ['orion']
+    group_required = ['Орион']
     template_name = "titul_content_modal_change.html"
 
     def get(self, request, *args, **kwargs):
         titul_id = request.GET.get("titul_id")
         titul = Titul.objects.get(id=titul_id)
         titul_form = TitulForm(None, instance=titul)
-
         context = {"titul_form": titul_form, "titul_id": titul_id}
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-
-        titul_id = request.POST.get("titul_id")
-        titul = Titul.objects.get(id=titul_id)
-        titul_form = TitulForm(request.POST, instance=titul)
-        if titul_form.is_valid():
-            titul_form.save()
-            messages.success(request, "Данные успешно сохранены!!!")
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-        else:
-            messages.error(request, "Данные не сохранены!!!")
+        try:
+            titul_id = request.POST.get("titul_id")
+            titul = Titul.objects.get(id=titul_id)
+            titul_form = TitulForm(request.POST, instance=titul)
+            if titul_form.is_valid():
+                titul_form.save()
+                messages.success(request, "Данные успешно сохранены!!!")
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            else:
+                messages.error(request, "Данные не сохранены!!!")
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        except:
+            messages.error(request, "Ошибка!!!")
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 class DeleteTitulView(OrionView):
-    group_required = ['orion']
+    group_required = ['Орион']
     template_name = "titul.html"
 
     def get(self, request, *args, **kwargs):
@@ -73,6 +80,10 @@ class DeleteTitulView(OrionView):
             Titul.objects.get(id=titul_id).delete()
             messages.success(request, "Успешно удалено!!!")
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        except ProtectedError:
+            messages.error(request, "Нельзя удалить, используется!!!")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         except:
             messages.error(request, "Ошибка при удалении!!!")
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+

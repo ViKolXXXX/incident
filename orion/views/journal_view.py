@@ -7,7 +7,7 @@ from orion.views.abstract.orion_view import OrionView
 
 
 class JournalView(OrionView):
-    group_required = ['orion']
+    group_required = ['Орион']
     template_name = "journal.html"
 
     def get(self, request, *args, **kwargs):
