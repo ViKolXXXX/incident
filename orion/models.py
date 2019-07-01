@@ -17,7 +17,7 @@ class Event(models.Model):
     klassif_priznak_text = models.TextField(verbose_name="Классифицирующий признак (текст)", blank=True)
     rezolyutsiya_rukovodstva = models.TextField(verbose_name="Резолюция руководства ВНГ, ГУСБ", blank=True)
     date_start = models.DateField(verbose_name="Дата начало", null=True)
-    date_finish = models.DateField(verbose_name="Дата конец", null=True)
+    date_finish = models.DateField(verbose_name="Дата окончания", null=True)
     ispolnitel_organ = models.CharField(max_length=100, blank=True, verbose_name="Исполнитель (Орган)")
     ispolnitel_sotrudnik = models.CharField(max_length=100, blank=True, verbose_name="Исполннитель (сотрудник)")
     info_otrabotki_materiala = models.TextField(verbose_name="Информация, полученная в ходе отработки материала", blank=True)

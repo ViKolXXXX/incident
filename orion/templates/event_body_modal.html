@@ -1,293 +1,202 @@
+<div class="modal-header d-flex align-items-center">
+    <h4>Информация о событии</h4>
+    <div class="status_{{ event.status.id }}">{{ event.status }}</div>
+</div>
 
 
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            {{ event_form.type_message.label_tag }} {{ event_form.type_message }}
-            {% if event_form.type_message.errors %}
-                {% for error in event_form.type_message.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-        <div class="form-group col-md-6">
-            {{ event_form.status.label_tag }} {{ event_form.status }}
-            {% if event_form.status.errors %}
-                {% for error in event_form.status.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
+<div class="modal-body" id="id_modal_body">
+    <h6>
+        Регистрационный номер:
+        <small class="text-muted">{{ event.reg_number }}</small>
+    </h6>
+    <h6>
+        Тип сообщения:
+        <small class="text-muted">{{ event.type_message }}</small>
+    </h6>
+    <div class="border-top border-bottom">
+        <u>Документ:</u>
+        <h6>
+            Наименование документа:
+            <small class="text-muted">{{ event.titul.name }}</small>
+        </h6>
+        <h6>
+            Номер входящего документа:
+            <small class="text-muted">{{ event.titul.nomer_vhodyaschego }}</small>
+        </h6>
+        <h6>
+            Дата входящего документа:
+            <small class="text-muted">{{ event.titul.date_vhodyaschego }}</small>
+        </h6>
+        <h6>
+            Откуда поступил документ:
+            <small class="text-muted">{{ event.titul.otkuda }}</small>
+        </h6>
+        <h6>
+            Исходящий номер документа:
+            <small class="text-muted">{{ event.titul.ishodyaschii_nomer }}</small>
+        </h6>
+        <h6>
+            Дата входящего документа
+            <small class="text-muted">{{ event.titul.date_ishodyaschego }}</small>
+        </h6>
     </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            {{ event_form.titul.label_tag }} {{ event_form.titul }}
-            {% if event_form.titul.errors %}
-                {% for error in event_form.titul.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-        <div class="form-group col-md-6">
-            {{ event_form.org.label_tag }} {{ event_form.org }}
-            {% if event_form.org.errors %}
-                {% for error in event_form.org.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
+    <div class="border-top border-bottom">
+        <u>Организация</u>
+        <h6>
+            Наименование организации:
+            <small class="text-muted">{{ event.org.name }}</small>
+        </h6>
+        <h6>
+            ИНН (ОГРН):
+            <small class="text-muted">{{ event.org.inn_ogrn }}</small>
+        </h6>
+        <h6>
+            Адрес организации (АТЕ):
+            <small class="text-muted">{{ event.org.adres_organiz_ate }}</small>
+        </h6>
+        <h6>
+            Адрес организации:
+            <small class="text-muted">{{ event.org.adres_organiz }}</small>
+        </h6>
+        <h6>
+            Иная информация:
+            <small class="text-muted">{{ event.org.inaya_informaciya }}</small>
+        </h6>
     </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            {{ event_form.date_registratsii.label_tag }} {{ event_form.date_registratsii }}
-            {% if event_form.date_registratsii.errors %}
-                {% for error in event_form.date_registratsii.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-        <div class="form-group col-md-6">
-            {{ event_form.reg_number.label_tag }} {{ event_form.reg_number }}
-            {% if event_form.reg_number.errors %}
-                {% for error in event_form.reg_number.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
+    <h6>
+        Дата регистрации:
+        <small class="text-muted">{{ event.date_registratsii }}</small>
+    </h6>
+    <h6>
+        Суть информации:
+        <small class="text-muted">{{ event.sut_info }}</small>
+    </h6>
+    <h6>
+        Классифицирующий признак (по статье УК РФ):
+        <small class="text-muted">{{ event.klassif_priznak_UK.name }}</small>
+    </h6>
+    <h6>
+        Классифицирующий признак (угроза):
+        <small class="text-muted">{{ event.klassif_priznak_ugroza.name }}</small>
+    </h6>
+    <h6>
+        Классифицирующий признак (текст):
+        <small class="text-muted">{{ event.klassif_priznak_text }}</small>
+    </h6>
+    <h6>
+        Резолюция руководства ВНГ, ГУСБ:
+        <small class="text-muted">{{ event.rezolyutsiya_rukovodstva }}</small>
+    </h6>
+    <div class="border-top border-bottom">
+        <u>Сроки</u>
+        <h6>
+            Дата начало:
+            <small class="text-muted">{{ event.date_start }}</small>
+        </h6>
+        <h6>
+            Дата окончания:
+            <small class="text-muted">{{ event.date_finish }}</small>
+        </h6>
     </div>
-    <div class="form-row">
-        <div class="form-group col-md-12">
-            {{ event_form.sut_info.label_tag }} {{ event_form.sut_info }}
-            {% if event_form.sut_info.errors %}
-                {% for error in event_form.sut_info.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
+    <h6>
+        Исполнитель (орган):
+        <small class="text-muted">{{ event.ispolnitel_organ }}</small>
+    </h6>
+    <h6>
+        Исполнитель (сотрудник):
+        <small class="text-muted">{{ event.ispolnitel_sotrudnik }}</small>
+    </h6>
+    <div class="border-top border-bottom">
+        <u>Установлено лицо:</u>
+        <h6>
+            Фамилия:
+            <small class="text-muted">{{ event.identified_face.familiya }}</small>
+        </h6>
+        <h6>
+            Имя:
+            <small class="text-muted">{{ event.identified_face.imya }}</small>
+        </h6>
+        <h6>
+            Отчество:
+            <small class="text-muted">{{ event.identified_face.otchestvo }}</small>
+        </h6>
+        <h6>
+            Дата рождения:
+            <small class="text-muted">{{ event.identified_face.date_rojdeniya }}</small>
+        </h6>
+        <h6>
+            Место рождения (АТЕ):
+            <small class="text-muted">{{ event.identified_face.mesto_rojdeniya_ATE }}</small>
+        </h6>
+        <h6>
+            Место рождения (район):
+            <small class="text-muted">{{ event.identified_face.mesto_rojdeniya_raion }}</small>
+        </h6>
+        <h6>
+            Место рождения (н.п.):
+            <small class="text-muted">{{ event.identified_face.mesto_rojdeniya_np }}</small>
+        </h6>
+        <h6>
+            Воинское (специальное) звание:
+            <small class="text-muted">{{ event.identified_face.zvanie }}</small>
+        </h6>
+        <h6>
+            Дополнительная информация:
+            <small class="text-muted">{{ event.identified_face.dopolnitelnaya_info }}</small>
+        </h6>
     </div>
-    <div class="form-row">
-        <div class="form-group col-md-12">
-            {{ event_form.klassif_priznak_UK.label_tag }} {{ event_form.klassif_priznak_UK }}
-            {% if event_form.klassif_priznak_UK.errors %}
-                {% for error in event_form.klassif_priznak_UK.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-        <div class="form-group col-md-12">
-            {{ event_form.klassif_priznak_ugroza.label_tag }} {{ event_form.klassif_priznak_ugroza }}
-            {% if event_form.klassif_priznak_ugroza.errors %}
-                {% for error in event_form.klassif_priznak_ugroza.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
+    <h6>
+        Вид проверки:
+        <small class="text-muted">{{ event.type_proverki.name }}</small>
+    </h6>
+    <h6>
+        Результат проверки:
+        <small class="text-muted">{{ event.rezult_proverki.name }}</small>
+    </h6>
+    <h6>
+        Принятые меры:
+        <small class="text-muted">{{ event.prinyatie_meri }}</small>
+    </h6>
+    <h6>
+        Ответ заявителю:
+        <small class="text-muted">{{ event.otvet_zayavitelyu }}</small>
+    </h6>
+    <h6>
+        Исполнение резолюции руководства ВНГ, ГУСБ:
+        <small class="text-muted">{{ event.ispolnenie_rezolyucii }}</small>
+    </h6>
+    <h6>
+        Дата ответа:
+        <small class="text-muted">{{ event.data_otveta }}</small>
+    </h6>
+    <h6>
+        Исходящий номер документа:
+        <small class="text-muted">{{ event.ishodyaschii_nomer }}</small>
+    </h6>
+    <div class="border-top border-bottom">
+        <u>Оперативная обстановка</u>
+        <h6>
+            Дата:
+            <small class="text-muted">{{ event.operativnaya_obstanovka.date }}</small>
+        </h6>
+        <h6>
+            Классифицирующий признак (угроза):
+            <small class="text-muted">{{ event.operativnaya_obstanovka.klassif_priznak_ugroza }}</small>
+        </h6>
+        <h6>
+            Классифицирующий признак (текст):
+            <small class="text-muted">{{ event.operativnaya_obstanovka.klassif_priznak_text }}</small>
+        </h6>
+        <h6>
+            Суть информации:
+            <small class="text-muted">{{ event.operativnaya_obstanovka.sut_info }}</small>
+        </h6>
+        <h6>
+            Принятые меры:
+            <small class="text-muted">{{ event.face.operativnaya_obstanovka.prinyatie_meri }}</small>
+        </h6>
     </div>
-    <div class="form-row">
-        <div class="form-group col-md-12">
-            {{ event_form.klassif_priznak_text.label_tag }} {{ event_form.klassif_priznak_text }}
-            {% if event_form.klassif_priznak_text.errors %}
-                {% for error in event_form.klassif_priznak_text.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-    </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-12">
-            {{ event_form.rezolyutsiya_rukovodstva.label_tag }} {{ event_form.rezolyutsiya_rukovodstva }}
-            {% if event_form.rezolyutsiya_rukovodstva.errors %}
-                {% for error in event_form.rezolyutsiya_rukovodstva.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-4">
-            {{ event_form.date_start.label_tag }} {{ event_form.date_start }}
-            {% if event_form.date_start.errors %}
-                {% for error in event_form.date_start.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-        <div class="col-md-4 d-flex justify-content-center">
-            <label>Срок исполнения&nbsp;<i class="fa fa-calendar" aria-hidden="true"></i></label>
-        </div>
-        <div class="form-group col-md-4">
-            {{ event_form.date_finish.label_tag }} {{ event_form.date_finish }}
-            {% if event_form.date_finish.errors %}
-                {% for error in event_form.date_finish.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            {{ event_form.ispolnitel_organ.label_tag }} {{ event_form.ispolnitel_organ }}
-            {% if event_form.ispolnitel_organ.errors %}
-                {% for error in event_form.ispolnitel_organ.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-        <div class="form-group col-md-6">
-            {{ event_form.ispolnitel_sotrudnik.label_tag }} {{ event_form.ispolnitel_sotrudnik }}
-            {% if event_form.ispolnitel_sotrudnik.errors %}
-                {% for error in event_form.ispolnitel_sotrudnik.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-12">
-            {{ event_form.info_otrabotki_materiala.label_tag }} {{ event_form.info_otrabotki_materiala }}
-            {% if event_form.info_otrabotki_materiala.errors %}
-                {% for error in event_form.info_otrabotki_materiala.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-12">
-            {{ event_form.identified_face.label_tag }} {{ event_form.identified_face }}
-            {% if event_form.identified_face.errors %}
-                {% for error in event_form.identified_face.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            {{ event_form.type_proverki.label_tag }} {{ event_form.type_proverki }}
-            {% if event_form.type_proverki.errors %}
-                {% for error in event_form.type_proverki.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-        <div class="form-group col-md-6">
-            {{ event_form.rezult_proverki.label_tag }} {{ event_form.rezult_proverki }}
-            {% if event_form.rezult_proverki.errors %}
-                {% for error in event_form.rezult_proverki.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-12">
-            {{ event_form.prinyatie_meri.label_tag }} {{ event_form.prinyatie_meri }}
-            {% if event_form.prinyatie_meri.errors %}
-                {% for error in event_form.prinyatie_meri.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-12">
-            {{ event_form.otvet_zayavitelyu.label_tag }} {{ event_form.otvet_zayavitelyu }}
-            {% if event_form.otvet_zayavitelyu.errors %}
-                {% for error in event_form.otvet_zayavitelyu.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-12">
-            {{ event_form.ispolnenie_rezolyucii.label_tag }} {{ event_form.ispolnenie_rezolyucii }}
-            {% if event_form.ispolnenie_rezolyucii.errors %}
-                {% for error in event_form.ispolnenie_rezolyucii.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            {{ event_form.data_otveta.label_tag }} {{ event_form.data_otveta }}
-            {% if event_form.data_otveta.errors %}
-                {% for error in event_form.data_otveta.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-        <div class="form-group col-md-6">
-            {{ event_form.ishodyaschii_nomer.label_tag }} {{ event_form.ishodyaschii_nomer }}
-            {% if event_form.ishodyaschii_nomer.errors %}
-                {% for error in event_form.ishodyaschii_nomer.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-12">
-            {{ event_form.operativnaya_obstanovka.label_tag }} {{ event_form.operativnaya_obstanovka }}
-            {% if event_form.operativnaya_obstanovka.errors %}
-                {% for error in event_form.operativnaya_obstanovka.errors %}
-                    <div class="invalid-feedback d-block">
-                        {{ error }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-    </div>
-</form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+</div>
