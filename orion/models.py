@@ -8,7 +8,7 @@ from django.dispatch import receiver
 class Event(models.Model):
     type_message = models.ForeignKey("TypeMessage", on_delete=models.PROTECT, verbose_name="Тип сообщения")
     titul = models.ForeignKey("Titul", blank=True, null=True, on_delete=models.PROTECT, verbose_name="Титул")
-    org = models.ForeignKey("Org", blank=True, null=True, on_delete=models.PROTECT, verbose_name="Организация")
+    org = models.ManyToManyField("Org", blank=True, verbose_name="Организация")
     date_registratsii = models.DateField(verbose_name="Дата регистрации")
     reg_number = models.CharField(max_length=50, verbose_name="Регистрационный номер")
     sut_info = models.TextField(verbose_name="Суть информации")
@@ -21,19 +21,22 @@ class Event(models.Model):
     ispolnitel_organ = models.CharField(max_length=100, blank=True, verbose_name="Исполнитель (Орган)")
     ispolnitel_sotrudnik = models.CharField(max_length=100, blank=True, verbose_name="Исполннитель (сотрудник)")
     info_otrabotki_materiala = models.TextField(verbose_name="Информация, полученная в ходе отработки материала", blank=True)
-    identified_face = models.ForeignKey("Face", blank=True, null=True, on_delete=models.PROTECT, verbose_name="В ходе проверки выявлены (установленны лица)")
+    identified_face = models.ManyToManyField("Face", blank=True, verbose_name="В ходе проверки выявлены (установленны лица)")
     type_proverki = models.ForeignKey("TypeProverki", blank=True, null=True, on_delete=models.PROTECT, verbose_name="Вид проверки")
     rezult_proverki = models.ForeignKey("ResultProverki", blank=True, null=True, on_delete=models.PROTECT, verbose_name="Результат проверки")
     prinyatie_meri = models.TextField(verbose_name="Принятые меры", blank=True)
     otvet_zayavitelyu = models.TextField(verbose_name="Ответ заявителю", blank=True)
     ispolnenie_rezolyucii = models.TextField(verbose_name="Исполнение резолюции руководства ВНГ, ГУСБ", blank=True)
-    data_otveta = models.DateField(verbose_name="Дата ответа заявителю", blank=True, null=True)
+    date_otveta = models.DateField(verbose_name="Дата ответа заявителю", blank=True, null=True)
     ishodyaschii_nomer = models.CharField(max_length=50, blank=True, verbose_name="Исходящий номер документа")
     operativnaya_obstanovka = models.ForeignKey("OperativnayaObstanovka", blank=True, null=True, on_delete=models.PROTECT, verbose_name="Оперативная обстановка")
+
     # Свои поля
-    date_creation = models.DateField(auto_now=True, verbose_name="Дата создания")
+    date_change = models.DateField(auto_now=True, verbose_name="Дата изменения")
+    date_creation = models.DateField(auto_now_add=True, verbose_name="Дата создания")
     user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name="Пользователь")
     status = models.ForeignKey("Status", on_delete=models.PROTECT, verbose_name="Статус", default="Информационный")
+    date_vklyuch_doklad = models.DateField(verbose_name="Дата включения в доклад", blank=True, null=True)
     subdivision = models.ForeignKey("Subdivision", on_delete=models.PROTECT, verbose_name="Подразделение", default="ГУСБ")
 
     # Доступные запросы

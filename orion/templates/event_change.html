@@ -16,295 +16,302 @@
 			<form class="compact-form" method="post" action="{% url "change_event" %}" id="id_event_form">{% csrf_token %}
 			<input hidden name="event_id" value="{{ event_id }}">
 				<div class="form-row">
-					<div class="form-group col-md-6">
-						{{ event_form.type_message.label_tag }} {{ event_form.type_message }}
-						{% if event_form.type_message.errors %}
-							{% for error in event_form.type_message.errors %}
+                    <div class="form-group col-md-6">
+                        {{ event_form.type_message.label_tag }} {{ event_form.type_message }}
+                        {% if event_form.type_message.errors %}
+                            {% for error in event_form.type_message.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-3">
+                        {{ event_form.status.label_tag }} {{ event_form.status }}
+                        {% if event_form.status.errors %}
+                            {% for error in event_form.status.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-3">
+                        {{ event_form.date_vklyuch_doklad.label_tag }} {{ event_form.date_vklyuch_doklad }}
+                        {% if event_form.date_vklyuch_doklad.errors %}
+                            {% for error in event_form.date_vklyuch_doklad.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        {{ event_form.titul.label_tag }} {{ event_form.titul }}
+                        {% if event_form.titul.errors %}
+                            {% for error in event_form.titul.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-12">
+                        {{ event_form.org.label_tag }} {{ event_form.org }}
+                        {% if event_form.org.errors %}
+                            {% for error in event_form.org.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {{ event_form.date_registratsii.label_tag }} {{ event_form.date_registratsii }}
+                        {% if event_form.date_registratsii.errors %}
+                            {% for error in event_form.date_registratsii.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-6">
+                        {{ event_form.reg_number.label_tag }} {{ event_form.reg_number }}
+                        {% if event_form.reg_number.errors %}
+                            {% for error in event_form.reg_number.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        {{ event_form.sut_info.label_tag }} {{ event_form.sut_info }}
+                        {% if event_form.sut_info.errors %}
+                            {% for error in event_form.sut_info.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        {{ event_form.klassif_priznak_UK.label_tag }} {{ event_form.klassif_priznak_UK }}
+                        {% if event_form.klassif_priznak_UK.errors %}
+                            {% for error in event_form.klassif_priznak_UK.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-12">
+                        {{ event_form.klassif_priznak_ugroza.label_tag }} {{ event_form.klassif_priznak_ugroza }}
+                        {% if event_form.klassif_priznak_ugroza.errors %}
+                            {% for error in event_form.klassif_priznak_ugroza.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        {{ event_form.klassif_priznak_text.label_tag }} {{ event_form.klassif_priznak_text }}
+                        {% if event_form.klassif_priznak_text.errors %}
+                            {% for error in event_form.klassif_priznak_text.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        {{ event_form.rezolyutsiya_rukovodstva.label_tag }} {{ event_form.rezolyutsiya_rukovodstva }}
+                        {% if event_form.rezolyutsiya_rukovodstva.errors %}
+                            {% for error in event_form.rezolyutsiya_rukovodstva.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        {{ event_form.date_start.label_tag }} {{ event_form.date_start }}
+                        {% if event_form.date_start.errors %}
+                            {% for error in event_form.date_start.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-center">
+                        <label>Срок исполнения&nbsp;<i class="fa fa-calendar" aria-hidden="true"></i></label>
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ event_form.date_finish.label_tag }} {{ event_form.date_finish }}
+                        {% if event_form.date_finish.errors %}
+                            {% for error in event_form.date_finish.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {{ event_form.ispolnitel_organ.label_tag }} {{ event_form.ispolnitel_organ }}
+                        {% if event_form.ispolnitel_organ.errors %}
+                            {% for error in event_form.ispolnitel_organ.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-6">
+                        {{ event_form.ispolnitel_sotrudnik.label_tag }} {{ event_form.ispolnitel_sotrudnik }}
+                        {% if event_form.ispolnitel_sotrudnik.errors %}
+                            {% for error in event_form.ispolnitel_sotrudnik.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        {{ event_form.info_otrabotki_materiala.label_tag }} {{ event_form.info_otrabotki_materiala }}
+                        {% if event_form.info_otrabotki_materiala.errors %}
+                            {% for error in event_form.info_otrabotki_materiala.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        {{ event_form.identified_face.label_tag }} {{ event_form.identified_face }}
+                        {% if event_form.identified_face.errors %}
+                            {% for error in event_form.identified_face.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {{ event_form.type_proverki.label_tag }} {{ event_form.type_proverki }}
+                        {% if event_form.type_proverki.errors %}
+                            {% for error in event_form.type_proverki.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-6">
+                        {{ event_form.rezult_proverki.label_tag }} {{ event_form.rezult_proverki }}
+                        {% if event_form.rezult_proverki.errors %}
+                            {% for error in event_form.rezult_proverki.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        {{ event_form.prinyatie_meri.label_tag }} {{ event_form.prinyatie_meri }}
+                        {% if event_form.prinyatie_meri.errors %}
+                            {% for error in event_form.prinyatie_meri.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        {{ event_form.otvet_zayavitelyu.label_tag }} {{ event_form.otvet_zayavitelyu }}
+                        {% if event_form.otvet_zayavitelyu.errors %}
+                            {% for error in event_form.otvet_zayavitelyu.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        {{ event_form.ispolnenie_rezolyucii.label_tag }} {{ event_form.ispolnenie_rezolyucii }}
+                        {% if event_form.ispolnenie_rezolyucii.errors %}
+                            {% for error in event_form.ispolnenie_rezolyucii.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+						{{ event_form.date_otveta.label_tag }} {{ event_form.date_otveta }}
+						{% if event_form.date_otveta.errors %}
+							{% for error in event_form.date_otveta.errors %}
 								<div class="invalid-feedback d-block">
 									{{ error }}
 								</div>
 							{% endfor %}
 						{% endif %}
 					</div>
-					<div class="form-group col-md-6">
-						{{ event_form.status.label_tag }} {{ event_form.status }}
-						{% if event_form.status.errors %}
-							{% for error in event_form.status.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						{{ event_form.titul.label_tag }} {{ event_form.titul }}
-						{% if event_form.titul.errors %}
-							{% for error in event_form.titul.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-					<div class="form-group col-md-6">
-						{{ event_form.org.label_tag }} {{ event_form.org }}
-						{% if event_form.org.errors %}
-							{% for error in event_form.org.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						{{ event_form.date_registratsii.label_tag }} {{ event_form.date_registratsii }}
-						{% if event_form.date_registratsii.errors %}
-							{% for error in event_form.date_registratsii.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-					<div class="form-group col-md-6">
-						{{ event_form.reg_number.label_tag }} {{ event_form.reg_number }}
-						{% if event_form.reg_number.errors %}
-							{% for error in event_form.reg_number.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-12">
-						{{ event_form.sut_info.label_tag }} {{ event_form.sut_info }}
-						{% if event_form.sut_info.errors %}
-							{% for error in event_form.sut_info.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-12">
-						{{ event_form.klassif_priznak_UK.label_tag }}
-						{{ event_form.klassif_priznak_UK }}
-						{% if event_form.klassif_priznak_UK.errors %}
-							{% for error in event_form.klassif_priznak_UK.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-					<div class="form-group col-md-12">
-						{{ event_form.klassif_priznak_ugroza.label_tag }} {{ event_form.klassif_priznak_ugroza }}
-						{% if event_form.klassif_priznak_ugroza.errors %}
-							{% for error in event_form.klassif_priznak_ugroza.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-12">
-						{{ event_form.klassif_priznak_text.label_tag }} {{ event_form.klassif_priznak_text }}
-						{% if event_form.klassif_priznak_text.errors %}
-							{% for error in event_form.klassif_priznak_text.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-				</div>
-
-				<div class="form-row">
-					<div class="form-group col-md-12">
-						{{ event_form.rezolyutsiya_rukovodstva.label_tag }} {{ event_form.rezolyutsiya_rukovodstva }}
-						{% if event_form.rezolyutsiya_rukovodstva.errors %}
-							{% for error in event_form.rezolyutsiya_rukovodstva.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-4">
-						{{ event_form.date_start.label_tag }} {{ event_form.date_start }}
-						{% if event_form.date_start.errors %}
-							{% for error in event_form.date_start.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-					<div class="col-md-4 d-flex justify-content-center">
-						<label>Срок исполнения&nbsp;<i class="fa fa-calendar" aria-hidden="true"></i></label>
-					</div>
-					<div class="form-group col-md-4">
-						{{ event_form.date_finish.label_tag }} {{ event_form.date_finish }}
-						{% if event_form.date_finish.errors %}
-							{% for error in event_form.date_finish.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						{{ event_form.ispolnitel_organ.label_tag }} {{ event_form.ispolnitel_organ }}
-						{% if event_form.ispolnitel_organ.errors %}
-							{% for error in event_form.ispolnitel_organ.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-					<div class="form-group col-md-6">
-						{{ event_form.ispolnitel_sotrudnik.label_tag }} {{ event_form.ispolnitel_sotrudnik }}
-						{% if event_form.ispolnitel_sotrudnik.errors %}
-							{% for error in event_form.ispolnitel_sotrudnik.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-12">
-						{{ event_form.info_otrabotki_materiala.label_tag }} {{ event_form.info_otrabotki_materiala }}
-						{% if event_form.info_otrabotki_materiala.errors %}
-							{% for error in event_form.info_otrabotki_materiala.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-12">
-						{{ event_form.identified_face.label_tag }} {{ event_form.identified_face }}
-						{% if event_form.identified_face.errors %}
-							{% for error in event_form.identified_face.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						{{ event_form.type_proverki.label_tag }} {{ event_form.type_proverki }}
-						{% if event_form.type_proverki.errors %}
-							{% for error in event_form.type_proverki.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-					<div class="form-group col-md-6">
-						{{ event_form.rezult_proverki.label_tag }} {{ event_form.rezult_proverki }}
-						{% if event_form.rezult_proverki.errors %}
-							{% for error in event_form.rezult_proverki.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-12">
-						{{ event_form.prinyatie_meri.label_tag }} {{ event_form.prinyatie_meri }}
-						{% if event_form.prinyatie_meri.errors %}
-							{% for error in event_form.prinyatie_meri.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-12">
-						{{ event_form.otvet_zayavitelyu.label_tag }} {{ event_form.otvet_zayavitelyu }}
-						{% if event_form.otvet_zayavitelyu.errors %}
-							{% for error in event_form.otvet_zayavitelyu.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-12">
-						{{ event_form.ispolnenie_rezolyucii.label_tag }} {{ event_form.ispolnenie_rezolyucii }}
-						{% if event_form.ispolnenie_rezolyucii.errors %}
-							{% for error in event_form.ispolnenie_rezolyucii.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						{{ event_form.data_otveta.label_tag }} {{ event_form.data_otveta }}
-						{% if event_form.data_otveta.errors %}
-							{% for error in event_form.data_otveta.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-					<div class="form-group col-md-6">
-						{{ event_form.ishodyaschii_nomer.label_tag }} {{ event_form.ishodyaschii_nomer }}
-						{% if event_form.ishodyaschii_nomer.errors %}
-							{% for error in event_form.ishodyaschii_nomer.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-12">
-						{{ event_form.operativnaya_obstanovka.label_tag }} {{ event_form.operativnaya_obstanovka }}
-						{% if event_form.operativnaya_obstanovka.errors %}
-							{% for error in event_form.operativnaya_obstanovka.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
-				</div>
+                    <div class="form-group col-md-6">
+                        {{ event_form.ishodyaschii_nomer.label_tag }} {{ event_form.ishodyaschii_nomer }}
+                        {% if event_form.ishodyaschii_nomer.errors %}
+                            {% for error in event_form.ishodyaschii_nomer.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        {{ event_form.operativnaya_obstanovka.label_tag }} {{ event_form.operativnaya_obstanovka }}
+                        {% if event_form.operativnaya_obstanovka.errors %}
+                            {% for error in event_form.operativnaya_obstanovka.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
 			</form>
 		</div>
 	</div>

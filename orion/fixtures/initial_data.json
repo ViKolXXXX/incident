@@ -2800,13 +2800,6 @@
     }
   },
   {
-    "model": "orion.Status",
-    "pk": 3,
-    "fields": {
-      "name": "На контроль (включен в доклад)"
-    }
-  },
-  {
     "model": "auth.Group",
     "pk": 1,
     "fields": {
@@ -2825,14 +2818,6 @@
     "pk": 3,
     "fields": {
       "name": "Админ"
-    }
-  },
-  {
-    "model": "orion.UserProfile",
-    "pk": 1,
-    "fields": {
-      "user_id": "1",
-      "subdivision": "1"
     }
   }
 ]

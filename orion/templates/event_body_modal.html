@@ -3,7 +3,6 @@
     <div class="status_{{ event.status.id }}">{{ event.status }}</div>
 </div>
 
-
 <div class="modal-body" id="id_modal_body">
     <h6>
         Регистрационный номер:
@@ -12,6 +11,22 @@
     <h6>
         Тип сообщения:
         <small class="text-muted">{{ event.type_message }}</small>
+    </h6>
+    <h6>
+        Дата включения в доклад:
+        <small class="text-muted">{{ event.date_vklyuch_doklad|default_if_none:"" }}</small>
+    </h6>
+    <h6>
+        Дата регистрации:
+        <small class="text-muted">{{ event.date_registratsii }}</small>
+    </h6>
+    <h6>
+        Дата фактического занесения в базу:
+        <small class="text-muted">{{ event.date_creation }}</small>
+    </h6>
+    <h6>
+        Дата изменения:
+        <small class="text-muted">{{ event.date_change }}</small>
     </h6>
     <div class="border-top border-bottom">
         <u>Документ:</u>
@@ -25,7 +40,7 @@
         </h6>
         <h6>
             Дата входящего документа:
-            <small class="text-muted">{{ event.titul.date_vhodyaschego }}</small>
+            <small class="text-muted">{{ event.titul.date_vhodyaschego|default_if_none:"" }}</small>
         </h6>
         <h6>
             Откуда поступил документ:
@@ -36,37 +51,35 @@
             <small class="text-muted">{{ event.titul.ishodyaschii_nomer }}</small>
         </h6>
         <h6>
-            Дата входящего документа
-            <small class="text-muted">{{ event.titul.date_ishodyaschego }}</small>
+            Дата исходящего документа
+            <small class="text-muted">{{ event.titul.date_ishodyaschego|default_if_none:"" }}</small>
         </h6>
     </div>
     <div class="border-top border-bottom">
-        <u>Организация</u>
-        <h6>
-            Наименование организации:
-            <small class="text-muted">{{ event.org.name }}</small>
-        </h6>
-        <h6>
-            ИНН (ОГРН):
-            <small class="text-muted">{{ event.org.inn_ogrn }}</small>
-        </h6>
-        <h6>
-            Адрес организации (АТЕ):
-            <small class="text-muted">{{ event.org.adres_organiz_ate }}</small>
-        </h6>
-        <h6>
-            Адрес организации:
-            <small class="text-muted">{{ event.org.adres_organiz }}</small>
-        </h6>
-        <h6>
-            Иная информация:
-            <small class="text-muted">{{ event.org.inaya_informaciya }}</small>
-        </h6>
+        {% for org in event.org.all %}
+            <u>Организация</u>
+            <h6>
+                Наименование организации:
+                <small class="text-muted">{{org.name }}</small>
+            </h6>
+            <h6>
+                ИНН (ОГРН):
+                <small class="text-muted">{{ org.inn_ogrn }}</small>
+            </h6>
+            <h6>
+                Адрес организации (АТЕ):
+                <small class="text-muted">{{ org.adres_organiz_ate }}</small>
+            </h6>
+            <h6>
+                Адрес организации:
+                <small class="text-muted">{{ org.adres_organiz }}</small>
+            </h6>
+            <h6>
+                Иная информация:
+                <small class="text-muted">{{ org.inaya_informaciya }}</small>
+            </h6>
+        {% endfor %}
     </div>
-    <h6>
-        Дата регистрации:
-        <small class="text-muted">{{ event.date_registratsii }}</small>
-    </h6>
     <h6>
         Суть информации:
         <small class="text-muted">{{ event.sut_info }}</small>
@@ -107,43 +120,45 @@
         <small class="text-muted">{{ event.ispolnitel_sotrudnik }}</small>
     </h6>
     <div class="border-top border-bottom">
-        <u>Установлено лицо:</u>
-        <h6>
-            Фамилия:
-            <small class="text-muted">{{ event.identified_face.familiya }}</small>
-        </h6>
-        <h6>
-            Имя:
-            <small class="text-muted">{{ event.identified_face.imya }}</small>
-        </h6>
-        <h6>
-            Отчество:
-            <small class="text-muted">{{ event.identified_face.otchestvo }}</small>
-        </h6>
-        <h6>
-            Дата рождения:
-            <small class="text-muted">{{ event.identified_face.date_rojdeniya }}</small>
-        </h6>
-        <h6>
-            Место рождения (АТЕ):
-            <small class="text-muted">{{ event.identified_face.mesto_rojdeniya_ATE }}</small>
-        </h6>
-        <h6>
-            Место рождения (район):
-            <small class="text-muted">{{ event.identified_face.mesto_rojdeniya_raion }}</small>
-        </h6>
-        <h6>
-            Место рождения (н.п.):
-            <small class="text-muted">{{ event.identified_face.mesto_rojdeniya_np }}</small>
-        </h6>
-        <h6>
-            Воинское (специальное) звание:
-            <small class="text-muted">{{ event.identified_face.zvanie }}</small>
-        </h6>
-        <h6>
-            Дополнительная информация:
-            <small class="text-muted">{{ event.identified_face.dopolnitelnaya_info }}</small>
-        </h6>
+        {% for face in  event.identified_face.all %}
+            <u>Установлено лицо:</u>
+            <h6>
+                Фамилия:
+                <small class="text-muted">{{face.familiya }}</small>
+            </h6>
+            <h6>
+                Имя:
+                <small class="text-muted">{{ face.imya }}</small>
+            </h6>
+            <h6>
+                Отчество:
+                <small class="text-muted">{{ face.otchestvo }}</small>
+            </h6>
+            <h6>
+                Дата рождения:
+                <small class="text-muted">{{ face.date_rojdeniya }}</small>
+            </h6>
+            <h6>
+                Место рождения (АТЕ):
+                <small class="text-muted">{{ face.mesto_rojdeniya_ATE }}</small>
+            </h6>
+            <h6>
+                Место рождения (район):
+                <small class="text-muted">{{ face.mesto_rojdeniya_raion }}</small>
+            </h6>
+            <h6>
+                Место рождения (н.п.):
+                <small class="text-muted">{{ face.mesto_rojdeniya_np }}</small>
+            </h6>
+            <h6>
+                Воинское (специальное) звание:
+                <small class="text-muted">{{face.zvanie }}</small>
+            </h6>
+            <h6>
+                Дополнительная информация:
+                <small class="text-muted">{{ face.dopolnitelnaya_info }}</small>
+            </h6>
+        {% endfor %}
     </div>
     <h6>
         Вид проверки:
@@ -167,7 +182,7 @@
     </h6>
     <h6>
         Дата ответа:
-        <small class="text-muted">{{ event.data_otveta }}</small>
+        <small class="text-muted">{{ event.date_otveta|default_if_none:"" }}</small>
     </h6>
     <h6>
         Исходящий номер документа:
@@ -177,7 +192,7 @@
         <u>Оперативная обстановка</u>
         <h6>
             Дата:
-            <small class="text-muted">{{ event.operativnaya_obstanovka.date }}</small>
+            <small class="text-muted">{{ event.operativnaya_obstanovka.date|default_if_none:"" }}</small>
         </h6>
         <h6>
             Классифицирующий признак (угроза):
@@ -193,9 +208,17 @@
         </h6>
         <h6>
             Принятые меры:
-            <small class="text-muted">{{ event.face.operativnaya_obstanovka.prinyatie_meri }}</small>
+            <small class="text-muted">{{ event.operativnaya_obstanovka.prinyatie_meri }}</small>
         </h6>
     </div>
+    <h6>
+        Подразделение:
+        <small class="text-muted">{{ event.subdivision.name }}</small>
+    </h6>
+    <h6>
+        Оператор создавший информацию:
+        <small class="text-muted">{{ event.user.last_name }}</small>
+    </h6>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>

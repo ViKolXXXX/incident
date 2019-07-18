@@ -328,15 +328,11 @@ body {
 }
 
 /*Цвет статусов*/
-.status_3{
-    background: #e0ff12;
-    color: #000000;
-}
 .status_2{
-    background: #273eff;
+    background: #ff1906;
     color: #000000;
 }
 .status_1{
-    background: #ff1712;
+    background: #fff80b;
     color: #000000;
 }

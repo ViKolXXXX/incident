@@ -14,7 +14,6 @@ class JournalView(OrionView):
         try:
             events = Event.available_requests(request.user.userprofile.subdivision.pk)
             return render(request, self.template_name, {"events": events})
-
         except:
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

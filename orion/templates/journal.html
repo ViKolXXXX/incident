@@ -1,4 +1,5 @@
-{% extends "base.html" %}{% load static %}
+{% extends "base.html" %}{% load static %}{% load filters %}
+
 {% block title %}Журнал{% endblock title %}
 {% block name_page %}<i class="far fa-book"></i>&nbsp;Журнал{% endblock name_page %}
 {% block breadcrumbs %}
@@ -15,12 +16,12 @@
                 <tr>
                     <th>Тип обращения</th>
                     <th>Статус</th>
+                    <th>Регистрационный номер</th>
                     <th>Дата регистрации</th>
+                    <th>Дата изменения</th>
                     <th>Кл.признак(по статье УК)</th>
                     <th>Кл.признак(угроза)</th>
                     <th>Дата окончания</th>
-                    <th>Исполнитель(орган)</th>
-                    <th>Установлены лица</th>
                     <th>Подразделение</th>
                     <th>Действие</th>
                 </tr>
@@ -32,17 +33,21 @@
                         <td>
                             <div class="status_{{ event.status.id }}">{{ event.status }}</div>
                         </td>
+                        <td>{{ event.reg_number }}</td>
                         <td>{{ event.date_registratsii }}</td>
+                        <td>{{ event.date_change }}</td>
                         <td>{{ event.klassif_priznak_UK.name }}</td>
                         <td>{{ event.klassif_priznak_ugroza.name }}</td>
                         <td>{{ event.date_finish }}</td>
-                        <td>{{ event.ispolnitel_organ }}</td>
-                        <td>{{ event.identified_face }}</td>
                         <td>{{ event.subdivision.name }}</td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a type="button" class="btn btn-secondary" title="Редактировать" href="{% url "change_event" %}?event_id={{ event.id }}"> <i class="far fa-edit"></i></a>
-                                <a type="button" class="btn btn-sm  btn-secondary" title="Удалить" href="#" onclick="delete_event({{ event.id }},'{{ event.date_registratsii }}')"><i class="far fa-1x fa-trash-alt"></i></a>
+                                {% if request.user|has_group:"Админ" %}
+                                    <a type="button" class="btn btn-sm  btn-secondary" title="Удалить" href="#" onclick="delete_event({{ event.id }},'{{ event.date_registratsii }}')"><i class="far fa-1x fa-trash-alt"></i></a>
+                                {% else %}
+
+                                {% endif %}
                             </div>
                         </td>
                     </tr>
@@ -87,6 +92,7 @@
                 }
             );
         });
+
         function show_event(event_id) {
             var params = {
                 "event_id": event_id
