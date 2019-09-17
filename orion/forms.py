@@ -87,7 +87,7 @@ class FaceForm(ModelForm):
     imya = forms.CharField(label="Имя", required=True, max_length=100, widget=forms.TextInput(attrs={"class": "form-control form-control-sm "}))
     otchestvo = forms.CharField(label="Отчество", required=True, max_length=100, widget=forms.TextInput(attrs={"class": "form-control form-control-sm "}))
     date_rojdeniya = forms.DateField(label="Дата рождения", required=True, widget=forms.DateInput(format='%Y-%m-%d', attrs={"class": "form-control form-control-sm ", "type": "date"}))
-    mesto_rojdeniya_ATE = forms.ModelChoiceField(label="Место рождения (АТЕ)", required=True, queryset=AdresAte.objects.all(), widget=forms.Select(attrs={"class": "custom-select mr-sm-2"}))
+    mesto_rojdeniya_ATE = forms.ModelChoiceField(label="Место рождения (АТЕ)", required=False, queryset=AdresAte.objects.all(), widget=forms.Select(attrs={"class": "custom-select mr-sm-2"}))
     mesto_rojdeniya_raion = forms.CharField(label="Место рождения (район)", required=False, max_length=100, widget=forms.TextInput(attrs={"class": "form-control form-control-sm "}))
     mesto_rojdeniya_np = forms.CharField(label="Место рождения (н.п.)", required=False, max_length=100, widget=forms.TextInput(attrs={"class": "form-control form-control-sm "}))
     zvanie = forms.ModelChoiceField(label="Воинское (специальное) звание", required=True, queryset=Zvanie.objects.all(), widget=forms.Select(attrs={"class": "custom-select mr-sm-2"}))

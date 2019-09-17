@@ -131,7 +131,7 @@ class Face(models.Model):
     imya = models.CharField(max_length=100, verbose_name="Имя")
     otchestvo = models.CharField(max_length=100, verbose_name="Отчество")
     date_rojdeniya = models.DateField(verbose_name="Дата рождения")
-    mesto_rojdeniya_ATE = models.ForeignKey("AdresAte", on_delete=models.PROTECT, verbose_name="Место рождения (АТЕ))")
+    mesto_rojdeniya_ATE = models.ForeignKey("AdresAte", on_delete=models.PROTECT, blank=True, null=True, verbose_name="Место рождения (АТЕ))")
     mesto_rojdeniya_raion = models.CharField(max_length=100, blank=True, verbose_name="Место рождения (район)")
     mesto_rojdeniya_np = models.CharField(max_length=100, blank=True, verbose_name="Место рождения (н.п.)")
     zvanie = models.ForeignKey("Zvanie", on_delete=models.PROTECT, verbose_name="Воинское (специальное) звание")

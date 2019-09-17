@@ -33,7 +33,7 @@
                         <td>{{ face.imya }}</td>
                         <td>{{ face.otchestvo }}</td>
                         <td>{{ face.date_rojdeniya }}</td>
-                        <td>{{ face.mesto_rojdeniya_ATE }}</td>
+                        <td>{{ face.mesto_rojdeniya_ATE|default_if_none:"" }}</td>
                         <td>{{ face.mesto_rojdeniya_raion }}</td>
                         <td>{{ face.mesto_rojdeniya_np }}</td>
                         <td>{{ face.zvanie }}</td>
