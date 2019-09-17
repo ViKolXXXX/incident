@@ -18,7 +18,6 @@ class FaceView(OrionView):
         }
         return render(request, self.template_name, context)
 
-
 class AddFaceView(OrionView):
     group_required = ['Орион']
     template_name = "face_content_modal_add.html"

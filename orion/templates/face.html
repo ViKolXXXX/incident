@@ -23,6 +23,7 @@
                     <th>Место рождения (н.п.)</th>
                     <th>Воинское (специальное) звание</th>
                     <th>Дополнительная информация</th>
+                    <th>Связанные инциденты</th>
                     <th>Действие</th>
                 </tr>
                 </thead>
@@ -32,12 +33,21 @@
                         <td>{{ face.familiya }}</td>
                         <td>{{ face.imya }}</td>
                         <td>{{ face.otchestvo }}</td>
-                        <td>{{ face.date_rojdeniya }}</td>
+                        <td>{{ face.date_rojdeniya|date:"d.m.Y" }}</td>
                         <td>{{ face.mesto_rojdeniya_ATE|default_if_none:"" }}</td>
                         <td>{{ face.mesto_rojdeniya_raion }}</td>
                         <td>{{ face.mesto_rojdeniya_np }}</td>
                         <td>{{ face.zvanie }}</td>
                         <td>{{ face.dopolnitelnaya_info }}</td>
+
+                        <td>
+                            <ul type="square">
+                                {% for event in face.event_set.all %}
+                                    <li><a onclick="show_event({{ event.id }})" href="#" class="text-danger">{{ event.reg_number }}</a></li>
+
+                                {% endfor %}
+                            </ul>
+                        </td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a type="button" class="btn btn-sm btn-secondary" title="Редактировать" href="#" onclick="change_face({{ face.id }})"> <i class="far fa-edit"></i> </a>
@@ -49,10 +59,18 @@
             </table>
         </div>
     </div>
+    <!--Модальное окно события -->
+    <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" id="id_modal_event">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" id="id_modal_content">
+
+            </div>
+        </div>
+    </div>
     <!--Модальное окно лица -->
     <div class="modal fade" id="id_modal_face" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content" id="id_modal_content">
+            <div class="modal-content" id="id_modal_content_face">
             </div>
         </div>
     </div>
@@ -71,6 +89,7 @@
             </div>
         </div>
     </div>
+
 {% endblock content %}
 {% block js %}
     <script>
@@ -85,21 +104,35 @@
                 }
             );
         });
+
+        function show_event(event_id) {
+            var params = {
+                "event_id": event_id
+            };
+            $.get("{% url "show_event" %}", params, function (data) {
+                $('#id_modal_event').modal('toggle');
+                $('#id_modal_content').empty().append(data);
+
+            })
+        }
+
         function add_face() {
             $.get("{% url "add_face" %}", function (data) {
                 $('#id_modal_face').modal('toggle');
                 $('#id_modal_content').empty().append(data);
             })
         }
+
         function change_face(face_id) {
             var params = {
                 "face_id": face_id
             };
             $.get("{% url "change_face" %}", params, function (data) {
                 $('#id_modal_face').modal('toggle');
-                $('#id_modal_content').empty().append(data);
+                $('#id_modal_content_face').empty().append(data);
             })
         }
+
         function delete_face(face_id, face_name) {
             $('#id_modal_del').modal('toggle');
             $('#id_body_del').empty().append(face_name);

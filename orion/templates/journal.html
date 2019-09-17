@@ -34,11 +34,11 @@
                             <div class="status_{{ event.status.id }}">{{ event.status }}</div>
                         </td>
                         <td>{{ event.reg_number }}</td>
-                        <td>{{ event.date_registratsii }}</td>
-                        <td>{{ event.date_change }}</td>
+                        <td>{{ event.date_registratsii|date:"d.m.Y" }}</td>
+                        <td>{{ event.date_change|date:"d.m.Y" }}</td>
                         <td>{{ event.klassif_priznak_UK.name }}</td>
                         <td>{{ event.klassif_priznak_ugroza.name }}</td>
-                        <td>{{ event.date_finish }}</td>
+                        <td>{{ event.date_finish|date:"d.m.Y" }}</td>
                         <td>{{ event.subdivision.name }}</td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic example">
@@ -55,7 +55,7 @@
             </table>
         </div>
     </div>
-
+ <!--Модальное окно события -->
     <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" id="id_modal_event">
         <div class="modal-dialog modal-xl">
             <div class="modal-content" id="id_modal_content">

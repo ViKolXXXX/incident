@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -139,10 +141,10 @@ class Face(models.Model):
     rodstvennie_svyazi = models.ManyToManyField('self', blank=True, symmetrical=False, verbose_name="Родственные связи")
 
     def __str__(self):
-        return "{} {} {}".format(self.familiya, self.imya, self.otchestvo)
+        return "{} {} {} , {}".format(self.familiya, self.imya, self.otchestvo, datetime.datetime.strftime(self.date_rojdeniya, '%d.%m.%Y'))
 
     class Meta:
-        unique_together = (['familiya', 'imya', 'otchestvo', 'date_rojdeniya', 'mesto_rojdeniya_ATE'])
+        unique_together = (['familiya', 'imya', 'otchestvo', 'date_rojdeniya'])
         verbose_name = "Лицо"
         verbose_name_plural = "Лица"
 
