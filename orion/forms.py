@@ -13,7 +13,7 @@ class EventForm(ModelForm):
                                          widget=forms.SelectMultiple(attrs={"class": "form-control", "multiple": "multiple",
                                                                     "title": "Ничего не выбрано"}))
     date_registratsii = forms.DateField(label="Дата регистрации", required=True, widget=forms.DateInput(format='%Y-%m-%d', attrs={"class": "form-control form-control-sm", "type": "date"}))
-    reg_number = forms.CharField(label="Регистрационный номер", required=True, max_length=50, widget=forms.TextInput(attrs={"class": "form-control form-control-sm"}))
+    # reg_number = forms.CharField(label="Регистрационный номер",  widget=forms.TextInput(attrs={"class": "form-control form-control-sm"}))
     sut_info = forms.CharField(label="Суть информации", required=True, widget=forms.Textarea(attrs={"class": "form-control form-control-sm", "cols": 2, "rows": 2}))
     klassif_priznak_UK = forms.ModelChoiceField(label="Классифицирующий признак (по статье УК РФ)", queryset=KlassifPriznakUK.objects.all(), required=False,
                                                 widget=forms.Select(attrs={"class": "form-control form-control-sm selectpicker show-tick font-size-option", "data-live-search": "true", "data-size": "7"}))
@@ -40,7 +40,7 @@ class EventForm(ModelForm):
 
     class Meta:
         model = Event
-        exclude = [' date_creation', 'user', 'subdivision', 'date_change']
+        exclude = [' date_creation', 'user', 'subdivision', 'date_change', 'reg_number']
 
 
 

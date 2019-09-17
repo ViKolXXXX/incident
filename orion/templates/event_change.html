@@ -80,16 +80,7 @@
                             {% endfor %}
                         {% endif %}
                     </div>
-                    <div class="form-group col-md-6">
-                        {{ event_form.reg_number.label_tag }} {{ event_form.reg_number }}
-                        {% if event_form.reg_number.errors %}
-                            {% for error in event_form.reg_number.errors %}
-                                <div class="invalid-feedback d-block">
-                                    {{ error }}
-                                </div>
-                            {% endfor %}
-                        {% endif %}
-                    </div>
+
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-12">
