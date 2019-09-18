@@ -13,8 +13,10 @@
         <small class="text-muted">{{ event.type_message }}</small>
     </h6>
     <h6>
-        Дата включения в доклад:
-        <small class="text-muted">{{ event.date_vklyuch_doklad|default_if_none:"" }}</small>
+        {% if  event.date_vklyuch_doklad %}
+            Дата включения в доклад:
+            <small class="text-muted">{{ event.date_vklyuch_doklad }}</small>
+        {% endif %}
     </h6>
     <h6>
         Дата регистрации:
@@ -28,77 +30,105 @@
         Дата изменения:
         <small class="text-muted">{{ event.date_change }}</small>
     </h6>
-    <div class="border-top border-bottom">
-        <u>Документ:</u>
-        <h6>
-            Наименование документа:
-            <small class="text-muted">{{ event.titul.name }}</small>
-        </h6>
-        <h6>
-            Номер входящего документа:
-            <small class="text-muted">{{ event.titul.nomer_vhodyaschego }}</small>
-        </h6>
-        <h6>
-            Дата входящего документа:
-            <small class="text-muted">{{ event.titul.date_vhodyaschego|default_if_none:"" }}</small>
-        </h6>
-        <h6>
-            Откуда поступил документ:
-            <small class="text-muted">{{ event.titul.otkuda }}</small>
-        </h6>
-        <h6>
-            Исходящий номер документа:
-            <small class="text-muted">{{ event.titul.ishodyaschii_nomer }}</small>
-        </h6>
-        <h6>
-            Дата исходящего документа
-            <small class="text-muted">{{ event.titul.date_ishodyaschego|default_if_none:"" }}</small>
-        </h6>
-    </div>
-    <div class="border-top border-bottom">
-        {% for org in event.org.all %}
-            <u>Организация</u>
+    {% if  event.titul %}
+        <div class="border-top border-bottom">
+            <u>Документ:</u>
             <h6>
-                Наименование организации:
-                <small class="text-muted">{{org.name }}</small>
+                Наименование документа:
+                <small class="text-muted">{{ event.titul.name }}</small>
             </h6>
             <h6>
-                ИНН (ОГРН):
-                <small class="text-muted">{{ org.inn_ogrn }}</small>
+                {% if  event.titul.nomer_vhodyaschego %}
+                    Номер входящего документа:
+                    <small class="text-muted">{{ event.titul.nomer_vhodyaschego }}</small>
+                {% endif %}
             </h6>
             <h6>
-                Адрес организации (АТЕ):
-                <small class="text-muted">{{ org.adres_organiz_ate }}</small>
+                {% if  event.titul.date_vhodyaschego %}
+                    Дата входящего документа:
+                    <small class="text-muted">{{ event.titul.date_vhodyaschego }}</small>
+                {% endif %}
             </h6>
             <h6>
-                Адрес организации:
-                <small class="text-muted">{{ org.adres_organiz }}</small>
+                {% if  event.titul.otkuda %}
+                    Откуда поступил документ:
+                    <small class="text-muted">{{ event.titul.otkuda }}</small>
+                {% endif %}
             </h6>
             <h6>
-                Иная информация:
-                <small class="text-muted">{{ org.inaya_informaciya }}</small>
+                {% if  event.titul.ishodyaschii_nomer %}
+                    Исходящий номер документа:
+                    <small class="text-muted">{{ event.titul.ishodyaschii_nomer }}</small>
+                {% endif %}
             </h6>
-        {% endfor %}
-    </div>
+            <h6>
+                {% if  event.titul.date_ishodyaschego %}
+                    Дата исходящего документа
+                    <small class="text-muted">{{ event.titul.date_ishodyaschego }}</small>
+                {% endif %}
+            </h6>
+        </div>
+    {% endif %}
+    {% if  event.org %}
+        <div class="border-top border-bottom">
+            {% for org in event.org.all %}
+                <u>Организация</u>
+                <h6>
+                    Наименование организации:
+                    <small class="text-muted">{{ org.name }}</small>
+                </h6>
+                <h6>
+                    {% if  org.inn_ogrn %}
+                        ИНН (ОГРН):
+                        <small class="text-muted">{{ org.inn_ogrn }}</small>
+                    {% endif %}
+                </h6>
+                <h6>
+                    Адрес организации (АТЕ):
+                    <small class="text-muted">{{ org.adres_organiz_ate }}</small>
+                </h6>
+                <h6>
+                    {% if  org.adres_organiz %}
+                        Адрес организации:
+                        <small class="text-muted">{{ org.adres_organiz }}</small>
+                    {% endif %}
+                </h6>
+                <h6>
+                    {% if  org.inaya_informaciya %}
+                        Иная информация:
+                        <small class="text-muted">{{ org.inaya_informaciya }}</small>
+                    {% endif %}
+                </h6>
+            {% endfor %}
+        </div>
+    {% endif %}
     <h6>
         Суть информации:
         <small class="text-muted">{{ event.sut_info }}</small>
     </h6>
     <h6>
-        Классифицирующий признак (по статье УК РФ):
-        <small class="text-muted">{{ event.klassif_priznak_UK.name }}</small>
+        {% if  event.klassif_priznak_UK %}
+            Классифицирующий признак (по статье УК РФ):
+            <small class="text-muted">{{ event.klassif_priznak_UK.name }}</small>
+        {% endif %}
     </h6>
     <h6>
-        Классифицирующий признак (угроза):
-        <small class="text-muted">{{ event.klassif_priznak_ugroza.name }}</small>
+        {% if  event.klassif_priznak_ugroza %}
+            Классифицирующий признак (угроза):
+            <small class="text-muted">{{ event.klassif_priznak_ugroza.name }}</small>
+        {% endif %}
     </h6>
     <h6>
-        Классифицирующий признак (текст):
-        <small class="text-muted">{{ event.klassif_priznak_text }}</small>
+        {% if  event.klassif_priznak_text %}
+            Классифицирующий признак (текст):
+            <small class="text-muted">{{ event.klassif_priznak_text }}</small>
+        {% endif %}
     </h6>
     <h6>
-        Резолюция руководства ВНГ, ГУСБ:
-        <small class="text-muted">{{ event.rezolyutsiya_rukovodstva }}</small>
+        {% if  event.rezolyutsiya_rukovodstva %}
+            Резолюция руководства ВНГ, ГУСБ:
+            <small class="text-muted">{{ event.rezolyutsiya_rukovodstva }}</small>
+        {% endif %}
     </h6>
     <div class="border-top border-bottom">
         <u>Сроки</u>
@@ -112,105 +142,141 @@
         </h6>
     </div>
     <h6>
-        Исполнитель (орган):
-        <small class="text-muted">{{ event.ispolnitel_organ }}</small>
+        {% if  event.ispolnitel_organ %}
+            Исполнитель (орган):
+            <small class="text-muted">{{ event.ispolnitel_organ }}</small>
+        {% endif %}
     </h6>
     <h6>
-        Исполнитель (сотрудник):
-        <small class="text-muted">{{ event.ispolnitel_sotrudnik }}</small>
+        {% if  event.ispolnitel_sotrudnik %}
+            Исполнитель (сотрудник):
+            <small class="text-muted">{{ event.ispolnitel_sotrudnik }}</small>
+        {% endif %}
     </h6>
-    <div class="border-top border-bottom">
-        {% for face in  event.identified_face.all %}
-            <u>Установлено лицо:</u>
-            <h6>
-                Фамилия:
-                <small class="text-muted">{{face.familiya }}</small>
-            </h6>
-            <h6>
-                Имя:
-                <small class="text-muted">{{ face.imya }}</small>
-            </h6>
-            <h6>
-                Отчество:
-                <small class="text-muted">{{ face.otchestvo }}</small>
-            </h6>
-            <h6>
-                Дата рождения:
-                <small class="text-muted">{{ face.date_rojdeniya }}</small>
-            </h6>
-            <h6>
-                Место рождения (АТЕ):
-                <small class="text-muted">{{ face.mesto_rojdeniya_ATE }}</small>
-            </h6>
-            <h6>
-                Место рождения (район):
-                <small class="text-muted">{{ face.mesto_rojdeniya_raion }}</small>
-            </h6>
-            <h6>
-                Место рождения (н.п.):
-                <small class="text-muted">{{ face.mesto_rojdeniya_np }}</small>
-            </h6>
-            <h6>
-                Воинское (специальное) звание:
-                <small class="text-muted">{{face.zvanie }}</small>
-            </h6>
-            <h6>
-                Дополнительная информация:
-                <small class="text-muted">{{ face.dopolnitelnaya_info }}</small>
-            </h6>
-        {% endfor %}
-    </div>
+    {% if  event.identified_face %}
+        <div class="border-top border-bottom">
+            {% for face in  event.identified_face.all %}
+                <u>Установлено лицо:</u>
+                <h6>
+                    Фамилия:
+                    <small class="text-muted">{{ face.familiya }}</small>
+                </h6>
+                <h6>
+                    Имя:
+                    <small class="text-muted">{{ face.imya }}</small>
+                </h6>
+                <h6>
+                    Отчество:
+                    <small class="text-muted">{{ face.otchestvo }}</small>
+                </h6>
+                <h6>
+                    Дата рождения:
+                    <small class="text-muted">{{ face.date_rojdeniya }}</small>
+                </h6>
+                <h6>
+                    {% if  face.mesto_rojdeniya_ATE %}
+                        Место рождения (АТЕ):
+                        <small class="text-muted">{{ face.mesto_rojdeniya_ATE }}</small>
+                    {% endif %}
+                </h6>
+                <h6>
+                    {% if  face.mesto_rojdeniya_raion %}
+                        Место рождения (район):
+                        <small class="text-muted">{{ face.mesto_rojdeniya_raion }}</small>
+                    {% endif %}
+                </h6>
+                <h6>
+                    {% if  face.mesto_rojdeniya_np %}
+                        Место рождения (н.п.):
+                        <small class="text-muted">{{ face.mesto_rojdeniya_np }}</small>
+                    {% endif %}
+                </h6>
+                <h6>
+                    Воинское (специальное) звание:
+                    <small class="text-muted">{{ face.zvanie }}</small>
+                </h6>
+                <h6>
+                    {% if  face.dopolnitelnaya_info %}
+                        Дополнительная информация:
+                        <small class="text-muted">{{ face.dopolnitelnaya_info }}</small>
+                    {% endif %}
+                </h6>
+            {% endfor %}
+        </div>
+    {% endif %}
     <h6>
-        Вид проверки:
-        <small class="text-muted">{{ event.type_proverki.name }}</small>
-    </h6>
-    <h6>
-        Результат проверки:
-        <small class="text-muted">{{ event.rezult_proverki.name }}</small>
-    </h6>
-    <h6>
-        Принятые меры:
-        <small class="text-muted">{{ event.prinyatie_meri }}</small>
-    </h6>
-    <h6>
-        Ответ заявителю:
-        <small class="text-muted">{{ event.otvet_zayavitelyu }}</small>
-    </h6>
-    <h6>
-        Исполнение резолюции руководства ВНГ, ГУСБ:
-        <small class="text-muted">{{ event.ispolnenie_rezolyucii }}</small>
+        {% if  event.type_proverki %}
+            Вид проверки:
+            <small class="text-muted">{{ event.type_proverki.name }}</small>
+        {% endif %}
     </h6>
     <h6>
-        Дата ответа:
-        <small class="text-muted">{{ event.date_otveta|default_if_none:"" }}</small>
+        {% if  event.rezult_proverki %}
+            Результат проверки:
+            <small class="text-muted">{{ event.rezult_proverki.name }}</small>
+        {% endif %}
     </h6>
     <h6>
-        Исходящий номер документа:
-        <small class="text-muted">{{ event.ishodyaschii_nomer }}</small>
-    </h6>
-    <div class="border-top border-bottom">
-        <u>Оперативная обстановка</u>
-        <h6>
-            Дата:
-            <small class="text-muted">{{ event.operativnaya_obstanovka.date|default_if_none:"" }}</small>
-        </h6>
-        <h6>
-            Классифицирующий признак (угроза):
-            <small class="text-muted">{{ event.operativnaya_obstanovka.klassif_priznak_ugroza }}</small>
-        </h6>
-        <h6>
-            Классифицирующий признак (текст):
-            <small class="text-muted">{{ event.operativnaya_obstanovka.klassif_priznak_text }}</small>
-        </h6>
-        <h6>
-            Суть информации:
-            <small class="text-muted">{{ event.operativnaya_obstanovka.sut_info }}</small>
-        </h6>
-        <h6>
+        {% if  event.prinyatie_meri %}
             Принятые меры:
-            <small class="text-muted">{{ event.operativnaya_obstanovka.prinyatie_meri }}</small>
-        </h6>
-    </div>
+            <small class="text-muted">{{ event.prinyatie_meri }}</small>
+        {% endif %}
+    </h6>
+    <h6>
+        {% if  event.otvet_zayavitelyu %}
+            Ответ заявителю:
+            <small class="text-muted">{{ event.otvet_zayavitelyu }}</small>
+        {% endif %}
+    </h6>
+    <h6>
+        {% if  event.ispolnenie_rezolyucii %}
+            Исполнение резолюции руководства ВНГ, ГУСБ:
+            <small class="text-muted">{{ event.ispolnenie_rezolyucii }}</small>
+        {% endif %}
+    </h6>
+    <h6>
+        {% if  event.date_otveta %}
+            Дата ответа:
+            <small class="text-muted">{{ event.date_otveta }}</small>
+        {% endif %}
+    </h6>
+    <h6>
+        {% if  event.ishodyaschii_nomer %}
+            Исходящий номер документа:
+            <small class="text-muted">{{ event.ishodyaschii_nomer }}</small>
+        {% endif %}
+    </h6>
+    {% if event.operativnaya_obstanovka.date %}
+        <div class="border-top border-bottom">
+            <u>Оперативная обстановка</u>
+            <h6>
+                Дата:
+                <small class="text-muted">{{ event.operativnaya_obstanovka.date }}</small>
+            </h6>
+            <h6>
+                {% if event.operativnaya_obstanovka.klassif_priznak_ugroza %}
+                    Классифицирующий признак (угроза):
+                    <small class="text-muted">{{ event.operativnaya_obstanovka.klassif_priznak_ugroza }}</small>
+                {% endif %}
+            </h6>
+            <h6>
+                {% if event.operativnaya_obstanovka.klassif_priznak_text %}
+                    Классифицирующий признак (текст):
+                    <small class="text-muted">{{ event.operativnaya_obstanovka.klassif_priznak_text }}</small>
+                {% endif %}
+            </h6>
+            <h6>
+                Суть информации:
+                <small class="text-muted">{{ event.operativnaya_obstanovka.sut_info }}</small>
+            </h6>
+            <h6>
+                {% if event.operativnaya_obstanovka.prinyatie_meri %}
+                    Принятые меры:
+                    <small class="text-muted">{{ event.operativnaya_obstanovka.prinyatie_meri }}</small>
+                {% endif %}
+            </h6>
+        </div>
+    {% endif %}
     <h6>
         Подразделение:
         <small class="text-muted">{{ event.subdivision.name }}</small>

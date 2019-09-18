@@ -13,6 +13,7 @@ class Event(models.Model):
     org = models.ManyToManyField("Org", blank=True, verbose_name="Организация")
     date_registratsii = models.DateField(verbose_name="Дата регистрации")
     reg_number = models.CharField(max_length=50, verbose_name="Регистрационный номер")
+    region = models.ForeignKey("AdresAte", on_delete=models.PROTECT, verbose_name="Субъект РФ")
     sut_info = models.TextField(verbose_name="Суть информации")
     klassif_priznak_UK = models.ForeignKey("KlassifPriznakUK", blank=True, null=True, on_delete=models.PROTECT, verbose_name="Классифицирующий признак (по статье УК РФ)")
     klassif_priznak_ugroza = models.ForeignKey("KlassifPriznakUgroza", blank=True, null=True, on_delete=models.PROTECT, verbose_name="Классифицирующий признак (угроза)")

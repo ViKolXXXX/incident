@@ -1,21 +1,21 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load static %}{% load filters %}
 {% block title %}Событие{% endblock title %}
 {% block name_page %}<i class="fas fa-file-invoice"></i>&nbsp;Событие{% endblock name_page %}
 {% block breadcrumbs %}
-	<li><a href={% url 'journal' %}>Журнал</a></li>
-	<li><a class="current" href="#">Изменить событие</a></li>
+    <li><a href={% url 'journal' %}>Журнал</a></li>
+    <li><a class="current" href="#">Изменить событие</a></li>
 {% endblock breadcrumbs %}
 {% block content %}
-	<div class="row d-flex justify-content-center ">
-		<div class="btn-group" role="group" aria-label="Basic example">
-			<button type="submit" class="btn btn-secondary" form="id_event_form"><i class="fas fa-plus"></i>&nbsp;Сохранить</button>
-		</div>
-	</div>
-	<div class="row d-flex justify-content-center" style="height:700px;overflow-y:auto;">
-		<div class="col-12">
-			<form class="compact-form" method="post" action="{% url "change_event" %}" id="id_event_form">{% csrf_token %}
-			<input hidden name="event_id" value="{{ event_id }}">
-				<div class="form-row">
+    <div class="row d-flex justify-content-center ">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="submit" class="btn btn-secondary" form="id_event_form"><i class="fas fa-plus"></i>&nbsp;Сохранить</button>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center" style="height:700px;overflow-y:auto;">
+        <div class="col-12">
+            <form class="compact-form" method="post" action="{% url "change_event" %}" id="id_event_form">{% csrf_token %}
+                <input hidden name="event_id" value="{{ event_id }}">
+                <div class="form-row">
                     <div class="form-group col-md-6">
                         {{ event_form.type_message.label_tag }} {{ event_form.type_message }}
                         {% if event_form.type_message.errors %}
@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-3">
                         {{ event_form.date_registratsii.label_tag }} {{ event_form.date_registratsii }}
                         {% if event_form.date_registratsii.errors %}
                             {% for error in event_form.date_registratsii.errors %}
@@ -80,7 +80,28 @@
                             {% endfor %}
                         {% endif %}
                     </div>
-
+                     <div class="form-group col-md-3">
+                     {% if request.user|has_group:"Админ" %}
+                        {{ event_form.subdivision.label_tag }} {{ event_form.subdivision }}
+                        {% if event_form.subdivision.errors %}
+                            {% for error in event_form.subdivision.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endif %}
+                    </div>
+                    <div class="form-group col-md-6">
+                        {{ event_form.region.label_tag }} {{ event_form.region }}
+                        {% if event_form.region.errors %}
+                            {% for error in event_form.region.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-12">
@@ -271,15 +292,15 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-						{{ event_form.date_otveta.label_tag }} {{ event_form.date_otveta }}
-						{% if event_form.date_otveta.errors %}
-							{% for error in event_form.date_otveta.errors %}
-								<div class="invalid-feedback d-block">
-									{{ error }}
-								</div>
-							{% endfor %}
-						{% endif %}
-					</div>
+                        {{ event_form.date_otveta.label_tag }} {{ event_form.date_otveta }}
+                        {% if event_form.date_otveta.errors %}
+                            {% for error in event_form.date_otveta.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
                     <div class="form-group col-md-6">
                         {{ event_form.ishodyaschii_nomer.label_tag }} {{ event_form.ishodyaschii_nomer }}
                         {% if event_form.ishodyaschii_nomer.errors %}
@@ -303,387 +324,387 @@
                         {% endif %}
                     </div>
                 </div>
-			</form>
-		</div>
-	</div>
+            </form>
+        </div>
+    </div>
 
-	{#	<!-- modal-operationEnv -->#}
-	{#	<div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal-operationEnv" role="dialog" aria-labelledby="myLargeModalLabel" style="overflow: hidden auto;" aria-hidden="true">#}
-	{#		<div class="modal-dialog modal-lg">#}
-	{#			<div class="modal-content">#}
-	{#				<div class="modal-header">#}
-	{#					<p style="color: #4a0404;font-size: 22px"><em>Добавить оперативную обстановку</em></p>#}
-	{#				</div>#}
-	{#				<div class="modal-body">#}
-	{#					<form id="operationEnv">#}
-	{#						<div class="form-group col-md-6">#}
-	{#							<label for="inputDateOperationalEnv">Дата</label>#}
-	{#							<input type="date" class="form-control" id="inputDateOperationalEnv">#}
-	{#						</div>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputClassifierDangerOperationalEnv">Классифицирующий признак (угроза)</label>&nbsp;&nbsp;#}
-	{#							<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-classifierDanger">#}
-	{#								<i class="fas fa-plus"></i> </a>#}
-	{#							<select class="custom-select mr-sm-2" id="inputClassifierDangerOperationalEnv">#}
-	{#								<option selected></option>#}
-	{#								<option>Свой признак</option>#}
-	{#								<option>Свой признак</option>#}
-	{#								<option>Свой признак</option>#}
-	{#								<option>Свой признак</option>#}
-	{#								<option>Свой признак</option>#}
-	{#								<option>Свой признак</option>#}
-	{#								<option>Свой признак</option>#}
-	{#								<option>Свой признак</option>#}
-	{#								<option>Свой признак</option>#}
-	{#								<option>Свой признак</option>#}
-	{#								<option>Свой признак</option>#}
-	{#								<option>Свой признак</option>#}
-	{#								<option>Свой признак</option>#}
-	{#								<option>Свой признак</option>#}
-	{#								<option>Свой признак</option>#}
-	{#								<option>Свой признак</option>#}
-	{#								<option>Свой признак</option>#}
-	{#								<option>Свой признак</option>#}
-	{#								<option>Свой признак</option>#}
-	{#							</select>#}
-	{#						</div>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputClassifierTextOperationalEnv">Классифицирующий признак (текст)</label>#}
-	{#							<input type="text" class="form-control" id="inputClassifierTextOperationalEnv">#}
-	{#						</div>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputSutInformationOperationalEnv">Суть информации</label>#}
-	{#							<textarea class="form-control" id="inputSutInformationOperationalEnv" maxlength="100000"></textarea>#}
-	{#						</div>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputPrinyatMerOperationalEnv">Принятые меры</label>#}
-	{#							<textarea class="form-control" id="inputPrinyatMerOperationalEnv" maxlength="100000"></textarea>#}
-	{#						</div>#}
-	{##}
-	{#					</form>#}
-	{#				</div>#}
-	{#				<div class="modal-footer">#}
-	{#					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>#}
-	{#					<button type="button" class="btn btn-primary" form="operationEnv">Добавить</button>#}
-	{#				</div>#}
-	{#			</div>#}
-	{#		</div>#}
-	{#	</div>#}
-	{#	<!-- modal-organization -->#}
-	{#	<div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal-organizatsiya" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">#}
-	{#		<div class="modal-dialog modal-lg">#}
-	{#			<div class="modal-content">#}
-	{#				<div class="modal-header">#}
-	{#					<p style="color: #4a0404;font-size: 22px"><em>Добавить организацию</em></p>#}
-	{#				</div>#}
-	{#				<div class="modal-body">#}
-	{#					<form>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputNameOrganization">Наименование организации</label>#}
-	{#							<input type="text" class="form-control" id="inputNameOrganization">#}
-	{#						</div>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputINNOrganization">ИНН (ОГРН)</label>#}
-	{#							<input type="text" class="form-control" id="inputINNOrganization">#}
-	{#						</div>#}
-	{#						<div class="form-group col-md-6">#}
-	{#							<label for="inputAdresAte">Адрес организации АТЕ</label>&nbsp;&nbsp;#}
-	{#							<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-adres-ate">#}
-	{#								<i class="fas fa-plus"></i> </a>#}
-	{#							<select class="custom-select mr-sm-2" id="inputAdresAte">#}
-	{#								<option selected>Наименование 1</option>#}
-	{#								<option>Наименование 2</option>#}
-	{#								<option>Наименование 3</option>#}
-	{#								<option>Наименование 4</option>#}
-	{#								<option>Наименование 5</option>#}
-	{#							</select>#}
-	{#						</div>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputAdresrOganization">Адрес организации</label>#}
-	{#							<input type="text" class="form-control" id="inputAdresrOganization">#}
-	{#						</div>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputOtherOganization">Иная информация</label>#}
-	{#							<input type="text" class="form-control" id="inputOtherOganization">#}
-	{#						</div>#}
-	{##}
-	{#					</form>#}
-	{#				</div>#}
-	{#				<div class="modal-footer">#}
-	{#					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>#}
-	{#					<button type="button" class="btn btn-primary">Добавить</button>#}
-	{#				</div>#}
-	{#			</div>#}
-	{#		</div>#}
-	{#	</div>#}
-	{#	<!-- modal-classifierWUD -->#}
-	{#	<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-classifierWUD" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">#}
-	{#		<div class="modal-dialog modal-sm">#}
-	{#			<div class="modal-content">#}
-	{#				<div class="modal-header">#}
-	{#					<p style="color: #4a0404;font-size: 22px"><em>Добавить классифицирующий признак (по статье УК)</em>#}
-	{#					</p>#}
-	{#				</div>#}
-	{#				<div class="modal-body">#}
-	{#					<form>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputNameClassifierWUD">Наименование признака</label>#}
-	{#							<input type="text" class="form-control" id="inputNameClassifierWUD">#}
-	{#						</div>#}
-	{#					</form>#}
-	{#				</div>#}
-	{#				<div class="modal-footer">#}
-	{#					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>#}
-	{#					<button type="button" class="btn btn-primary">Добавить</button>#}
-	{#				</div>#}
-	{#			</div>#}
-	{#		</div>#}
-	{#	</div>#}
-	{#	<!-- modal-classifierDanger -->#}
-	{#	<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-classifierDanger" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">#}
-	{#		<div class="modal-dialog modal-sm">#}
-	{#			<div class="modal-content">#}
-	{#				<div class="modal-header">#}
-	{#					<p style="color: #4a0404;font-size: 22px"><em>Добавить классифицирующий признак (угроза)</em></p>#}
-	{#				</div>#}
-	{#				<div class="modal-body">#}
-	{#					<form>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputNameClassifierDanger">Наименование признака</label>#}
-	{#							<input type="text" class="form-control" id="inputNameClassifierDanger">#}
-	{#						</div>#}
-	{#					</form>#}
-	{#				</div>#}
-	{#				<div class="modal-footer">#}
-	{#					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>#}
-	{#					<button type="button" class="btn btn-primary">Добавить</button>#}
-	{#				</div>#}
-	{#			</div>#}
-	{#		</div>#}
-	{#	</div>#}
-	{#	<!-- modal-titul -->#}
-	{#	<div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal-titul" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">#}
-	{#		<div class="modal-dialog modal-lg">#}
-	{#			<div class="modal-content">#}
-	{#				<div class="modal-header">#}
-	{#					<p style="color: #4a0404;font-size: 22px"><em>Добавить титул документа</em></p>#}
-	{#				</div>#}
-	{#				<div class="modal-body">#}
-	{#					<form method="post" action="{% url "titul" %}" id="id_form_titul">{% csrf_token %}#}
-	{#						{% for field in titul_form %}#}
-	{#							<div class="form-group">#}
-	{#								{{ field.label_tag }}#}
-	{#								<div>{{ field }}</div>#}
-	{#								<div class="error">{{ field.errors }}</div>#}
-	{#							</div>#}
-	{#						{% endfor %}#}
-	{#					</form>#}
-	{#				</div>#}
-	{#				<div class="modal-footer">#}
-	{#					<button type="button" class="btn btn-secondary" data-dismiss="modal" >Закрыть</button>#}
-	{#					<button type="submit" class="btn btn-primary" form="id_form_titul">Добавить</button>#}
-	{#				</div>#}
-	{#			</div>#}
-	{#		</div>#}
-	{#	</div>#}
-	{#	<!-- modal-face -->#}
-	{#	<div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal-face" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="overflow: hidden auto;">#}
-	{#		<div class="modal-dialog modal-lg">#}
-	{#			<div class="modal-content">#}
-	{#				<div class="modal-header">#}
-	{#					<p style="color: #4a0404;font-size: 22px"><em>Добавить лицо</em></p>#}
-	{#				</div>#}
-	{#				<div class="modal-body">#}
-	{#					<form>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputSurnameFace">Фамилия</label>#}
-	{#							<input type="text" class="form-control" id="inputSurnameFace">#}
-	{#						</div>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputFirstNameFace">Имя</label>#}
-	{#							<input type="text" class="form-control" id="inputFirstNameFace">#}
-	{#						</div>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputFastNameFace">Отчество</label>#}
-	{#							<input type="text" class="form-control" id="inputFastNameFace">#}
-	{#						</div>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputBirthdayEvent">Дата рождения</label>#}
-	{#							<input type="date" class="form-control" id="inputBirthdayEvent">#}
-	{#						</div>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputAdresAteBirthFace">Место рождения (АТЕ)</label>&nbsp;&nbsp;#}
-	{#							<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-adres-ate">#}
-	{#								<i class="fas fa-plus"></i> </a>#}
-	{#							<select class="custom-select mr-sm-2" id="inputAdresAteBirthFace">#}
-	{#								<option selected>Наименование 1</option>#}
-	{#								<option>Наименование 2</option>#}
-	{#								<option>Наименование 3</option>#}
-	{#								<option>Наименование 4</option>#}
-	{#								<option>Наименование 5</option>#}
-	{#							</select>#}
-	{#						</div>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputMestoBirthRaionFace">Место рождения (район)</label>#}
-	{#							<input type="text" class="form-control" id="inputMestoBirthRaionFace">#}
-	{#						</div>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputMestoBirthNPFace">Место рождения (н.п.)</label>#}
-	{#							<input type="text" class="form-control" id="inputMestoBirthNPFace">#}
-	{#						</div>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputRankFace">Воинское (специальное) звание</label>&nbsp;&nbsp;#}
-	{#							<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-rank">#}
-	{#								<i class="fas fa-plus"></i> </a>#}
-	{#							<select class="custom-select mr-sm-2" id="inputRankFace">#}
-	{#								<option selected></option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#								<option>Звание</option>#}
-	{#							</select>#}
-	{#						</div>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputDopolnitInfoFace">Дополнительная информация</label>#}
-	{#							<textarea class="form-control" id="inputDopolnitInfoFace" maxlength="100000"></textarea>#}
-	{#						</div>#}
-	{#					</form>#}
-	{#				</div>#}
-	{#				<div class="modal-footer">#}
-	{#					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>#}
-	{#					<button type="button" class="btn btn-primary">Добавить</button>#}
-	{#				</div>#}
-	{#			</div>#}
-	{#		</div>#}
-	{#	</div>#}
-	{#	<!-- modal-typecheck -->#}
-	{#	<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-typecheck" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">#}
-	{#		<div class="modal-dialog modal-sm">#}
-	{#			<div class="modal-content">#}
-	{#				<div class="modal-header">#}
-	{#					<p style="color: #4a0404;font-size: 22px"><em>Добавить вид проверки</em></p>#}
-	{#				</div>#}
-	{#				<div class="modal-body">#}
-	{#					<form>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputNameTypeCheck">Наименование проверки</label>#}
-	{#							<input type="text" class="form-control" id="inputNameTypeCheck">#}
-	{#						</div>#}
-	{#					</form>#}
-	{#				</div>#}
-	{#				<div class="modal-footer">#}
-	{#					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>#}
-	{#					<button type="button" class="btn btn-primary">Добавить</button>#}
-	{#				</div>#}
-	{#			</div>#}
-	{#		</div>#}
-	{#	</div>#}
-	{#	<!-- modal-resultcheck -->#}
-	{#	<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-resultcheck" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">#}
-	{#		<div class="modal-dialog modal-sm">#}
-	{#			<div class="modal-content">#}
-	{#				<div class="modal-header">#}
-	{#					<p style="color: #4a0404;font-size: 22px"><em>Добавить результат проверки</em></p>#}
-	{#				</div>#}
-	{#				<div class="modal-body">#}
-	{#					<form>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputNameResultCheck">Наименование проверки</label>#}
-	{#							<input type="text" class="form-control" id="inputNameResultCheck">#}
-	{#						</div>#}
-	{#					</form>#}
-	{#				</div>#}
-	{#				<div class="modal-footer">#}
-	{#					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>#}
-	{#					<button type="button" class="btn btn-primary">Добавить</button>#}
-	{#				</div>#}
-	{#			</div>#}
-	{#		</div>#}
-	{#	</div>#}
-	{#	<!-- modal-rank -->#}
-	{#	<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-rank" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">#}
-	{#		<div class="modal-dialog modal-sm">#}
-	{#			<div class="modal-content">#}
-	{#				<div class="modal-header">#}
-	{#					<p style="color: #4a0404;font-size: 22px"><em>Добавить воинское (специальное) звание</em></p>#}
-	{#				</div>#}
-	{#				<div class="modal-body">#}
-	{#					<form>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputRank">Наименование</label>#}
-	{#							<input type="text" class="form-control" id="inputRank">#}
-	{#						</div>#}
-	{#					</form>#}
-	{#				</div>#}
-	{#				<div class="modal-footer">#}
-	{#					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>#}
-	{#					<button type="button" class="btn btn-primary">Добавить</button>#}
-	{#				</div>#}
-	{#			</div>#}
-	{#		</div>#}
-	{#	</div>#}
-	{#	<!-- modal-adres-ate -->#}
-	{#	<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-adres-ate" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">#}
-	{#		<div class="modal-dialog modal-sm">#}
-	{#			<div class="modal-content">#}
-	{#				<div class="modal-header">#}
-	{#					<p style="color: #4a0404;font-size: 22px"><em>Добавить адрес АТЕ</em></p>#}
-	{#				</div>#}
-	{#				<div class="modal-body">#}
-	{#					<form>#}
-	{#						<div class="form-group col-md-12">#}
-	{#							<label for="inputNameAdresAte">Наименование адреса</label>#}
-	{#							<input type="text" class="form-control" id="inputNameAdresAte">#}
-	{#						</div>#}
-	{#					</form>#}
-	{#				</div>#}
-	{#				<div class="modal-footer">#}
-	{#					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>#}
-	{#					<button type="button" class="btn btn-primary">Добавить</button>#}
-	{#				</div>#}
-	{#			</div>#}
-	{#		</div>#}
-	{#	</div>#}
-	{#	<!--Текущее время-->#}
-	{##}
-	{#	<script>#}
-	{#        date = new Date();#}
-	{#        document.getElementById("inputDateCreateDocument").valueAsDate = date;#}
-	{#        // Todo: Сделать общую функцию#}
-	{#        document.getElementById("inputDateRegistartionEvent").valueAsDate = date;#}
-	{#	</script>#}
+    {#	<!-- modal-operationEnv -->#}
+    {#	<div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal-operationEnv" role="dialog" aria-labelledby="myLargeModalLabel" style="overflow: hidden auto;" aria-hidden="true">#}
+    {#		<div class="modal-dialog modal-lg">#}
+    {#			<div class="modal-content">#}
+    {#				<div class="modal-header">#}
+    {#					<p style="color: #4a0404;font-size: 22px"><em>Добавить оперативную обстановку</em></p>#}
+    {#				</div>#}
+    {#				<div class="modal-body">#}
+    {#					<form id="operationEnv">#}
+    {#						<div class="form-group col-md-6">#}
+    {#							<label for="inputDateOperationalEnv">Дата</label>#}
+    {#							<input type="date" class="form-control" id="inputDateOperationalEnv">#}
+    {#						</div>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputClassifierDangerOperationalEnv">Классифицирующий признак (угроза)</label>&nbsp;&nbsp;#}
+    {#							<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-classifierDanger">#}
+    {#								<i class="fas fa-plus"></i> </a>#}
+    {#							<select class="custom-select mr-sm-2" id="inputClassifierDangerOperationalEnv">#}
+    {#								<option selected></option>#}
+    {#								<option>Свой признак</option>#}
+    {#								<option>Свой признак</option>#}
+    {#								<option>Свой признак</option>#}
+    {#								<option>Свой признак</option>#}
+    {#								<option>Свой признак</option>#}
+    {#								<option>Свой признак</option>#}
+    {#								<option>Свой признак</option>#}
+    {#								<option>Свой признак</option>#}
+    {#								<option>Свой признак</option>#}
+    {#								<option>Свой признак</option>#}
+    {#								<option>Свой признак</option>#}
+    {#								<option>Свой признак</option>#}
+    {#								<option>Свой признак</option>#}
+    {#								<option>Свой признак</option>#}
+    {#								<option>Свой признак</option>#}
+    {#								<option>Свой признак</option>#}
+    {#								<option>Свой признак</option>#}
+    {#								<option>Свой признак</option>#}
+    {#								<option>Свой признак</option>#}
+    {#							</select>#}
+    {#						</div>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputClassifierTextOperationalEnv">Классифицирующий признак (текст)</label>#}
+    {#							<input type="text" class="form-control" id="inputClassifierTextOperationalEnv">#}
+    {#						</div>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputSutInformationOperationalEnv">Суть информации</label>#}
+    {#							<textarea class="form-control" id="inputSutInformationOperationalEnv" maxlength="100000"></textarea>#}
+    {#						</div>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputPrinyatMerOperationalEnv">Принятые меры</label>#}
+    {#							<textarea class="form-control" id="inputPrinyatMerOperationalEnv" maxlength="100000"></textarea>#}
+    {#						</div>#}
+    {##}
+    {#					</form>#}
+    {#				</div>#}
+    {#				<div class="modal-footer">#}
+    {#					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>#}
+    {#					<button type="button" class="btn btn-primary" form="operationEnv">Добавить</button>#}
+    {#				</div>#}
+    {#			</div>#}
+    {#		</div>#}
+    {#	</div>#}
+    {#	<!-- modal-organization -->#}
+    {#	<div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal-organizatsiya" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">#}
+    {#		<div class="modal-dialog modal-lg">#}
+    {#			<div class="modal-content">#}
+    {#				<div class="modal-header">#}
+    {#					<p style="color: #4a0404;font-size: 22px"><em>Добавить организацию</em></p>#}
+    {#				</div>#}
+    {#				<div class="modal-body">#}
+    {#					<form>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputNameOrganization">Наименование организации</label>#}
+    {#							<input type="text" class="form-control" id="inputNameOrganization">#}
+    {#						</div>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputINNOrganization">ИНН (ОГРН)</label>#}
+    {#							<input type="text" class="form-control" id="inputINNOrganization">#}
+    {#						</div>#}
+    {#						<div class="form-group col-md-6">#}
+    {#							<label for="inputAdresAte">Адрес организации АТЕ</label>&nbsp;&nbsp;#}
+    {#							<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-adres-ate">#}
+    {#								<i class="fas fa-plus"></i> </a>#}
+    {#							<select class="custom-select mr-sm-2" id="inputAdresAte">#}
+    {#								<option selected>Наименование 1</option>#}
+    {#								<option>Наименование 2</option>#}
+    {#								<option>Наименование 3</option>#}
+    {#								<option>Наименование 4</option>#}
+    {#								<option>Наименование 5</option>#}
+    {#							</select>#}
+    {#						</div>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputAdresrOganization">Адрес организации</label>#}
+    {#							<input type="text" class="form-control" id="inputAdresrOganization">#}
+    {#						</div>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputOtherOganization">Иная информация</label>#}
+    {#							<input type="text" class="form-control" id="inputOtherOganization">#}
+    {#						</div>#}
+    {##}
+    {#					</form>#}
+    {#				</div>#}
+    {#				<div class="modal-footer">#}
+    {#					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>#}
+    {#					<button type="button" class="btn btn-primary">Добавить</button>#}
+    {#				</div>#}
+    {#			</div>#}
+    {#		</div>#}
+    {#	</div>#}
+    {#	<!-- modal-classifierWUD -->#}
+    {#	<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-classifierWUD" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">#}
+    {#		<div class="modal-dialog modal-sm">#}
+    {#			<div class="modal-content">#}
+    {#				<div class="modal-header">#}
+    {#					<p style="color: #4a0404;font-size: 22px"><em>Добавить классифицирующий признак (по статье УК)</em>#}
+    {#					</p>#}
+    {#				</div>#}
+    {#				<div class="modal-body">#}
+    {#					<form>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputNameClassifierWUD">Наименование признака</label>#}
+    {#							<input type="text" class="form-control" id="inputNameClassifierWUD">#}
+    {#						</div>#}
+    {#					</form>#}
+    {#				</div>#}
+    {#				<div class="modal-footer">#}
+    {#					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>#}
+    {#					<button type="button" class="btn btn-primary">Добавить</button>#}
+    {#				</div>#}
+    {#			</div>#}
+    {#		</div>#}
+    {#	</div>#}
+    {#	<!-- modal-classifierDanger -->#}
+    {#	<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-classifierDanger" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">#}
+    {#		<div class="modal-dialog modal-sm">#}
+    {#			<div class="modal-content">#}
+    {#				<div class="modal-header">#}
+    {#					<p style="color: #4a0404;font-size: 22px"><em>Добавить классифицирующий признак (угроза)</em></p>#}
+    {#				</div>#}
+    {#				<div class="modal-body">#}
+    {#					<form>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputNameClassifierDanger">Наименование признака</label>#}
+    {#							<input type="text" class="form-control" id="inputNameClassifierDanger">#}
+    {#						</div>#}
+    {#					</form>#}
+    {#				</div>#}
+    {#				<div class="modal-footer">#}
+    {#					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>#}
+    {#					<button type="button" class="btn btn-primary">Добавить</button>#}
+    {#				</div>#}
+    {#			</div>#}
+    {#		</div>#}
+    {#	</div>#}
+    {#	<!-- modal-titul -->#}
+    {#	<div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal-titul" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">#}
+    {#		<div class="modal-dialog modal-lg">#}
+    {#			<div class="modal-content">#}
+    {#				<div class="modal-header">#}
+    {#					<p style="color: #4a0404;font-size: 22px"><em>Добавить титул документа</em></p>#}
+    {#				</div>#}
+    {#				<div class="modal-body">#}
+    {#					<form method="post" action="{% url "titul" %}" id="id_form_titul">{% csrf_token %}#}
+    {#						{% for field in titul_form %}#}
+    {#							<div class="form-group">#}
+    {#								{{ field.label_tag }}#}
+    {#								<div>{{ field }}</div>#}
+    {#								<div class="error">{{ field.errors }}</div>#}
+    {#							</div>#}
+    {#						{% endfor %}#}
+    {#					</form>#}
+    {#				</div>#}
+    {#				<div class="modal-footer">#}
+    {#					<button type="button" class="btn btn-secondary" data-dismiss="modal" >Закрыть</button>#}
+    {#					<button type="submit" class="btn btn-primary" form="id_form_titul">Добавить</button>#}
+    {#				</div>#}
+    {#			</div>#}
+    {#		</div>#}
+    {#	</div>#}
+    {#	<!-- modal-face -->#}
+    {#	<div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal-face" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="overflow: hidden auto;">#}
+    {#		<div class="modal-dialog modal-lg">#}
+    {#			<div class="modal-content">#}
+    {#				<div class="modal-header">#}
+    {#					<p style="color: #4a0404;font-size: 22px"><em>Добавить лицо</em></p>#}
+    {#				</div>#}
+    {#				<div class="modal-body">#}
+    {#					<form>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputSurnameFace">Фамилия</label>#}
+    {#							<input type="text" class="form-control" id="inputSurnameFace">#}
+    {#						</div>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputFirstNameFace">Имя</label>#}
+    {#							<input type="text" class="form-control" id="inputFirstNameFace">#}
+    {#						</div>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputFastNameFace">Отчество</label>#}
+    {#							<input type="text" class="form-control" id="inputFastNameFace">#}
+    {#						</div>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputBirthdayEvent">Дата рождения</label>#}
+    {#							<input type="date" class="form-control" id="inputBirthdayEvent">#}
+    {#						</div>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputAdresAteBirthFace">Место рождения (АТЕ)</label>&nbsp;&nbsp;#}
+    {#							<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-adres-ate">#}
+    {#								<i class="fas fa-plus"></i> </a>#}
+    {#							<select class="custom-select mr-sm-2" id="inputAdresAteBirthFace">#}
+    {#								<option selected>Наименование 1</option>#}
+    {#								<option>Наименование 2</option>#}
+    {#								<option>Наименование 3</option>#}
+    {#								<option>Наименование 4</option>#}
+    {#								<option>Наименование 5</option>#}
+    {#							</select>#}
+    {#						</div>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputMestoBirthRaionFace">Место рождения (район)</label>#}
+    {#							<input type="text" class="form-control" id="inputMestoBirthRaionFace">#}
+    {#						</div>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputMestoBirthNPFace">Место рождения (н.п.)</label>#}
+    {#							<input type="text" class="form-control" id="inputMestoBirthNPFace">#}
+    {#						</div>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputRankFace">Воинское (специальное) звание</label>&nbsp;&nbsp;#}
+    {#							<a href="#" style="color: #0a0a0a" data-toggle="modal" data-target="#modal-rank">#}
+    {#								<i class="fas fa-plus"></i> </a>#}
+    {#							<select class="custom-select mr-sm-2" id="inputRankFace">#}
+    {#								<option selected></option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#								<option>Звание</option>#}
+    {#							</select>#}
+    {#						</div>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputDopolnitInfoFace">Дополнительная информация</label>#}
+    {#							<textarea class="form-control" id="inputDopolnitInfoFace" maxlength="100000"></textarea>#}
+    {#						</div>#}
+    {#					</form>#}
+    {#				</div>#}
+    {#				<div class="modal-footer">#}
+    {#					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>#}
+    {#					<button type="button" class="btn btn-primary">Добавить</button>#}
+    {#				</div>#}
+    {#			</div>#}
+    {#		</div>#}
+    {#	</div>#}
+    {#	<!-- modal-typecheck -->#}
+    {#	<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-typecheck" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">#}
+    {#		<div class="modal-dialog modal-sm">#}
+    {#			<div class="modal-content">#}
+    {#				<div class="modal-header">#}
+    {#					<p style="color: #4a0404;font-size: 22px"><em>Добавить вид проверки</em></p>#}
+    {#				</div>#}
+    {#				<div class="modal-body">#}
+    {#					<form>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputNameTypeCheck">Наименование проверки</label>#}
+    {#							<input type="text" class="form-control" id="inputNameTypeCheck">#}
+    {#						</div>#}
+    {#					</form>#}
+    {#				</div>#}
+    {#				<div class="modal-footer">#}
+    {#					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>#}
+    {#					<button type="button" class="btn btn-primary">Добавить</button>#}
+    {#				</div>#}
+    {#			</div>#}
+    {#		</div>#}
+    {#	</div>#}
+    {#	<!-- modal-resultcheck -->#}
+    {#	<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-resultcheck" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">#}
+    {#		<div class="modal-dialog modal-sm">#}
+    {#			<div class="modal-content">#}
+    {#				<div class="modal-header">#}
+    {#					<p style="color: #4a0404;font-size: 22px"><em>Добавить результат проверки</em></p>#}
+    {#				</div>#}
+    {#				<div class="modal-body">#}
+    {#					<form>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputNameResultCheck">Наименование проверки</label>#}
+    {#							<input type="text" class="form-control" id="inputNameResultCheck">#}
+    {#						</div>#}
+    {#					</form>#}
+    {#				</div>#}
+    {#				<div class="modal-footer">#}
+    {#					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>#}
+    {#					<button type="button" class="btn btn-primary">Добавить</button>#}
+    {#				</div>#}
+    {#			</div>#}
+    {#		</div>#}
+    {#	</div>#}
+    {#	<!-- modal-rank -->#}
+    {#	<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-rank" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">#}
+    {#		<div class="modal-dialog modal-sm">#}
+    {#			<div class="modal-content">#}
+    {#				<div class="modal-header">#}
+    {#					<p style="color: #4a0404;font-size: 22px"><em>Добавить воинское (специальное) звание</em></p>#}
+    {#				</div>#}
+    {#				<div class="modal-body">#}
+    {#					<form>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputRank">Наименование</label>#}
+    {#							<input type="text" class="form-control" id="inputRank">#}
+    {#						</div>#}
+    {#					</form>#}
+    {#				</div>#}
+    {#				<div class="modal-footer">#}
+    {#					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>#}
+    {#					<button type="button" class="btn btn-primary">Добавить</button>#}
+    {#				</div>#}
+    {#			</div>#}
+    {#		</div>#}
+    {#	</div>#}
+    {#	<!-- modal-adres-ate -->#}
+    {#	<div class="modal fade bd-example-modal-sm" tabindex="-1" id="modal-adres-ate" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">#}
+    {#		<div class="modal-dialog modal-sm">#}
+    {#			<div class="modal-content">#}
+    {#				<div class="modal-header">#}
+    {#					<p style="color: #4a0404;font-size: 22px"><em>Добавить адрес АТЕ</em></p>#}
+    {#				</div>#}
+    {#				<div class="modal-body">#}
+    {#					<form>#}
+    {#						<div class="form-group col-md-12">#}
+    {#							<label for="inputNameAdresAte">Наименование адреса</label>#}
+    {#							<input type="text" class="form-control" id="inputNameAdresAte">#}
+    {#						</div>#}
+    {#					</form>#}
+    {#				</div>#}
+    {#				<div class="modal-footer">#}
+    {#					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>#}
+    {#					<button type="button" class="btn btn-primary">Добавить</button>#}
+    {#				</div>#}
+    {#			</div>#}
+    {#		</div>#}
+    {#	</div>#}
+    {#	<!--Текущее время-->#}
+    {##}
+    {#	<script>#}
+    {#        date = new Date();#}
+    {#        document.getElementById("inputDateCreateDocument").valueAsDate = date;#}
+    {#        // Todo: Сделать общую функцию#}
+    {#        document.getElementById("inputDateRegistartionEvent").valueAsDate = date;#}
+    {#	</script>#}
 {% endblock content %}
 {% block js %}
-	<script>
+    <script>
         $(document).ready(function () {
             $('.selectpicker').selectpicker({
                 noneResultsText: 'Результат не найден!!!'
             });
         });
-	</script>
+    </script>
 
 {% endblock js %}

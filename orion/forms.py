@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 
-from orion.models import Event, TypeMessage, Titul, Org, KlassifPriznakUK, KlassifPriznakUgroza, Face, TypeProverki, ResultProverki, OperativnayaObstanovka, Status, AdresAte, Zvanie
+from orion.models import Event, TypeMessage, Titul, Org, KlassifPriznakUK, KlassifPriznakUgroza, Face, TypeProverki, ResultProverki, OperativnayaObstanovka, Status, AdresAte, Zvanie, Subdivision
 
 
 class EventForm(ModelForm):
@@ -13,6 +13,8 @@ class EventForm(ModelForm):
                                          widget=forms.SelectMultiple(attrs={"class": "form-control", "multiple": "multiple",
                                                                     "title": "Ничего не выбрано"}))
     date_registratsii = forms.DateField(label="Дата регистрации", required=True, widget=forms.DateInput(format='%Y-%m-%d', attrs={"class": "form-control form-control-sm", "type": "date"}))
+    subdivision = forms.ModelChoiceField(label="Подразделение", required=False, empty_label=None, queryset=Subdivision.objects.all(), widget=forms.Select(attrs={"class": "custom-select mr-sm-2"}))
+    region = forms.ModelChoiceField(label="Регион", required=True,  queryset=AdresAte.objects.all(), widget=forms.Select(attrs={"class": "custom-select mr-sm-2"}))
     # reg_number = forms.CharField(label="Регистрационный номер",  widget=forms.TextInput(attrs={"class": "form-control form-control-sm"}))
     sut_info = forms.CharField(label="Суть информации", required=True, widget=forms.Textarea(attrs={"class": "form-control form-control-sm", "cols": 2, "rows": 2}))
     klassif_priznak_UK = forms.ModelChoiceField(label="Классифицирующий признак (по статье УК РФ)", queryset=KlassifPriznakUK.objects.all(), required=False,
@@ -38,9 +40,10 @@ class EventForm(ModelForm):
     operativnaya_obstanovka = forms.ModelChoiceField(label="Оперативная обстановка", queryset=OperativnayaObstanovka.objects.all(), required=False,
                                                      widget=forms.Select(attrs={"class": "form-control form-control-sm selectpicker show-tick font-size-option", "data-live-search": "true", "data-size": "7"}))
 
+
     class Meta:
         model = Event
-        exclude = [' date_creation', 'user', 'subdivision', 'date_change', 'reg_number']
+        exclude = [' date_creation', 'user',  'date_change', 'reg_number']
 
 
 

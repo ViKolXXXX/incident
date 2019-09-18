@@ -26,7 +26,7 @@ class EventView(OrionView):
                 post = event_form.save(commit=False)
                 post.user = request.user
                 post.subdivision = request.user.userprofile.subdivision
-                post.reg_number = "{}.{:06d}.{}".format(request.POST.get("type_message"), Event.objects.all().count() + 1, datetime.datetime.now().year)
+                post.reg_number = "{}.{:09d}.{}".format(request.POST.get("type_message"), Event.objects.all().count() + 1, datetime.datetime.now().year)
                 post.save()
                 event_form.save_m2m()
                 messages.success(request, "Данные успешно сохранены!!!")
