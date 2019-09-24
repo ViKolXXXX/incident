@@ -9,38 +9,36 @@
     <div class="row d-flex justify-content-center my-4" style="height:700px;overflow-y:auto;">
         <div class="col-12">
             <a class="m-2 btn btn-sm btn-secondary" href={% url "event" %}>
-                <img alt="#" height="30" src="{% static "vendor/color_icons/db_add_8760.ico" %}"/>&nbsp;Добавить событие
+                <img alt="#" height="16" src="{% static "vendor/color_icons/db_add_8760.ico" %}"/>&nbsp;Добавить событие
             </a>
             <table id="id_table_event" class="table table-striped table-bordered compact-table" style="width:100%">
                 <thead>
                 <tr>
-                    <th>Тип обращения</th>
-                    <th>Статус</th>
-                    <th>Регистрационный номер</th>
-                    <th>Дата регистрации</th>
-                    <th>Дата изменения</th>
-                    <th>Кл.признак(по статье УК)</th>
-                    <th>Кл.признак(угроза)</th>
-                    <th>Дата окончания</th>
-                    <th>Подразделение</th>
-                    <th>Действие</th>
+                    <th class="size-col-th-1">Регистрационный номер</th>
+                    <th class="size-col-th-2">Статус</th>
+                    <th class="size-col-th-3">Дата регистрации</th>
+                    <th class="size-col-th-4">Суть информации</th>
+                    <th class="size-col-th-5">Кл.признак(по статье УК)</th>
+                    <th class="size-col-th-6">Кл.признак(угроза)</th>
+                    <th class="size-col-th-7">Регион</th>
+                    <th class="size-col-th-8">Подразделение</th>
+                    <th class="size-col-th-9">Действие</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for event  in events %}
                     <tr>
-                        <td onclick="show_event({{ event.id }})" style="cursor: pointer">{{ event.type_message }}</td>
-                        <td>
+                        <td class="size-col-td-1" onclick="show_event({{ event.id }})" style="cursor: pointer"><a href="#" style="color: #0b1283">{{ event.reg_number }}</a></td>
+                        <td class="size-col-td-2">
                             <div class="status_{{ event.status.id }}">{{ event.status }}</div>
                         </td>
-                        <td>{{ event.reg_number }}</td>
-                        <td>{{ event.date_registratsii|date:"d.m.Y" }}</td>
-                        <td>{{ event.date_change|date:"d.m.Y" }}</td>
-                        <td>{{ event.klassif_priznak_UK.name }}</td>
-                        <td>{{ event.klassif_priznak_ugroza.name }}</td>
-                        <td>{{ event.date_finish|date:"d.m.Y" }}</td>
-                        <td>{{ event.subdivision.name }}</td>
-                        <td>
+                        <td class="size-col-td-3">{{ event.date_registratsii|date:"d.m.Y" }}</td>
+                        <td class="size-col-td-4" >{{ event.sut_info }}</td>
+                        <td class="size-col-td-5">{{ event.klassif_priznak_UK.name }}</td>
+                        <td class="size-col-td-6">{{ event.klassif_priznak_ugroza.name }}</td>
+                        <td class="size-col-td-7">{{ event.region }}</td>
+                        <td class="size-col-td-8">{{ event.subdivision.name }}</td>
+                        <td class="size-col-td-9">
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a type="button" class="btn btn-secondary" title="Редактировать" href="{% url "change_event" %}?event_id={{ event.id }}"> <i class="far fa-edit"></i></a>
                                 {% if request.user|has_group:"Админ" %}
