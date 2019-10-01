@@ -20,24 +20,23 @@ class EventView(OrionView):
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        try:
-            event_form = EventForm(request.POST)
-            if event_form.is_valid():
-                post = event_form.save(commit=False)
-                post.user = request.user
+
+        event_form = EventForm(request.POST)
+        if event_form.is_valid():
+            post = event_form.save(commit=False)
+            post.user = request.user
+
+            if 'subdivision' not in request.POST:
                 post.subdivision = request.user.userprofile.subdivision
-                post.reg_number = "{}.{:09d}.{}".format(request.POST.get("type_message"), Event.objects.all().count() + 1, datetime.datetime.now().year)
-                post.save()
-                event_form.save_m2m()
-                messages.success(request, "Данные успешно сохранены!!!")
-                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-            else:
-                messages.error(request, "Данные не сохранены!!!")
-                context = {"event_form": event_form}
-                return render(request, self.template_name, context)
-        except:
-            messages.error(request, "Ошибка!!!")
+            post.reg_number = "{}.{:09d}.{}".format(request.POST.get("type_message"), Event.objects.all().count() + 1, datetime.datetime.now().year)
+            post.save()
+            event_form.save_m2m()
+            messages.success(request, "Данные успешно сохранены!!!")
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        else:
+            messages.error(request, "Данные не сохранены!!!")
+            context = {"event_form": event_form}
+            return render(request, self.template_name, context)
 
 
 class ChangeEventView(OrionView):
@@ -58,9 +57,9 @@ class ChangeEventView(OrionView):
             event = Event.available_request(request.user.userprofile.subdivision.pk, event_id)
             event_form = EventForm(request.POST, instance=event)
             if event_form.is_valid():
-                event_form.save(commit=False)
-                event_form.user = request.user
-                event_form.subdivision = request.user.userprofile.subdivision
+                # event_form.save(commit=False)
+                # event_form.user = request.user
+                # event_form.subdivision = request.user.userprofile.subdivision
                 event_form.save()
                 messages.success(request, "Данные успешно сохранены!!!")
                 return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
